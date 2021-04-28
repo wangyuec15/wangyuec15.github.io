@@ -11,7 +11,7 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"http://example.com","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"https://www.gravatar.com/avatar/f64dfb01d9ddcd87e2f459ed3145a3fc"},"name":"Yuechen Wang","description":"hi","url":"http://example.com"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"http://example.com","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg"},"name":"Yuechen Wang","description":"hi","url":"http://example.com"}</script>
     <meta name="description" content="hi">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Yuechen Wang">
@@ -25,6 +25,8 @@
     
         
     
+    
+        <meta property="og:image" content="http://example.com/assets/images/cat.jpg"/>
     
     
     
@@ -47,6 +49,10 @@
 
 
     
+        
+            
+        
+    
 
 <header id="header" data-behavior="1">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
@@ -68,6 +74,8 @@
             >
         
         
+            <img class="header-picture" src="/assets/images/cat.jpg" alt="Author&#39;s picture"/>
+        
         </a>
     
 </header>
@@ -75,8 +83,26 @@
             <!-- Define author's picture -->
 
 
+
+        
+    
+
 <nav id="sidebar" data-behavior="1">
     <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/cat.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yuechen Wang</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
         
         
             <ul class="sidebar-buttons">
@@ -448,11 +474,17 @@
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-times"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/cat.jpg" alt="Author&#39;s picture"/>
         
             <h4 id="about-card-name">Yuechen Wang</h4>
         
@@ -467,12 +499,6 @@
 
             </div>
         
-        
-            <div id="about-card-location">
-                <i class="fa fa-map-marker-alt"></i>
-                <br/>
-                cat.jpg
-            </div>
         
     </div>
 </div>

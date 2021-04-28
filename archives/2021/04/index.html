@@ -26,6 +26,8 @@
         
     
     
+        <meta property="og:image" content="http://example.com/assets/images/cat.jpg"/>
+    
     
     
     
@@ -46,6 +48,10 @@
             <!-- Define author's picture -->
 
 
+    
+        
+            
+        
     
 
 <header id="header" data-behavior="1">
@@ -68,6 +74,8 @@
             >
         
         
+            <img class="header-picture" src="/assets/images/cat.jpg" alt="Author&#39;s picture"/>
+        
         </a>
     
 </header>
@@ -75,8 +83,26 @@
             <!-- Define author's picture -->
 
 
+
+        
+    
+
 <nav id="sidebar" data-behavior="1">
     <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/cat.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yuechen Wang</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
         
         
             <ul class="sidebar-buttons">
@@ -450,11 +476,17 @@
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-times"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/cat.jpg" alt="Author&#39;s picture"/>
         
             <h4 id="about-card-name">Yuechen Wang</h4>
         
@@ -469,12 +501,6 @@
 
             </div>
         
-        
-            <div id="about-card-location">
-                <i class="fa fa-map-marker-alt"></i>
-                <br/>
-                cat.jpg
-            </div>
         
     </div>
 </div>
