@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Yuechen Wang">
-    <title>Tag: C++;数据结构 - Yuechen Wang</title>
+    <title>Tag: c++;数据结构 - Yuechen Wang</title>
     <meta name="author" content="Yuechen Wang">
     
     
@@ -15,7 +15,7 @@
     <meta name="description" content="hi">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Yuechen Wang">
-<meta property="og:url" content="http://example.com/tags/C-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:url" content="http://example.com/tags/c-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="Yuechen Wang">
 <meta property="og:description" content="hi">
 <meta property="og:locale" content="en_US">
@@ -345,17 +345,17 @@
                     
                         <a
                             class="link-unstyled"
-                            href="/2021/05/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%862/"
-                            aria-label=": 数据结构错题集2"
+                            href="/2021/04/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%861/"
+                            aria-label=": 数据结构错题集1"
                         >
-                            数据结构错题集2
+                            数据结构错题集1
                         </a>
                     
                 </h1>
                 <div class="postShorten-meta">
-    <time datetime="2021-05-04T18:55:49+08:00">
+    <time datetime="2021-04-29T10:59:48+08:00">
 	
-		    May 04, 2021
+		    Apr 29, 2021
     	
     </time>
     
@@ -364,10 +364,22 @@
             </div>
             
                 <div class="postShorten-content">
-                    <h2 id="3-字母统计"><a href="#3-字母统计" class="headerlink" title="3.字母统计"></a>3.字母统计</h2><p><a target="_blank" rel="noopener" href="https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=33">https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=33</a></p>
-<h3 id="问题就是我完全不会做"><a href="#问题就是我完全不会做" class="headerlink" title="问题就是我完全不会做"></a>问题就是我完全不会做</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;cctype&gt;</span><br><span class="line"></span><br><span class="line">#define STR_LEN 4096</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    char text[STR_LEN+1];</span><br><span class="line">    scanf(&quot;%[^\n]&quot;,text);</span><br><span class="line">    </span><br><span class="line">    int cnt[26];</span><br><span class="line">    for(int i &#x3D; 0;i&lt;26;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cnt[i]&#x3D;0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int len &#x3D; strlen(text);</span><br><span class="line">    for (int i &#x3D; 0;i&lt;len;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        char c &#x3D; text[i];</span><br><span class="line">        if(isalpha(c))</span><br><span class="line">        &#123;</span><br><span class="line">            cnt[toupper(c)-&#39;A&#39;]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i &#x3D; 0;i&lt;26;i++)&#123;</span><br><span class="line">        if(cnt[i]!&#x3D;0)&#123;</span><br><span class="line">            printf(&quot;%c: %d\n&quot;,i+&#39;A&#39;,cnt[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p><strong>cstdio</strong>:<br>    scanf()<br>    printf()<br><font color=magenta>我是红色</font></p>
+                    <h1 id="Collection-1"><a href="#Collection-1" class="headerlink" title="Collection 1"></a>Collection 1</h1><h2 id="1-简单表达式"><a href="#1-简单表达式" class="headerlink" title="1.简单表达式"></a>1.简单表达式</h2><p><a target="_blank" rel="noopener" href="https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=31">https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=31</a></p>
+<h3 id="第一次提交（40）"><a href="#第一次提交（40）" class="headerlink" title="第一次提交（40）"></a>第一次提交（40）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    long long A,B;</span><br><span class="line">    char C;</span><br><span class="line">    std::scanf(&quot;%lld %c %lld&quot;,&amp;A,&amp;C,&amp;B);</span><br><span class="line">    if(C&#x3D;&#x3D;&#39;+&#39;)</span><br><span class="line">    &#123;</span><br><span class="line">        std::printf(&quot;%lld\n&quot;,A+B);</span><br><span class="line">    &#125;</span><br><span class="line">    else if(C&#x3D;&#x3D;&#39;-&#39;)</span><br><span class="line">    &#123;</span><br><span class="line">        std::printf(&quot;%lld\n&quot;,A-B);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="错误：Wrong-Answer"><a href="#错误：Wrong-Answer" class="headerlink" title="错误：Wrong Answer"></a>错误：Wrong Answer</h4><p>自检：无法识别空格</p>
+<h3 id="修改：（80）"><a href="#修改：（80）" class="headerlink" title="修改：（80）"></a>修改：（80）</h3><p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::scanf(&quot;%lld%c%lld&quot;,&amp;A,&amp;C,&amp;B);</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::scanf(&quot;%lld %c %lld&quot;,&amp;A,&amp;C,&amp;B);</span><br></pre></td></tr></table></figure>
+<h4 id="错误：Wrong-Answer-1"><a href="#错误：Wrong-Answer-1" class="headerlink" title="错误：Wrong Answer"></a>错误：Wrong Answer</h4><p>自检：没有写乘法</p>
+<h3 id="最终提交"><a href="#最终提交" class="headerlink" title="最终提交"></a>最终提交</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    &#x2F;&#x2F; insert code here...</span><br><span class="line">    long long A,B;</span><br><span class="line">    char C;</span><br><span class="line">    std::scanf(&quot;%lld %c %lld&quot;,&amp;A,&amp;C,&amp;B);</span><br><span class="line">    if(C&#x3D;&#x3D;&#39;+&#39;)</span><br><span class="line">    &#123;</span><br><span class="line">        std::printf(&quot;%lld\n&quot;,A+B);</span><br><span class="line">    &#125;</span><br><span class="line">    else if(C&#x3D;&#x3D;&#39;-&#39;)</span><br><span class="line">    &#123;</span><br><span class="line">        std::printf(&quot;%lld\n&quot;,A-B);</span><br><span class="line">    &#125;</span><br><span class="line">    else if(C&#x3D;&#x3D;&#39;*&#39;)</span><br><span class="line">    &#123;</span><br><span class="line">        std::printf(&quot;%lld\n&quot;,A*B);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-最大公约数"><a href="#2-最大公约数" class="headerlink" title="2.最大公约数"></a>2.最大公约数</h2><p><a target="_blank" rel="noopener" href="https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=32">https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=32</a></p>
+<h3 id="第一次提交（90）"><a href="#第一次提交（90）" class="headerlink" title="第一次提交（90）"></a>第一次提交（90）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main() &#123;</span><br><span class="line">    &#x2F;&#x2F; insert code here...</span><br><span class="line">    long long A,B;</span><br><span class="line">    long long C;</span><br><span class="line">    std::scanf(&quot;%lld %lld&quot;,&amp;A,&amp;B);</span><br><span class="line">    if(A&gt;B)&#123;</span><br><span class="line">        C &#x3D; B;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        C &#x3D; A;</span><br><span class="line">    &#125;</span><br><span class="line">    for(long long i &#x3D; C;i&gt;0;i--)&#123;</span><br><span class="line">        if((A%i&#x3D;&#x3D;0)&amp;&amp;(B%i&#x3D;&#x3D;0))&#123;</span><br><span class="line">            std::printf(&quot;%lld\n&quot;,i);</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="错误：Time-Limit-Exceeded"><a href="#错误：Time-Limit-Exceeded" class="headerlink" title="错误：Time Limit Exceeded"></a>错误：Time Limit Exceeded</h4><h3 id="参考答案：辗转相除法"><a href="#参考答案：辗转相除法" class="headerlink" title="参考答案：辗转相除法"></a>参考答案：辗转相除法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main() &#123;</span><br><span class="line">    &#x2F;&#x2F; insert code here...</span><br><span class="line">    int A,B;</span><br><span class="line">    std::scanf(&quot;%d %d&quot;,&amp;A,&amp;B);</span><br><span class="line">    </span><br><span class="line">    int C &#x3D;1;</span><br><span class="line">    while (C) &#123;</span><br><span class="line">        C &#x3D; A%B;</span><br><span class="line">        A &#x3D; B;</span><br><span class="line">        B &#x3D; C;</span><br><span class="line">    &#125;</span><br><span class="line">    std::printf(&quot;%d\n&quot;,A);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原理：</p>
+<blockquote>
+<p>假设有两个数x和y，存在一个最大公约数z=(x,y)，即x和y都有公因数z， 那么x一定能被z整除，y也一定能被z整除，所以x和y的线性组合mx±ny也一定能被z整除。（m和n可取任意整数）</p>
+</blockquote>
 
                     
                         
@@ -377,7 +389,7 @@
                     
                         <p>
                             <a
-                                href="/2021/05/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%862/#post-footer"
+                                href="/2021/04/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%861/#post-footer"
                                 class="postShorten-excerpt_link link"
                                 aria-label=""
                             >
