@@ -6,23 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Yuechen Wang">
-    <title>note - Yuechen Wang</title>
+    <title>数据结构错题集3 - Yuechen Wang</title>
     <meta name="author" content="Yuechen Wang">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg"},"articleBody":"using namespace stdstd 命名空间\n \n\ncpp std::cout&lt;&lt;\n\n\nusing std::coutcout&lt;&lt;\n\n\nusing namespace stdcout&lt;&lt;\n\ncin/cout和scanf/printf的差别，前者是物件，后者是函数。\nscanfint scanf(const char *format, ...)format 说明符形式为:[=%[*][width][modifiers]type=]\n\n * 从流 stream 中读取的数据不存储在对应的参数中。\n modifiers h:短（+整型/无符号整型）l:长（+整型/无符号整型）/双精度型 L:长双精度型\n type %a:一个浮点值 %c:单个字符 %d:十进制整数 %e%f%g:浮点数 %i:十/八/十六进制整数 %o:八进制整数 %s:字符串 %u:无符号十进制整数 %x:十六进制整数 %p:指针 %[]:字符集合 %%:‘%’号\nscanf(“%d%d%d”,&amp;a,&amp;b,&amp;c); \n\n\n\n\n&amp;a、&amp;b、&amp;c 中的 &amp; 是地址运算符，分别获得这三个变量的内存地址。\n%d%d%d 是按十进值格式输入三个数值。输入时，在两个数据之间可以用一个或多个空格、tab 键、回车键分隔。\n\n","dateCreated":"2021-04-28T16:35:58+08:00","dateModified":"2021-05-05T15:02:43+08:00","datePublished":"2021-04-28T16:35:58+08:00","description":"using namespace stdstd 命名空间","headline":"note","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/04/28/note/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg","logo":{"@type":"ImageObject","url":"cat.jpg"}},"url":"http://example.com/2021/04/28/note/","keywords":"c++ 数据结构"}</script>
-    <meta name="description" content="using namespace stdstd 命名空间">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg"},"articleBody":"4.通话时长https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=34\n \n第一次提交（40）1234567891011#include &lt;cstdio&gt;using namespace std;int main(void)&#123;    int h1,m1,s1,h2,m2,s2 = 0;    scanf(&quot;%d:%d:%d %d:%d:%d&quot;,&amp;h1,&amp;m1,&amp;s1,&amp;h2,&amp;m2,&amp;s2);    printf(&quot;%d\\n&quot;,(((h2-h1)*60+(m2-m1))*60)+s2-s1);    return 0;&#125;\n错误：wrong answer检查：由于省略了日期，没有考虑到跨日期的情况\n修改（100）123456789101112131415#include &lt;cstdio&gt;using namespace std;int main(void)&#123;    int h1,m1,s1,h2,m2,s2 = 0;    scanf(&quot;%d:%d:%d %d:%d:%d&quot;,&amp;h1,&amp;m1,&amp;s1,&amp;h2,&amp;m2,&amp;s2);    if(h2&lt;h1)    &#123;        h2+=24;    &#125;    printf(&quot;%d\\n&quot;,((h2-h1)*60+m2-m1)*60+s2-s1);    return 0;&#125;\n5.大数第一次提交（100）12345678910111213141516171819#include &lt;cstdio&gt;using namespace std;int main(void)&#123;    int row = 0;    scanf(&quot;%d&quot;,&amp;row);    int data[row];    int a,b = 0;    for(int i = 0;i&lt;row;i++)&#123;        scanf(&quot;%d %d&quot;,&amp;a,&amp;b);        data[i]=a+b;    &#125;    for(int i = 0;i&lt;row;i++)&#123;        printf(&quot;%d\\n&quot;,data[i]);    &#125;    return 0;&#125;\n参考答案12345678910111213141516171819#include &lt;cstdio&gt;using namespace std;int main(void)&#123;    setvbuf(stdin, new char[1&lt;&lt;20], _IOFBF, 1&lt;&lt;20);    setvbuf(stdout, new char[1&lt;&lt;20], _IOFBF, 1&lt;&lt;20);        int N;    scanf(&quot;%d&quot;,&amp;N);    for(int i = 0; i &lt; N ; i++)    &#123;        int A,B;        scanf(&quot;%d%d&quot;,&amp;A,&amp;B);        printf(&quot;%d\\n&quot;,A+B);    &#125;    return 0;&#125;\nsetvbuf意为，开辟一块足够大的缓冲区来读写。缓冲区的好处是，输入信息会被一股脑读入缓冲区，然后再慢慢分配给每一行cin或者scanf，输出同理，每一行printf会被放入缓冲区，再一股脑打印出去。如果注释掉两行setvbuf，会“输入一行”“输出一行”……交替\n感谢https://lhwemn.coding-pages.com/2019-08-31-cpp-io-speedup/的解释！\n","dateCreated":"2021-05-05T16:35:48+08:00","dateModified":"2021-05-06T16:16:56+08:00","datePublished":"2021-05-05T16:35:48+08:00","description":"4.通话时长https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=34","headline":"数据结构错题集3","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg","logo":{"@type":"ImageObject","url":"cat.jpg"}},"url":"http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/","keywords":"C++ 数据结构"}</script>
+    <meta name="description" content="4.通话时长https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;34">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="note">
-<meta property="og:url" content="http://example.com/2021/04/28/note/index.html">
+<meta property="og:title" content="数据结构错题集3">
+<meta property="og:url" content="http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/index.html">
 <meta property="og:site_name" content="Yuechen Wang">
-<meta property="og:description" content="using namespace stdstd 命名空间">
+<meta property="og:description" content="4.通话时长https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;34">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-04-28T08:35:58.000Z">
-<meta property="article:modified_time" content="2021-05-05T07:02:43.554Z">
+<meta property="article:published_time" content="2021-05-05T08:35:48.000Z">
+<meta property="article:modified_time" content="2021-05-06T08:16:56.227Z">
 <meta property="article:author" content="Yuechen Wang">
-<meta property="article:tag" content="c++ 数据结构">
+<meta property="article:tag" content="C++ 数据结构">
 <meta name="twitter:card" content="summary">
     
     
@@ -345,14 +345,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            note
+            数据结构错题集3
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2021-04-28T16:35:58+08:00">
+    <time datetime="2021-05-05T16:35:48+08:00">
 	
-		    Apr 28, 2021
+		    May 05, 2021
     	
     </time>
     
@@ -364,31 +364,15 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h4 id="using-namespace-std"><a href="#using-namespace-std" class="headerlink" title="using namespace std"></a>using namespace std</h4><p>std 命名空间</p>
+            <h2 id="4-通话时长"><a href="#4-通话时长" class="headerlink" title="4.通话时长"></a>4.通话时长</h2><p><a target="_blank" rel="noopener" href="https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=34">https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=34</a></p>
 <span id="more"></span> 
-<blockquote>
-<p>cpp std::cout&lt;&lt;</p>
-</blockquote>
-<blockquote>
-<p>using std::cout<br>cout&lt;&lt;</p>
-</blockquote>
-<blockquote>
-<p>using namespace std<br>cout&lt;&lt;</p>
-</blockquote>
-<p>cin/cout和scanf/printf的差别，前者是物件，后者是函数。</p>
-<h4 id="scanf"><a href="#scanf" class="headerlink" title="scanf"></a>scanf</h4><p><code>int scanf(const char *format, ...)</code><br>format 说明符形式为:<br>[=<code>%[*][width][modifiers]type</code>=]</p>
-<ul>
-<li> <code>*</code> 从流 stream 中读取的数据不存储在对应的参数中。</li>
-<li> <code>modifiers</code> h:短（+整型/无符号整型）l:长（+整型/无符号整型）/双精度型 L:长双精度型</li>
-<li> <code>type</code> %a:一个浮点值 %c:单个字符 %d:十进制整数 %e%f%g:浮点数 %i:十/八/十六进制整数 %o:八进制整数 %s:字符串 %u:无符号十进制整数 %x:十六进制整数 %p:指针 %[]:字符集合 %%:‘%’号<blockquote>
-<p>scanf(“%d%d%d”,&amp;a,&amp;b,&amp;c); </p>
-</blockquote>
-</li>
-</ul>
-<ol>
-<li>&amp;a、&amp;b、&amp;c 中的 &amp; 是地址运算符，分别获得这三个变量的内存地址。</li>
-<li>%d%d%d 是按十进值格式输入三个数值。输入时，在两个数据之间可以用一个或多个空格、tab 键、回车键分隔。</li>
-</ol>
+<h3 id="第一次提交（40）"><a href="#第一次提交（40）" class="headerlink" title="第一次提交（40）"></a>第一次提交（40）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h1,m1,s1,h2,m2,s2 = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d:%d:%d %d:%d:%d&quot;</span>,&amp;h1,&amp;m1,&amp;s1,&amp;h2,&amp;m2,&amp;s2);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,(((h2-h1)*<span class="number">60</span>+(m2-m1))*<span class="number">60</span>)+s2-s1);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="错误：wrong-answer"><a href="#错误：wrong-answer" class="headerlink" title="错误：wrong answer"></a>错误：wrong answer</h3><p>检查：由于省略了日期，没有考虑到跨日期的情况</p>
+<h3 id="修改（100）"><a href="#修改（100）" class="headerlink" title="修改（100）"></a>修改（100）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h1,m1,s1,h2,m2,s2 = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d:%d:%d %d:%d:%d&quot;</span>,&amp;h1,&amp;m1,&amp;s1,&amp;h2,&amp;m2,&amp;s2);</span><br><span class="line">    <span class="keyword">if</span>(h2&lt;h1)</span><br><span class="line">    &#123;</span><br><span class="line">        h2+=<span class="number">24</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,((h2-h1)*<span class="number">60</span>+m2-m1)*<span class="number">60</span>+s2-s1);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-大数"><a href="#5-大数" class="headerlink" title="5.大数"></a>5.大数</h2><h3 id="第一次提交（100）"><a href="#第一次提交（100）" class="headerlink" title="第一次提交（100）"></a>第一次提交（100）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> row = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;row);</span><br><span class="line">    <span class="keyword">int</span> data[row];</span><br><span class="line">    <span class="keyword">int</span> a,b = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;row;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;a,&amp;b);</span><br><span class="line">        data[i]=a+b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;row;i++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,data[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考答案"><a href="#参考答案" class="headerlink" title="参考答案"></a>参考答案</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">setvbuf</span>(stdin, <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1</span>&lt;&lt;<span class="number">20</span>], _IOFBF, <span class="number">1</span>&lt;&lt;<span class="number">20</span>);</span><br><span class="line">    <span class="built_in">setvbuf</span>(stdout, <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1</span>&lt;&lt;<span class="number">20</span>], _IOFBF, <span class="number">1</span>&lt;&lt;<span class="number">20</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> N;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> A,B;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;A,&amp;B);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,A+B);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="setvbuf"><a href="#setvbuf" class="headerlink" title="setvbuf"></a>setvbuf</h3><p>意为，开辟一块足够大的缓冲区来读写。缓冲区的好处是，输入信息会被一股脑读入缓冲区，然后再慢慢分配给每一行cin或者scanf，输出同理，每一行printf会被放入缓冲区，再一股脑打印出去。<br>如果注释掉两行setvbuf，会“输入一行”“输出一行”……交替</p>
+<p>感谢<a target="_blank" rel="noopener" href="https://lhwemn.coding-pages.com/2019-08-31-cpp-io-speedup/%E7%9A%84%E8%A7%A3%E9%87%8A%EF%BC%81">https://lhwemn.coding-pages.com/2019-08-31-cpp-io-speedup/的解释！</a></p>
 
             
 
@@ -400,7 +384,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/c-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">c++ 数据结构</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/C-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">C++ 数据结构</a>
 
             </div>
         
@@ -413,9 +397,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2021/04/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%861/"
-                    data-tooltip="数据结构错题集1"
-                    aria-label="PREVIOUS: 数据结构错题集1"
+                    href="/2021/05/05/IGI-1/"
+                    data-tooltip="IGI-1"
+                    aria-label="PREVIOUS: IGI-1"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -427,9 +411,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2021/04/28/My-New-Post/"
-                    data-tooltip="My New Post"
-                    aria-label="NEXT: My New Post"
+                    href="/2021/05/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%862/"
+                    data-tooltip="数据结构错题集2"
+                    aria-label="NEXT: 数据结构错题集2"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -454,7 +438,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/note/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -467,7 +451,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/04/28/note/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -480,7 +464,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/04/28/note/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -528,9 +512,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2021/04/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%861/"
-                    data-tooltip="数据结构错题集1"
-                    aria-label="PREVIOUS: 数据结构错题集1"
+                    href="/2021/05/05/IGI-1/"
+                    data-tooltip="IGI-1"
+                    aria-label="PREVIOUS: IGI-1"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -542,9 +526,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2021/04/28/My-New-Post/"
-                    data-tooltip="My New Post"
-                    aria-label="NEXT: My New Post"
+                    href="/2021/05/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%862/"
+                    data-tooltip="数据结构错题集2"
+                    aria-label="NEXT: 数据结构错题集2"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -569,7 +553,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/note/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -582,7 +566,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/04/28/note/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -595,7 +579,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/04/28/note/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -629,7 +613,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/note/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -642,7 +626,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/04/28/note/"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -655,7 +639,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=http://example.com/2021/04/28/note/"
+                        href="https://plus.google.com/share?url=http://example.com/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
