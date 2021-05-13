@@ -11,7 +11,7 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg"},"articleBody":"感谢JK大佬的workshop！\n \n1.图形学简介渲染：程序-&gt;图像【满足要求、高效】按应用：实时渲染、离线渲染（作为标准参考）“看起来对就是对的”-可能并不符合物理规律\n2.渲染一帧pbr基于物理的渲染（基于物理的材质、相机、光源）怎样表现一个场景？（不同的层级）（物体，材质、光源、相机、其它资源）\n2.1 着色模型shading model描述表面对光照的响应（只关注邻域、光路可逆性）数学表达：B’x’DF描述：一点的法线方向、入射方向、观察方向近似为漫反射和镜面反射（迪士尼标准BRDF）\n2.2 光HDR 线性空间 存储光的物理参数到显卡 rgb只有0-1，无法区分白色和发光的物体，有HDR可以实现发光的效果游戏中的光源点光/平行光（现实不存在）面光源游戏中的光源颜色、强度、范围、性能大部分只计算直接光照单次反射全局光照光在多种介质中多次传播、烘焙、实时RTX渲染方程 http://xked.com/1133/\n2.3 影相机接受的辐射照度小就是影如何判断是否对光可见？shadow map（最常见）是否被遮挡&lt;-&gt;是否对光源可见面光源（半影问题）透明物体（存储额外信息/dithered shadows）\n2.4 相机正交相机、透视相机基于物理的相机（光圈、感光度、快门、胶片*）前两项一般用后处理、曝光；快门-动态模糊近似；胶片-一般用后处理\n2.5 渲染管线(graphics pipeline)渲染的步骤都在渲染管线之上硬件与软件互相影响结构（GPU）：应用-CPU给GPU传数据 调用图形接口-设置各种配置-&gt;几何处理-传过各种物品 模型顶点数据等 运输到屏幕/render target上-&gt;光栅化-将得到的信息分配到每个像素上 不可编程 课配置-&gt;像素处理- pixel shading - merging\n3.unity实现3.1 场景管理4.进一步学习github miloyip/game-programmer/《unity shader 入门》Inigo quilezshadertoyb站 games101jwildfire\npbr基于物理的npr非真实感主要改动的是着色的部分，质感、打光方式、shader着色模型对光的响应 对像素编程\n","dateCreated":"2021-05-05T19:34:39+08:00","dateModified":"2021-05-06T16:00:38+08:00","datePublished":"2021-05-05T19:34:39+08:00","description":"感谢JK大佬的workshop！","headline":"IGI-1","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/05/IGI-1/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg","logo":{"@type":"ImageObject","url":"cat.jpg"}},"url":"http://example.com/2021/05/05/IGI-1/","keywords":"计算机图形学笔记1"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg"},"articleBody":"感谢JK大佬的workshop！\n \n1.图形学简介渲染：程序-&gt;图像【满足要求、高效】按应用：实时渲染、离线渲染（作为标准参考）“看起来对就是对的”-可能并不符合物理规律\n2.渲染一帧pbr基于物理的渲染（基于物理的材质、相机、光源）怎样表现一个场景？（不同的层级）（物体，材质、光源、相机、其它资源）\n2.1 着色模型shading model描述表面对光照的响应（只关注邻域、光路可逆性）数学表达：B’x’DF描述：一点的法线方向、入射方向、观察方向近似为漫反射和镜面反射（迪士尼标准BRDF）\n2.2 光HDR 线性空间 存储光的物理参数到显卡 rgb只有0-1，无法区分白色和发光的物体，有HDR可以实现发光的效果游戏中的光源点光/平行光（现实不存在）面光源游戏中的光源颜色、强度、范围、性能大部分只计算直接光照单次反射全局光照光在多种介质中多次传播、烘焙、实时RTX渲染方程 http://xked.com/1133/\n2.3 影相机接受的辐射照度小就是影如何判断是否对光可见？shadow map（最常见）是否被遮挡&lt;-&gt;是否对光源可见面光源（半影问题）透明物体（存储额外信息/dithered shadows）\n2.4 相机正交相机、透视相机基于物理的相机（光圈、感光度、快门、胶片*）前两项一般用后处理、曝光；快门-动态模糊近似；胶片-一般用后处理\n2.5 渲染管线(graphics pipeline)渲染的步骤都在渲染管线之上硬件与软件互相影响结构（GPU）：应用-CPU给GPU传数据 调用图形接口-设置各种配置-&gt;几何处理-传过各种物品 模型顶点数据等 运输到屏幕/render target上-&gt;光栅化-将得到的信息分配到每个像素上 不可编程 课配置-&gt;像素处理- pixel shading - merging\n3.unity实现3.1 场景管理4.进一步学习github miloyip/game-programmer/《unity shader 入门》Inigo quilezshadertoyb站 games101jwildfire\npbr基于物理的npr非真实感主要改动的是着色的部分，质感、打光方式、shader着色模型对光的响应 对像素编程\n","dateCreated":"2021-05-05T19:34:39+08:00","dateModified":"2021-05-13T17:16:29+08:00","datePublished":"2021-05-05T19:34:39+08:00","description":"感谢JK大佬的workshop！","headline":"IGI-1","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/05/IGI-1/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg","logo":{"@type":"ImageObject","url":"cat.jpg"}},"url":"http://example.com/2021/05/05/IGI-1/","keywords":"图形学, 笔记"}</script>
     <meta name="description" content="感谢JK大佬的workshop！">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="IGI-1">
@@ -20,9 +20,10 @@
 <meta property="og:description" content="感谢JK大佬的workshop！">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-05T11:34:39.000Z">
-<meta property="article:modified_time" content="2021-05-06T08:00:38.464Z">
+<meta property="article:modified_time" content="2021-05-13T09:16:29.572Z">
 <meta property="article:author" content="Yuechen Wang">
-<meta property="article:tag" content="计算机图形学笔记1">
+<meta property="article:tag" content="图形学">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
     
     
@@ -386,7 +387,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B01/" rel="tag">计算机图形学笔记1</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">图形学</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
 
             </div>
         
