@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Yuechen Wang">
+    <title>数据结构错题集8 - Yuechen Wang</title>
+    <meta name="author" content="Yuechen Wang">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg"},"articleBody":"祖玛https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1143\n\n自己写的（85/100）主要三个功能：\n\n插入：后面的后移1，找到位置直接插，插完检查\n删除：根据首尾位置用后面的覆盖，删完检查\n检查：按某个位置查看前后是否相同，相同总数&gt;=3则删除12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091#include &lt;iostream&gt;#include &lt;cstring&gt;using namespace std;#define MAX 10000char S[MAX];//存储已有字符int l;//有效字符长度void add(int index, char ball);void remove(int start, int end);void check(int index);int main()&#123;    setvbuf(stdin, new char[1&lt;&lt;20], _IOFBF, 1&lt;&lt;20);    setvbuf(stdout, new char[1&lt;&lt;20], _IOFBF, 1&lt;&lt;20);    //缓冲区    int n;        scanf(&quot;%[^\\n]&quot;,S);    l = strlen(S);    //输入字符和获取长度    scanf(&quot;%d&quot;,&amp;n);    //后续输入的数量    int index;    char c;    for(int i = 0;i &lt; n;i++)    &#123;        //在index处插入字符c        scanf(&quot;%d %c&quot;,&amp;index,&amp;c);        //这里一开始写成了scanf(&quot;%d %s&quot;,&amp;index,&amp;c);会读不到前面的数字，备注一下        add(index,c);    &#125;&#125;void add(int index, char ball)&#123;    if(l&gt;0)&#123;        for(int i = l;i&gt;index;i--)&#123;            S[i]=S[i-1];            //插入的地方后面逐位复制，注意是从后向前复制        &#125;    &#125;    S[index] = ball;    //进行插入操作    l++;    //长度+1    check(index);    //检查（检查是否有三个以上相同连续，如有，进行删除）&#125;void check(int index)&#123;    //查看相同元素存在的范围    int start = index;    int end = index;    //检查的范围，向前到S[0]，向后到S[l-1]    while ((S[start-1]==S[start])&amp;&amp;(start&gt;0)) &#123;        start--;    &#125;    while ((S[end+1]==S[end])&amp;&amp;(end&lt;l-1)) &#123;        end++;    &#125;    //如果范围大于等于3，则消除    if(end-start&gt;1&amp;&amp;start&gt;=0&amp;&amp;start&lt;l)&#123;        remove(start, end);    &#125;    //如果不需要消除，则可以输出    else&#123;        for(int i = 0;i&lt;l;i++)&#123;            printf(&quot;%c&quot;,S[i]);        &#125;        //如果已经全部消除，输出&#x27;-&#x27;        if(l==0)            printf(&quot;%c&quot;,&#x27;-&#x27;);        printf(&quot;%c&quot;,&#x27;\\n&#x27;);    &#125;&#125;void remove(int start, int end)&#123;    //消除操作，把后续的字符前移覆盖，从前向后移    for(int i = 0;i&lt;l-end;i++)&#123;        S[start+i] = S[end+i+1];    &#125;    //计数字符的长度减去消除掉的数量    l=l-(end-start+1);    //消除完再重新检查，是否再次消除或者能够输出    check(start);&#125;\n\n参考答案：列表（100）感谢 https://www.cnblogs.com/maples7/p/4046447.html 的分享逐行注释\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190#include &lt;stdio.h&gt;#include &quot;string.h&quot;#include &lt;stdlib.h&gt;#include &lt;iostream&gt;using namespace std;#define Len 200000000#define Up (Len*3/4)//typedef 表示类型的别名typedef char ElemType;//将char类型定义别名为Elemtypetypedef struct node   &#123;    ElemType data;    struct node *next;    struct node *front;    //结构体包含其中数据，前驱和后继&#125;List, *pList;    //将node结构体定义别名为List,结构指针变量名为pListpList pHead = (pList)malloc(sizeof(List));pList pTail = (pList)malloc(sizeof(List));//动态分配两个List大小的内存空间，用于存放Head和Tailchar ans[Len + 5];int forprt = 0;void creat(char *a, int n)//创建长度为n的字符串list a&#123;    int i;    pList pt = pHead;//pt是指向pHead的指针    pTail-&gt;front = pHead;//将pTail的前驱设置为pHead    pTail-&gt;next = NULL;//将pTail的后继设置为NULL    pHead-&gt;next = pTail;//将pHead的后继设置为pTail    pHead-&gt;front = NULL;//将pHead的前驱设置为NULL    pHead-&gt;data = pTail-&gt;data = &#x27;-&#x27;;//将pHead和pTail的值设置为&#x27;-&#x27;    for (i = 0; i &lt; n; i++)    &#123;        pList pNew = (pList)malloc(sizeof(List));//为每个字母分配List大小的内存空间        pNew-&gt;data = a[i];//将数组中的值设置为此List的值        pNew-&gt;front = pt;//将前驱设置为pt(首字母前驱为Head,后续字母为前字母)        pNew-&gt;next = pt-&gt;next;//后继设置为pt的后继(为pTail）        pt-&gt;next-&gt;front = pNew;//pt后继的前驱设置为新值        pt-&gt;next = pNew;//pt的后继设置为新值        pt = pNew;//将此格作为下一格使用的pt    &#125;&#125;void insert(int m, char ch)//在m位置插入字符ch&#123;    int i = -1;    pList pt = pHead, pNew = (pList)malloc(sizeof(List));    //pt指向pHead，为新值分配内存空间    while (i++ &lt; m) pt = pt-&gt;next;    //寻找ch要插入的位置（这个位置应该是pNew的后继）    pNew-&gt;data = ch;//设置值    pNew-&gt;next = pt;//设置后继    pNew-&gt;front = pt-&gt;front;//设置前驱    pt-&gt;front-&gt;next = pNew;//连上前面    pt-&gt;front = pNew;//连上后面（因为pt在后面所以重连的时候要先前再后，否则会找不到pNew的前驱&#125;void del(int m)//检查m位置的字母，如果连续的值大于3则删除&#123;    pList p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL, pt = pHead;    pList begin = pHead, end = pTail;    bool boo = true;//消除    int repeat, i = -1;    // 寻找m位置的pt    while (i++ &lt; m - 2) pt = pt-&gt;next;    //寻找重复区域的开始和终止，并计算重复长度    begin = pt; end = pt; i = 0;    while (i++ &lt; 4 &amp;&amp; end-&gt;next != pTail) end = end-&gt;next;    //end再不超过末尾的情况下向后移动三位    while (boo &amp;&amp; pt != pTail)//如果确定需要删除，并且没到末尾    &#123;        boo = false; repeat = 1;        while (pt != end)        &#123;            pt = pt-&gt;next;            if (pt-&gt;front-&gt;data == pt-&gt;data) repeat++;//向前计数，相同则+1            else repeat = 1;            //向后计数，如果重复则计数+1，否则为1            if (repeat == 3)//如果重复3位            &#123;                boo = true;//删除                if (pt-&gt;data == pt-&gt;next-&gt;data)                &#123;                    repeat++;                    pt = pt-&gt;next;//如果还和后面相同，后移一位，重复数+1                &#125;                if (repeat == 3)//else                &#123;                    p3 = pt; p2 = p3-&gt;front; p1 = p2-&gt;front;//向前看，设置p1,p2,p3                    p1-&gt;front-&gt;next = p3-&gt;next;                    p3-&gt;next-&gt;front = p1-&gt;front;//删除p1,p2,p3                    pt = pt-&gt;next;//pt指向删除后的下一位                    delete p1; delete p2; delete p3;//释放内存空间                &#125;                else//重复了3位以上，删除4位                &#123;                    p4 = pt; p3 = p4-&gt;front; p2 = p3-&gt;front; p1 = p2-&gt;front;                    p1-&gt;front-&gt;next = p4-&gt;next;                    p4-&gt;next-&gt;front = p1-&gt;front;                    pt = pt-&gt;next;                    delete p1; delete p2; delete p3; delete p4;                &#125;                break;//删除操作完成后跳出循环            &#125;        &#125;        if (boo &amp;&amp; pt != pTail)//前驱向前移动2位，后继向后移动1位，pt位于起点        &#123;            begin = pt; i = 0;            while (i++ &lt; 2 &amp;&amp; begin-&gt;front != pHead) begin = begin-&gt;front;            end = pt; i = 0;            if (i++ &lt; 1 &amp;&amp; end-&gt;next != pTail) end = end-&gt;next;            pt = begin;        &#125;    &#125;&#125;void show(bool boo)&#123;    pList pt = pHead-&gt;next;    if (pt == pTail) ans[forprt++] = &#x27;-&#x27;;    else    &#123;        while (pt-&gt;next != NULL)        &#123;            ans[forprt++] = pt-&gt;data;            pt = pt-&gt;next;        &#125;    &#125;    //将要输出的逐个存储到字符串ans中    ans[forprt++] = &#x27;\\n&#x27;;    if (forprt &gt;= Up || boo)//设置在长度大于一定值的时候输出，或者boo为true时输出    &#123;        ans[forprt] = &#x27;\\0&#x27;;        printf(&quot;%s&quot;, ans);        forprt = 0;    &#125;&#125;int main(void)&#123;    char a[10005];    int n, k;    pList pHead = NULL;    cin.getline(a,10005);    scanf(&quot;%d\\n&quot;, &amp;n);    creat(a, strlen(a));    for (k = 0; k &lt; n; k++)    &#123;        int m;        char ch;        scanf(&quot;%d &quot;, &amp;m);        do        &#123;            ch = getchar();        &#125; while (!((ch &gt;= &#x27;A&#x27;) &amp;&amp; (ch &lt;= &#x27;Z&#x27;)));        // insert ch        insert(m, ch);        // delete all 3-same block, making it the right string        del(m);        // print the string        show(k == n - 1 ? true : false);    &#125;    return 0;&#125;\n\n","dateCreated":"2021-05-26T15:44:01+08:00","dateModified":"2021-06-01T10:08:42+08:00","datePublished":"2021-05-26T15:44:01+08:00","description":"祖玛https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1143","headline":"数据结构错题集8","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/wangyuec15/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/yuechen.wang.77/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"cat.jpg","logo":{"@type":"ImageObject","url":"cat.jpg"}},"url":"http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/","keywords":"C++, 数据结构"}</script>
+    <meta name="description" content="祖玛https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;1143">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="数据结构错题集8">
+<meta property="og:url" content="http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/index.html">
+<meta property="og:site_name" content="Yuechen Wang">
+<meta property="og:description" content="祖玛https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;1143">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-26T07:44:01.000Z">
+<meta property="article:modified_time" content="2021-06-01T02:08:42.256Z">
+<meta property="article:author" content="Yuechen Wang">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://example.com/assets/images/cat.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-w9xt1lmaigsroq9s5cuxdoakumkjhjuec2cbnxb4is9gtcztobwcofgkicer.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Yuechen Wang
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/cat.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/cat.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yuechen Wang</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>a student</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/wangyuec15/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/yuechen.wang.77/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google +"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google +</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            数据结构错题集8
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-05-26T15:44:01+08:00">
+	
+		    May 26, 2021
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h3 id="祖玛"><a href="#祖玛" class="headerlink" title="祖玛"></a>祖玛</h3><p><a target="_blank" rel="noopener" href="https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1143">https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1143</a></p>
+<span id="more"></span>
+<h3 id="自己写的（85-100）"><a href="#自己写的（85-100）" class="headerlink" title="自己写的（85/100）"></a>自己写的（85/100）</h3><p>主要三个功能：</p>
+<ul>
+<li>插入：后面的后移1，找到位置直接插，插完检查</li>
+<li>删除：根据首尾位置用后面的覆盖，删完检查</li>
+<li>检查：按某个位置查看前后是否相同，相同总数&gt;=3则删除<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> S[MAX];<span class="comment">//存储已有字符</span></span><br><span class="line"><span class="keyword">int</span> l;<span class="comment">//有效字符长度</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">char</span> ball)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">setvbuf</span>(stdin, <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1</span>&lt;&lt;<span class="number">20</span>], _IOFBF, <span class="number">1</span>&lt;&lt;<span class="number">20</span>);</span><br><span class="line">    <span class="built_in">setvbuf</span>(stdout, <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1</span>&lt;&lt;<span class="number">20</span>], _IOFBF, <span class="number">1</span>&lt;&lt;<span class="number">20</span>);</span><br><span class="line">    <span class="comment">//缓冲区</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%[^\n]&quot;</span>,S);</span><br><span class="line">    l = <span class="built_in">strlen</span>(S);</span><br><span class="line">    <span class="comment">//输入字符和获取长度</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    <span class="comment">//后续输入的数量</span></span><br><span class="line">    <span class="keyword">int</span> index;</span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//在index处插入字符c</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d %c&quot;</span>,&amp;index,&amp;c);</span><br><span class="line">        <span class="comment">//这里一开始写成了scanf(&quot;%d %s&quot;,&amp;index,&amp;c);会读不到前面的数字，备注一下</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">add</span>(index,c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">char</span> ball)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = l;i&gt;index;i--)&#123;</span><br><span class="line">            S[i]=S[i<span class="number">-1</span>];</span><br><span class="line">            <span class="comment">//插入的地方后面逐位复制，注意是从后向前复制</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    S[index] = ball;</span><br><span class="line">    <span class="comment">//进行插入操作</span></span><br><span class="line">    l++;</span><br><span class="line">    <span class="comment">//长度+1</span></span><br><span class="line">    <span class="built_in">check</span>(index);</span><br><span class="line">    <span class="comment">//检查（检查是否有三个以上相同连续，如有，进行删除）</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//查看相同元素存在的范围</span></span><br><span class="line">    <span class="keyword">int</span> start = index;</span><br><span class="line">    <span class="keyword">int</span> end = index;</span><br><span class="line">    <span class="comment">//检查的范围，向前到S[0]，向后到S[l-1]</span></span><br><span class="line">    <span class="keyword">while</span> ((S[start<span class="number">-1</span>]==S[start])&amp;&amp;(start&gt;<span class="number">0</span>)) &#123;</span><br><span class="line">        start--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ((S[end+<span class="number">1</span>]==S[end])&amp;&amp;(end&lt;l<span class="number">-1</span>)) &#123;</span><br><span class="line">        end++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果范围大于等于3，则消除</span></span><br><span class="line">    <span class="keyword">if</span>(end-start&gt;<span class="number">1</span>&amp;&amp;start&gt;=<span class="number">0</span>&amp;&amp;start&lt;l)&#123;</span><br><span class="line">        <span class="built_in">remove</span>(start, end);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果不需要消除，则可以输出</span></span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;l;i++)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,S[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果已经全部消除，输出&#x27;-&#x27;</span></span><br><span class="line">        <span class="keyword">if</span>(l==<span class="number">0</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,<span class="string">&#x27;-&#x27;</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//消除操作，把后续的字符前移覆盖，从前向后移</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;l-end;i++)&#123;</span><br><span class="line">        S[start+i] = S[end+i+<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//计数字符的长度减去消除掉的数量</span></span><br><span class="line">    l=l-(end-start+<span class="number">1</span>);</span><br><span class="line">    <span class="comment">//消除完再重新检查，是否再次消除或者能够输出</span></span><br><span class="line">    <span class="built_in">check</span>(start);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="参考答案：列表（100）"><a href="#参考答案：列表（100）" class="headerlink" title="参考答案：列表（100）"></a>参考答案：列表（100）</h3><p>感谢 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/maples7/p/4046447.html">https://www.cnblogs.com/maples7/p/4046447.html</a> 的分享<br>逐行注释</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;string.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Len 200000000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Up (Len*3/4)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//typedef 表示类型的别名</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;<span class="comment">//将char类型定义别名为Elemtype</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span>   </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">front</span>;</span></span><br><span class="line">    <span class="comment">//结构体包含其中数据，前驱和后继</span></span><br><span class="line">&#125;List, *pList;    <span class="comment">//将node结构体定义别名为List,结构指针变量名为pList</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pList pHead = (pList)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(List));</span><br><span class="line">pList pTail = (pList)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(List));</span><br><span class="line"><span class="comment">//动态分配两个List大小的内存空间，用于存放Head和Tail</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> ans[Len + <span class="number">5</span>];</span><br><span class="line"><span class="keyword">int</span> forprt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">creat</span><span class="params">(<span class="keyword">char</span> *a, <span class="keyword">int</span> n)</span><span class="comment">//创建长度为n的字符串list a</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    pList pt = pHead;<span class="comment">//pt是指向pHead的指针</span></span><br><span class="line"></span><br><span class="line">    pTail-&gt;front = pHead;<span class="comment">//将pTail的前驱设置为pHead</span></span><br><span class="line">    pTail-&gt;next = <span class="literal">NULL</span>;<span class="comment">//将pTail的后继设置为NULL</span></span><br><span class="line">    pHead-&gt;next = pTail;<span class="comment">//将pHead的后继设置为pTail</span></span><br><span class="line">    pHead-&gt;front = <span class="literal">NULL</span>;<span class="comment">//将pHead的前驱设置为NULL</span></span><br><span class="line">    pHead-&gt;data = pTail-&gt;data = <span class="string">&#x27;-&#x27;</span>;<span class="comment">//将pHead和pTail的值设置为&#x27;-&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pList pNew = (pList)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(List));<span class="comment">//为每个字母分配List大小的内存空间</span></span><br><span class="line">        pNew-&gt;data = a[i];<span class="comment">//将数组中的值设置为此List的值</span></span><br><span class="line">        pNew-&gt;front = pt;<span class="comment">//将前驱设置为pt(首字母前驱为Head,后续字母为前字母)</span></span><br><span class="line">        pNew-&gt;next = pt-&gt;next;<span class="comment">//后继设置为pt的后继(为pTail）</span></span><br><span class="line">        pt-&gt;next-&gt;front = pNew;<span class="comment">//pt后继的前驱设置为新值</span></span><br><span class="line">        pt-&gt;next = pNew;<span class="comment">//pt的后继设置为新值</span></span><br><span class="line">        pt = pNew;<span class="comment">//将此格作为下一格使用的pt</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">char</span> ch)</span><span class="comment">//在m位置插入字符ch</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">-1</span>;</span><br><span class="line">    pList pt = pHead, pNew = (pList)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(List));</span><br><span class="line">    <span class="comment">//pt指向pHead，为新值分配内存空间</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (i++ &lt; m) pt = pt-&gt;next;</span><br><span class="line">    <span class="comment">//寻找ch要插入的位置（这个位置应该是pNew的后继）</span></span><br><span class="line"></span><br><span class="line">    pNew-&gt;data = ch;<span class="comment">//设置值</span></span><br><span class="line">    pNew-&gt;next = pt;<span class="comment">//设置后继</span></span><br><span class="line">    pNew-&gt;front = pt-&gt;front;<span class="comment">//设置前驱</span></span><br><span class="line">    pt-&gt;front-&gt;next = pNew;<span class="comment">//连上前面</span></span><br><span class="line">    pt-&gt;front = pNew;<span class="comment">//连上后面（因为pt在后面所以重连的时候要先前再后，否则会找不到pNew的前驱</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">del</span><span class="params">(<span class="keyword">int</span> m)</span><span class="comment">//检查m位置的字母，如果连续的值大于3则删除</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    pList p1 = <span class="literal">NULL</span>, p2 = <span class="literal">NULL</span>, p3 = <span class="literal">NULL</span>, p4 = <span class="literal">NULL</span>, pt = pHead;</span><br><span class="line">    pList begin = pHead, end = pTail;</span><br><span class="line">    <span class="keyword">bool</span> boo = <span class="literal">true</span>;<span class="comment">//消除</span></span><br><span class="line">    <span class="keyword">int</span> repeat, i = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 寻找m位置的pt</span></span><br><span class="line">    <span class="keyword">while</span> (i++ &lt; m - <span class="number">2</span>) pt = pt-&gt;next;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//寻找重复区域的开始和终止，并计算重复长度</span></span><br><span class="line">    begin = pt; end = pt; i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i++ &lt; <span class="number">4</span> &amp;&amp; end-&gt;next != pTail) end = end-&gt;next;</span><br><span class="line">    <span class="comment">//end再不超过末尾的情况下向后移动三位</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (boo &amp;&amp; pt != pTail)<span class="comment">//如果确定需要删除，并且没到末尾</span></span><br><span class="line">    &#123;</span><br><span class="line">        boo = <span class="literal">false</span>; repeat = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (pt != end)</span><br><span class="line">        &#123;</span><br><span class="line">            pt = pt-&gt;next;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (pt-&gt;front-&gt;data == pt-&gt;data) repeat++;<span class="comment">//向前计数，相同则+1</span></span><br><span class="line">            <span class="keyword">else</span> repeat = <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//向后计数，如果重复则计数+1，否则为1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (repeat == <span class="number">3</span>)<span class="comment">//如果重复3位</span></span><br><span class="line">            &#123;</span><br><span class="line">                boo = <span class="literal">true</span>;<span class="comment">//删除</span></span><br><span class="line">                <span class="keyword">if</span> (pt-&gt;data == pt-&gt;next-&gt;data)</span><br><span class="line">                &#123;</span><br><span class="line">                    repeat++;</span><br><span class="line">                    pt = pt-&gt;next;<span class="comment">//如果还和后面相同，后移一位，重复数+1</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (repeat == <span class="number">3</span>)<span class="comment">//else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    p3 = pt; p2 = p3-&gt;front; p1 = p2-&gt;front;<span class="comment">//向前看，设置p1,p2,p3</span></span><br><span class="line">                    p1-&gt;front-&gt;next = p3-&gt;next;</span><br><span class="line">                    p3-&gt;next-&gt;front = p1-&gt;front;<span class="comment">//删除p1,p2,p3</span></span><br><span class="line">                    pt = pt-&gt;next;<span class="comment">//pt指向删除后的下一位</span></span><br><span class="line">                    <span class="keyword">delete</span> p1; <span class="keyword">delete</span> p2; <span class="keyword">delete</span> p3;<span class="comment">//释放内存空间</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span><span class="comment">//重复了3位以上，删除4位</span></span><br><span class="line">                &#123;</span><br><span class="line">                    p4 = pt; p3 = p4-&gt;front; p2 = p3-&gt;front; p1 = p2-&gt;front;</span><br><span class="line">                    p1-&gt;front-&gt;next = p4-&gt;next;</span><br><span class="line">                    p4-&gt;next-&gt;front = p1-&gt;front;</span><br><span class="line">                    pt = pt-&gt;next;</span><br><span class="line">                    <span class="keyword">delete</span> p1; <span class="keyword">delete</span> p2; <span class="keyword">delete</span> p3; <span class="keyword">delete</span> p4;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//删除操作完成后跳出循环</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (boo &amp;&amp; pt != pTail)<span class="comment">//前驱向前移动2位，后继向后移动1位，pt位于起点</span></span><br><span class="line">        &#123;</span><br><span class="line">            begin = pt; i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (i++ &lt; <span class="number">2</span> &amp;&amp; begin-&gt;front != pHead) begin = begin-&gt;front;</span><br><span class="line">            end = pt; i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (i++ &lt; <span class="number">1</span> &amp;&amp; end-&gt;next != pTail) end = end-&gt;next;</span><br><span class="line">            pt = begin;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">bool</span> boo)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    pList pt = pHead-&gt;next;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pt == pTail) ans[forprt++] = <span class="string">&#x27;-&#x27;</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (pt-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans[forprt++] = pt-&gt;data;</span><br><span class="line">            pt = pt-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将要输出的逐个存储到字符串ans中</span></span><br><span class="line">    ans[forprt++] = <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (forprt &gt;= Up || boo)<span class="comment">//设置在长度大于一定值的时候输出，或者boo为true时输出</span></span><br><span class="line">    &#123;</span><br><span class="line">        ans[forprt] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, ans);</span><br><span class="line">        forprt = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> a[<span class="number">10005</span>];</span><br><span class="line">    <span class="keyword">int</span> n, k;</span><br><span class="line">    pList pHead = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    cin.<span class="built_in">getline</span>(a,<span class="number">10005</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d\n&quot;</span>, &amp;n);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">creat</span>(a, <span class="built_in">strlen</span>(a));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (k = <span class="number">0</span>; k &lt; n; k++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> m;</span><br><span class="line">        <span class="keyword">char</span> ch;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d &quot;</span>, &amp;m);</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        &#123;</span><br><span class="line">            ch = <span class="built_in">getchar</span>();</span><br><span class="line">        &#125; <span class="keyword">while</span> (!((ch &gt;= <span class="string">&#x27;A&#x27;</span>) &amp;&amp; (ch &lt;= <span class="string">&#x27;Z&#x27;</span>)));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// insert ch</span></span><br><span class="line">        <span class="built_in">insert</span>(m, ch);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// delete all 3-same block, making it the right string</span></span><br><span class="line">        <span class="built_in">del</span>(m);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// print the string</span></span><br><span class="line">        <span class="built_in">show</span>(k == n - <span class="number">1</span> ? <span class="literal">true</span> : <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/C/" rel="tag">C++</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                    data-tooltip="数据结构错题集7"
+                    aria-label="NEXT: 数据结构错题集7"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Yuechen Wang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                    data-tooltip="数据结构错题集7"
+                    aria-label="NEXT: 数据结构错题集7"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%868/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/cat.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yuechen Wang</h4>
+        
+            <div id="about-card-bio"><p>Carnegie Mellon University</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>M.S. Computational Design Candidate</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover2.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-6wh23kcuyrktbw8pwkte3zgswpvjmw3hen2ewm9f032fkgodkkji16tqxotx.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
