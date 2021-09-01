@@ -11,15 +11,15 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"灯塔https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1144\n\n（95/100）自己在没有看答案的情况下依据课件写出来了，感天动地。思路：互相照亮的一组灯塔，其中x，y坐标的大小关系相同。因此，可将其中一个坐标排序后，按照其大小顺序找出其它灯塔具有对应大小关系的数量，计算过的不计入内。排序效率：归并排序。改进：在第二步对每个灯塔计算大小时，时间复杂度为O(n^2)，显然比较不合理。解决方法是对排序过一次的向量以另一个坐标再次归并排序，将问题化解为两个序列中的逆向对个数。改进2：int类型不足以容纳本题的输出，使用了long long int。\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123#include &lt;stdio.h&gt;#include &lt;iostream&gt;using namespace std;#define MAX 4000000int S[MAX][2];long long int sum2 = 0;//逆序对个数void merge(int lo, int mi, int hi);void mergeSort(int lo, int hi);void merge2(int lo, int mi, int hi);void mergeSort2(int lo, int hi);int main()&#123;    int N;    scanf(&quot;%d&quot;,&amp;N);    for (int i = 0; i &lt; N; i++)    &#123;        scanf(&quot;%d %d&quot;,&amp;S[i][0],&amp;S[i][1]);    &#125;    mergeSort(0, N);//按x坐标进行排序    mergeSort2(0, N);//按y坐标寻找逆序对    printf(&quot;%lld\\n&quot;,sum2);    return 0;&#125;//对排序拆分过的数组进行归并和逆序对计数void merge2(int lo, int mi, int hi)&#123;    long long int j = 0; int k = mi; int lb = mi - lo;    int C[lb];    for(int i = 0; i &lt;lb; i++)    &#123;        C[i] = S[lo+i][1];    &#125;    int i = lo;    while((j &lt; lb)&amp;&amp;(k &lt; hi))    &#123;        if(C[j]&lt;=S[k][1])        &#123;            S[i][1] = C[j];            i++;            j++;        &#125;        else        &#123;            S[i][1] = S[k][1];            i++;            k++;            sum2+=j;//将后半段的值计入时，已经计数的前半段的数量就是逆序对数        &#125;    &#125;    while (j &lt; lb)    &#123;        S[i][1]=C[j];        i++;        j++;    &#125;    while (k&lt;hi)    &#123;        sum2+=j;//注意后半段位置不改变的也要被计数        i++;        k++;    &#125;&#125;void mergeSort2(int lo, int hi)//拆分排序好的向量&#123;    if(hi-lo&lt;2)        return;    int mi = (lo+hi)&gt;&gt;1;    mergeSort2(lo, mi);    mergeSort2(mi, hi);    merge2(lo, mi, hi);&#125;void merge(int lo, int mi, int hi)//按照x坐标对二维向量进行排序&#123;    int j = 0; int k = mi; int lb = mi - lo;    int A[lb][2];    for (int i = 0; i &lt; lb; i++)    &#123;        A[i][0] = S[lo+i][0];        A[i][1] = S[lo+i][1];    &#125;    int i = lo;    while((j &lt; lb)&amp;&amp;(k &lt; hi))    &#123;        if (A[j][0]&lt;=S[k][0])        &#123;            S[i][0] = A[j][0];            S[i][1] = A[j][1];            i++;            j++;        &#125;        else        &#123;            S[i][0] = S[k][0];            S[i][1] = S[k][1];            i++;            k++;        &#125;    &#125;    while (j &lt; lb)    &#123;        S[i][0] = A[j][0];        S[i][1] = A[j][1];        i++;        j++;    &#125;&#125;void mergeSort(int lo, int hi)//分而治之&#123;    if (hi - lo &lt; 2)        return;    int mi = (hi + lo)&gt;&gt;1;    mergeSort(lo,mi);    mergeSort(mi,hi);    merge(lo,mi,hi);&#125;\n附一网上答案，感谢https://www.cnblogs.com/yexuesong/p/12442611.html但是我在自己的程序中直接加setvbuf是不能解决最后一个测例中的runtime error问题的…先留存一下以后看\n1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586#include &lt;cstdio&gt;const int SZ = 1 &lt;&lt; 20; //快速iostruct fastio&#123;    char inbuf[SZ];    char outbuf[SZ];    fastio()    &#123;        setvbuf(stdin, inbuf, _IOFBF, SZ);        setvbuf(stdout, outbuf, _IOFBF, SZ);    &#125;&#125; io;const int maxn = 4e6 + 1;using ll = long long;struct node&#123;    int x, y;&#125; a[maxn], b[maxn];ll count = 0;// 按照 x 升序排列void mergeX(int lo, int mi, int hi)&#123;    int i = lo, j = mi;    for (int k = lo; k != hi; ++k)    &#123;        // 这里用了两个 node 来操作，所以不用复制子序列出来        if (hi &lt;= j || (i &lt; mi &amp;&amp; (a[i].x &lt; a[j].x || (a[i].x == a[j].x &amp;&amp; a[i].y &lt; a[j].y))))            b[k] = a[i++];        else            b[k] = a[j++];    &#125;    for (int k = lo; k != hi; ++k)        a[k] = b[k];&#125;void mergeSortX(int lo, int hi)&#123;    if (hi - lo &lt; 2)        return;    int mi = (hi + lo) &gt;&gt; 1;    mergeSortX(lo, mi);    mergeSortX(mi, hi);    mergeX(lo, mi, hi);&#125;void mergeY(int lo, int mi, int hi)&#123;    int i = lo, j = mi;    for (int k = lo; k != hi; ++k)    &#123;        // i &lt;  j 则 j 的右侧都更大，个数为 (hi - 1) - (j - 1)        if (hi &lt;= j || (i &lt; mi &amp;&amp; a[i].y &lt; a[j].y))            b[k] = a[i++], count += hi - j;        else            b[k] = a[j++];    &#125;    for (int k = lo; k != hi; ++k)        a[k] = b[k];&#125;void mergeSortY(int lo, int hi)&#123;    if (hi - lo &lt; 2)        return;    int mi = (hi + lo) &gt;&gt; 1;    mergeSortY(lo, mi);    mergeSortY(mi, hi);    mergeY(lo, mi, hi);&#125;int main()&#123;    ll n;    scanf(&quot;%lld&quot;, &amp;n);    for (int i = 0; i != n; ++i)    &#123;        scanf(&quot;%d %d&quot;, &amp;a[i].x, &amp;a[i].y);    &#125;    mergeSortX(0, n);    mergeSortY(0, n);    printf(&quot;%lld\\n&quot;, count);    return 0;&#125;","dateCreated":"2021-05-31T22:17:16-04:00","dateModified":"2021-06-01T04:32:25-04:00","datePublished":"2021-05-31T22:17:16-04:00","description":"灯塔https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1144","headline":"数据结构错题集9","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/","keywords":"C++, 数据结构, 归并排序"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"灯塔https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1144\n\n（95/100）自己在没有看答案的情况下依据课件写出来了，感天动地。思路：互相照亮的一组灯塔，其中x，y坐标的大小关系相同。因此，可将其中一个坐标排序后，按照其大小顺序找出其它灯塔具有对应大小关系的数量，计算过的不计入内。排序效率：归并排序。改进：在第二步对每个灯塔计算大小时，时间复杂度为O(n^2)，显然比较不合理。解决方法是对排序过一次的向量以另一个坐标再次归并排序，将问题化解为两个序列中的逆向对个数。改进2：int类型不足以容纳本题的输出，使用了long long int。\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123#include &lt;stdio.h&gt;#include &lt;iostream&gt;using namespace std;#define MAX 4000000int S[MAX][2];long long int sum2 = 0;//逆序对个数void merge(int lo, int mi, int hi);void mergeSort(int lo, int hi);void merge2(int lo, int mi, int hi);void mergeSort2(int lo, int hi);int main()&#123;    int N;    scanf(&quot;%d&quot;,&amp;N);    for (int i = 0; i &lt; N; i++)    &#123;        scanf(&quot;%d %d&quot;,&amp;S[i][0],&amp;S[i][1]);    &#125;    mergeSort(0, N);//按x坐标进行排序    mergeSort2(0, N);//按y坐标寻找逆序对    printf(&quot;%lld\\n&quot;,sum2);    return 0;&#125;//对排序拆分过的数组进行归并和逆序对计数void merge2(int lo, int mi, int hi)&#123;    long long int j = 0; int k = mi; int lb = mi - lo;    int C[lb];    for(int i = 0; i &lt;lb; i++)    &#123;        C[i] = S[lo+i][1];    &#125;    int i = lo;    while((j &lt; lb)&amp;&amp;(k &lt; hi))    &#123;        if(C[j]&lt;=S[k][1])        &#123;            S[i][1] = C[j];            i++;            j++;        &#125;        else        &#123;            S[i][1] = S[k][1];            i++;            k++;            sum2+=j;//将后半段的值计入时，已经计数的前半段的数量就是逆序对数        &#125;    &#125;    while (j &lt; lb)    &#123;        S[i][1]=C[j];        i++;        j++;    &#125;    while (k&lt;hi)    &#123;        sum2+=j;//注意后半段位置不改变的也要被计数        i++;        k++;    &#125;&#125;void mergeSort2(int lo, int hi)//拆分排序好的向量&#123;    if(hi-lo&lt;2)        return;    int mi = (lo+hi)&gt;&gt;1;    mergeSort2(lo, mi);    mergeSort2(mi, hi);    merge2(lo, mi, hi);&#125;void merge(int lo, int mi, int hi)//按照x坐标对二维向量进行排序&#123;    int j = 0; int k = mi; int lb = mi - lo;    int A[lb][2];    for (int i = 0; i &lt; lb; i++)    &#123;        A[i][0] = S[lo+i][0];        A[i][1] = S[lo+i][1];    &#125;    int i = lo;    while((j &lt; lb)&amp;&amp;(k &lt; hi))    &#123;        if (A[j][0]&lt;=S[k][0])        &#123;            S[i][0] = A[j][0];            S[i][1] = A[j][1];            i++;            j++;        &#125;        else        &#123;            S[i][0] = S[k][0];            S[i][1] = S[k][1];            i++;            k++;        &#125;    &#125;    while (j &lt; lb)    &#123;        S[i][0] = A[j][0];        S[i][1] = A[j][1];        i++;        j++;    &#125;&#125;void mergeSort(int lo, int hi)//分而治之&#123;    if (hi - lo &lt; 2)        return;    int mi = (hi + lo)&gt;&gt;1;    mergeSort(lo,mi);    mergeSort(mi,hi);    merge(lo,mi,hi);&#125;\n附一网上答案，感谢https://www.cnblogs.com/yexuesong/p/12442611.html但是我在自己的程序中直接加setvbuf是不能解决最后一个测例中的runtime error问题的…先留存一下以后看\n1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586#include &lt;cstdio&gt;const int SZ = 1 &lt;&lt; 20; //快速iostruct fastio&#123;    char inbuf[SZ];    char outbuf[SZ];    fastio()    &#123;        setvbuf(stdin, inbuf, _IOFBF, SZ);        setvbuf(stdout, outbuf, _IOFBF, SZ);    &#125;&#125; io;const int maxn = 4e6 + 1;using ll = long long;struct node&#123;    int x, y;&#125; a[maxn], b[maxn];ll count = 0;// 按照 x 升序排列void mergeX(int lo, int mi, int hi)&#123;    int i = lo, j = mi;    for (int k = lo; k != hi; ++k)    &#123;        // 这里用了两个 node 来操作，所以不用复制子序列出来        if (hi &lt;= j || (i &lt; mi &amp;&amp; (a[i].x &lt; a[j].x || (a[i].x == a[j].x &amp;&amp; a[i].y &lt; a[j].y))))            b[k] = a[i++];        else            b[k] = a[j++];    &#125;    for (int k = lo; k != hi; ++k)        a[k] = b[k];&#125;void mergeSortX(int lo, int hi)&#123;    if (hi - lo &lt; 2)        return;    int mi = (hi + lo) &gt;&gt; 1;    mergeSortX(lo, mi);    mergeSortX(mi, hi);    mergeX(lo, mi, hi);&#125;void mergeY(int lo, int mi, int hi)&#123;    int i = lo, j = mi;    for (int k = lo; k != hi; ++k)    &#123;        // i &lt;  j 则 j 的右侧都更大，个数为 (hi - 1) - (j - 1)        if (hi &lt;= j || (i &lt; mi &amp;&amp; a[i].y &lt; a[j].y))            b[k] = a[i++], count += hi - j;        else            b[k] = a[j++];    &#125;    for (int k = lo; k != hi; ++k)        a[k] = b[k];&#125;void mergeSortY(int lo, int hi)&#123;    if (hi - lo &lt; 2)        return;    int mi = (hi + lo) &gt;&gt; 1;    mergeSortY(lo, mi);    mergeSortY(mi, hi);    mergeY(lo, mi, hi);&#125;int main()&#123;    ll n;    scanf(&quot;%lld&quot;, &amp;n);    for (int i = 0; i != n; ++i)    &#123;        scanf(&quot;%d %d&quot;, &amp;a[i].x, &amp;a[i].y);    &#125;    mergeSortX(0, n);    mergeSortY(0, n);    printf(&quot;%lld\\n&quot;, count);    return 0;&#125;","dateCreated":"2021-06-01T10:17:16-04:00","dateModified":"2021-06-01T04:32:25-04:00","datePublished":"2021-06-01T10:17:16-04:00","description":"灯塔https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1144","headline":"数据结构错题集9","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/","keywords":"C++, 数据结构, 归并排序"}</script>
     <meta name="description" content="灯塔https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;1144">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="数据结构错题集9">
-<meta property="og:url" content="http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/index.html">
+<meta property="og:url" content="http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/index.html">
 <meta property="og:site_name" content="Hi!----wangyuec15">
 <meta property="og:description" content="灯塔https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;1144">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-06-01T02:17:16.000Z">
+<meta property="article:published_time" content="2021-06-01T14:17:16.000Z">
 <meta property="article:modified_time" content="2021-06-01T08:32:25.000Z">
 <meta property="article:author" content="Yuechen Wang">
 <meta property="article:tag" content="C++">
@@ -352,9 +352,9 @@
     
     
         <div class="post-meta">
-    <time datetime="2021-05-31T22:17:16-04:00">
+    <time datetime="2021-06-01T10:17:16-04:00">
 	
-		    May 31, 2021
+		    Jun 01, 2021
     	
     </time>
     
@@ -436,7 +436,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -449,7 +449,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -462,7 +462,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -551,7 +551,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -564,7 +564,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -577,7 +577,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -611,7 +611,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -624,7 +624,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -637,7 +637,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=http://example.com/2021/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
+                        href="https://plus.google.com/share?url=http://example.com/2021/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%869/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>

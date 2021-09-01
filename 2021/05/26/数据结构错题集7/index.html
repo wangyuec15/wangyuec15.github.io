@@ -11,11 +11,11 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"数据结构（上）范围查询https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1142\n\n\n自己看课件写出来了，错过的点有：\n\n二分查找找左端点插入位置时出错（通过在开头加‘-1’解决）\n忽视了输入坐标组中乱序的情况（增加排序）\n起泡排序超时（改用归并排序）\n\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107#include &lt;iostream&gt;using namespace std;#define MAX 500000\t//点数n的最大值//记录点int S[MAX];//对区间左右坐标查找使用不同的方法int rightindex(int num,int high, int low);int leftindex(int num,int high, int low);//归并排序的归并\t//起点，中点，末端void merge(int lo,int mi, int hi)&#123;    int j = 0;int k = mi;int lb = mi-lo;\t//j为前半段下一个排序的元素位置，k为后半段    int A[lb];\t//将S中的lo至mi单独取出放在A中    for(int i = 0;i&lt;lb;i++)    &#123;        A[i] = S[lo+i];    &#125;    int i = lo;\t//如果对前半段和后半段的排序都没有到头    while ((j&lt;lb)&amp;&amp;(k&lt;hi))     &#123;\t//S的这个位置是前半段头和后半段头中的较小值        S[i++] = (A[j]&lt;=S[k])?A[j++]:S[k++];    &#125;    while (j&lt;lb)     &#123;\t//如果后半段提前排完了        S[i++]=A[j++];\t//直接把前半段剩下的排到后面    &#125;&#125;//归并前的拆分\t起点\t终点void mergesort(int lo, int hi)&#123;    if(hi-lo&lt;2)\treturn;\t//最后的结果是拆分成长度为1的区间    int mi = (hi+lo)&gt;&gt;1;    //&gt;&gt;1 右移一位，二进制中相当于除以2    mergesort(lo,mi);    mergesort(mi,hi);    //将前后两段分别再次拆分    merge(lo,mi,hi);    //合并，排序&#125;int main()&#123;    //开辟缓冲区，一口气输入一口气输出    setvbuf(stdin, new char[1&lt;&lt;20], _IOFBF, 1&lt;&lt;20);    setvbuf(stdout, new char[1&lt;&lt;20], _IOFBF, 1&lt;&lt;20);        int n,m;    int left,right;    scanf(&quot;%d %d&quot;,&amp;n,&amp;m);\t//点的总数和要查询的区间总数    S[0]=-1;\t//第一点设为-1，防止插左点时出现问题    for(int i = 1;i&lt;=n;i++)    &#123;        scanf(&quot;%d&quot;,&amp;S[i]);\t//依次输入坐标，到S中    &#125;    //给S中输入的n个元素排序一下    mergesort(1,n+1);        for(int i = 0;i &lt;m;i++)    &#123;        scanf(&quot;%d %d&quot;,&amp;left,&amp;right);\t//输入区间\t//用区间右点在有序数组中的位置减去区间左点的位置        printf(&quot;%d\\n&quot;,rightindex(right, n+1, 0)-leftindex(left, n+1, 0));    &#125;    return 0;&#125;//给区间右端点定位int rightindex(int num,int high, int low)&#123;    int middle;    while(1&lt;high-low)    &#123;        middle = (low+high)&gt;&gt;1;\t//被查数小于中点，则将范围缩小到前半段，大于等于中点则到后半段        num&lt;S[middle]?high = middle:low = middle;    &#125;        return low;&#125;//给左端点定位int leftindex(int num,int high, int low)&#123;    int middle;    while(1&lt;high-low)    &#123;        middle = (low+high)&gt;&gt;1;\t//被查数小于等于中点，则将范围缩小到前半段，大于中点则到后半段        num&lt;=S[middle]?high = middle:low = middle;\t//要义是将中点放到前半段，将要查的点最后放在右闭区间中    &#125;        return low;&#125;\n课上知识复习二分查找\n归并排序\n","dateCreated":"2021-05-25T23:30:53-04:00","dateModified":"2021-05-26T02:20:55-04:00","datePublished":"2021-05-25T23:30:53-04:00","description":"数据结构（上）范围查询https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1142","headline":"数据结构错题集7","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/","keywords":"C++, 数据结构, 归并排序，二分查找"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"数据结构（上）范围查询https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1142\n\n\n自己看课件写出来了，错过的点有：\n\n二分查找找左端点插入位置时出错（通过在开头加‘-1’解决）\n忽视了输入坐标组中乱序的情况（增加排序）\n起泡排序超时（改用归并排序）\n\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107#include &lt;iostream&gt;using namespace std;#define MAX 500000\t//点数n的最大值//记录点int S[MAX];//对区间左右坐标查找使用不同的方法int rightindex(int num,int high, int low);int leftindex(int num,int high, int low);//归并排序的归并\t//起点，中点，末端void merge(int lo,int mi, int hi)&#123;    int j = 0;int k = mi;int lb = mi-lo;\t//j为前半段下一个排序的元素位置，k为后半段    int A[lb];\t//将S中的lo至mi单独取出放在A中    for(int i = 0;i&lt;lb;i++)    &#123;        A[i] = S[lo+i];    &#125;    int i = lo;\t//如果对前半段和后半段的排序都没有到头    while ((j&lt;lb)&amp;&amp;(k&lt;hi))     &#123;\t//S的这个位置是前半段头和后半段头中的较小值        S[i++] = (A[j]&lt;=S[k])?A[j++]:S[k++];    &#125;    while (j&lt;lb)     &#123;\t//如果后半段提前排完了        S[i++]=A[j++];\t//直接把前半段剩下的排到后面    &#125;&#125;//归并前的拆分\t起点\t终点void mergesort(int lo, int hi)&#123;    if(hi-lo&lt;2)\treturn;\t//最后的结果是拆分成长度为1的区间    int mi = (hi+lo)&gt;&gt;1;    //&gt;&gt;1 右移一位，二进制中相当于除以2    mergesort(lo,mi);    mergesort(mi,hi);    //将前后两段分别再次拆分    merge(lo,mi,hi);    //合并，排序&#125;int main()&#123;    //开辟缓冲区，一口气输入一口气输出    setvbuf(stdin, new char[1&lt;&lt;20], _IOFBF, 1&lt;&lt;20);    setvbuf(stdout, new char[1&lt;&lt;20], _IOFBF, 1&lt;&lt;20);        int n,m;    int left,right;    scanf(&quot;%d %d&quot;,&amp;n,&amp;m);\t//点的总数和要查询的区间总数    S[0]=-1;\t//第一点设为-1，防止插左点时出现问题    for(int i = 1;i&lt;=n;i++)    &#123;        scanf(&quot;%d&quot;,&amp;S[i]);\t//依次输入坐标，到S中    &#125;    //给S中输入的n个元素排序一下    mergesort(1,n+1);        for(int i = 0;i &lt;m;i++)    &#123;        scanf(&quot;%d %d&quot;,&amp;left,&amp;right);\t//输入区间\t//用区间右点在有序数组中的位置减去区间左点的位置        printf(&quot;%d\\n&quot;,rightindex(right, n+1, 0)-leftindex(left, n+1, 0));    &#125;    return 0;&#125;//给区间右端点定位int rightindex(int num,int high, int low)&#123;    int middle;    while(1&lt;high-low)    &#123;        middle = (low+high)&gt;&gt;1;\t//被查数小于中点，则将范围缩小到前半段，大于等于中点则到后半段        num&lt;S[middle]?high = middle:low = middle;    &#125;        return low;&#125;//给左端点定位int leftindex(int num,int high, int low)&#123;    int middle;    while(1&lt;high-low)    &#123;        middle = (low+high)&gt;&gt;1;\t//被查数小于等于中点，则将范围缩小到前半段，大于中点则到后半段        num&lt;=S[middle]?high = middle:low = middle;\t//要义是将中点放到前半段，将要查的点最后放在右闭区间中    &#125;        return low;&#125;\n课上知识复习二分查找\n归并排序\n","dateCreated":"2021-05-26T11:30:53-04:00","dateModified":"2021-05-26T02:20:55-04:00","datePublished":"2021-05-26T11:30:53-04:00","description":"数据结构（上）范围查询https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=1142","headline":"数据结构错题集7","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/","keywords":"C++, 数据结构, 归并排序，二分查找"}</script>
     <meta name="description" content="数据结构（上）范围查询https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;1142">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="数据结构错题集7">
-<meta property="og:url" content="http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/index.html">
+<meta property="og:url" content="http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/index.html">
 <meta property="og:site_name" content="Hi!----wangyuec15">
 <meta property="og:description" content="数据结构（上）范围查询https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;1142">
 <meta property="og:locale" content="en_US">
@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://example.com/images/merge/01.png">
 <meta property="og:image" content="http://example.com/images/merge/02.png">
 <meta property="og:image" content="http://example.com/images/merge/03.png">
-<meta property="article:published_time" content="2021-05-26T03:30:53.000Z">
+<meta property="article:published_time" content="2021-05-26T15:30:53.000Z">
 <meta property="article:modified_time" content="2021-05-26T06:20:55.000Z">
 <meta property="article:author" content="Yuechen Wang">
 <meta property="article:tag" content="C++">
@@ -358,9 +358,9 @@
     
     
         <div class="post-meta">
-    <time datetime="2021-05-25T23:30:53-04:00">
+    <time datetime="2021-05-26T11:30:53-04:00">
 	
-		    May 25, 2021
+		    May 26, 2021
     	
     </time>
     
@@ -449,7 +449,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -462,7 +462,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -475,7 +475,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -564,7 +564,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -577,7 +577,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -590,7 +590,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -624,7 +624,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -637,7 +637,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -650,7 +650,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=http://example.com/2021/05/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
+                        href="https://plus.google.com/share?url=http://example.com/2021/05/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%867/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
