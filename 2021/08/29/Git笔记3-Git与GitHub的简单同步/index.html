@@ -1,0 +1,747 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hi!----wangyuec15">
+    <title>Git笔记3-Git与GitHub的简单同步 - Hi!----wangyuec15</title>
+    <meta name="author" content="Yuechen Wang">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"30: 注册一个GitHub账号有了所以不记了……\n\n31: 配置公私钥adding a new SSH key and adding it to the SSH agent\n1$ ls -al\n\n\n如果有公私钥会显示一对文件\n1$ ssh-keygen -t rsa -b 4096 -C “your\\_email”\n\n\n再执行 ls -al 就会看到一对id_rsa文件\n1$ cat id\\_rsa.pub\n\n\n粘贴公钥的一串字符\n在GitHub的profile - edit profile - SSH - Add new\n32: 在GitHub上创建个人仓库会，不记了……MIT License 开源 仓库中会有license文件\n33: 把本地仓库同步到GitHub仓库中已有本地没有的文件在GitHub上clone or download 粘贴SSH\n1$ git remote 名称(如github) SSH具体地址\n\n\n已有\n1$ git remote add 名称(如github) SSH具体地址\n\n1$ git remote -v\n\n\n可以进行fetch拉和push上传\n远端已有license和commit\n1$ git push github --all\n\n\n显示一条rejected error 需要fetch first\n1$ git pull\n\n\n进行了fetch，把远端的拉下来，同时merge远端和本地的master\n1$ git fetch github master\n\n\n1$ git merge github/master\n\n\n报错 因为本地和远端的两个树没有父子关系\n1$ git merge --allow-unrelated-histories github/master\n\n\n生成了新的树\n1$ git push github master\n\n\nGitHub上的commit增加了本地的记录\n除了merge也可以用rebase\n","dateCreated":"2021-08-29T15:14:07-04:00","dateModified":"2021-08-31T20:23:22-04:00","datePublished":"2021-08-29T15:14:07-04:00","description":"30: 注册一个GitHub账号有了所以不记了……","headline":"Git笔记3-Git与GitHub的简单同步","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/","keywords":"Git"}</script>
+    <meta name="description" content="30: 注册一个GitHub账号有了所以不记了……">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Git笔记3-Git与GitHub的简单同步">
+<meta property="og:url" content="http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/index.html">
+<meta property="og:site_name" content="Hi!----wangyuec15">
+<meta property="og:description" content="30: 注册一个GitHub账号有了所以不记了……">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-29T19:14:07.000Z">
+<meta property="article:modified_time" content="2021-09-01T00:23:22.231Z">
+<meta property="article:author" content="Yuechen Wang">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://example.com/assets/images/author.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-migvazkmlhn4neeioayjfrnyheddmclkjltitjeam28pp9rzidnbrd6eitkf.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Hi!----wangyuec15
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yuechen Wang</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Carnegie Mellon University</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google +"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google +</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Git笔记3-Git与GitHub的简单同步
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-08-29T15:14:07-04:00">
+	
+		    Aug 29, 2021
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="30-注册一个GitHub账号"><a href="#30-注册一个GitHub账号" class="headerlink" title="30: 注册一个GitHub账号"></a>30: 注册一个GitHub账号</h2><p>有了所以不记了……</p>
+<span id="more"></span>
+<h2 id="31-配置公私钥"><a href="#31-配置公私钥" class="headerlink" title="31: 配置公私钥"></a>31: 配置公私钥</h2><p>adding a new SSH key and adding it to the SSH agent</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+
+
+<p>如果有公私钥会显示一对文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -b 4096 -C “your\_email”</span><br></pre></td></tr></table></figure>
+
+
+<p>再执行 ls -al 就会看到一对id_rsa文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat id\_rsa.pub</span><br></pre></td></tr></table></figure>
+
+
+<p>粘贴公钥的一串字符</p>
+<p>在GitHub的profile - edit profile - SSH - Add new</p>
+<h2 id="32-在GitHub上创建个人仓库"><a href="#32-在GitHub上创建个人仓库" class="headerlink" title="32: 在GitHub上创建个人仓库"></a>32: 在GitHub上创建个人仓库</h2><p>会，不记了……<br>MIT License 开源 仓库中会有license文件</p>
+<h2 id="33-把本地仓库同步到GitHub"><a href="#33-把本地仓库同步到GitHub" class="headerlink" title="33: 把本地仓库同步到GitHub"></a>33: 把本地仓库同步到GitHub</h2><p>仓库中已有本地没有的文件<br>在GitHub上clone or download 粘贴SSH</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote 名称(如github) SSH具体地址</span><br></pre></td></tr></table></figure>
+
+
+<p>已有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add 名称(如github) SSH具体地址</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br></pre></td></tr></table></figure>
+
+
+<p>可以进行fetch拉和push上传</p>
+<p>远端已有license和commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push github --all</span><br></pre></td></tr></table></figure>
+
+
+<p>显示一条rejected error 需要fetch first</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+
+<p>进行了fetch，把远端的拉下来，同时merge远端和本地的master</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch github master</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge github/master</span><br></pre></td></tr></table></figure>
+
+
+<p>报错 因为本地和远端的两个树没有父子关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge --allow-unrelated-histories github/master</span><br></pre></td></tr></table></figure>
+
+
+<p>生成了新的树</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push github master</span><br></pre></td></tr></table></figure>
+
+
+<p>GitHub上的commit增加了本地的记录</p>
+<p>除了merge也可以用rebase</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Git/" rel="tag">Git</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/29/Git%E7%AC%94%E8%AE%B04-Git%E5%A4%9A%E4%BA%BA%E5%8D%95%E5%88%86%E6%94%AF%E7%BB%A7%E6%89%BF%E5%8D%8F%E4%BD%9C%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    data-tooltip="Git笔记4-Git多人单分支继承协作时的常见场景"
+                    aria-label="PREVIOUS: Git笔记4-Git多人单分支继承协作时的常见场景"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    data-tooltip="Git笔记2-独自使用Git时的常见场景"
+                    aria-label="NEXT: Git笔记2-独自使用Git时的常见场景"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Yuechen Wang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/29/Git%E7%AC%94%E8%AE%B04-Git%E5%A4%9A%E4%BA%BA%E5%8D%95%E5%88%86%E6%94%AF%E7%BB%A7%E6%89%BF%E5%8D%8F%E4%BD%9C%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    data-tooltip="Git笔记4-Git多人单分支继承协作时的常见场景"
+                    aria-label="PREVIOUS: Git笔记4-Git多人单分支继承协作时的常见场景"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    data-tooltip="Git笔记2-独自使用Git时的常见场景"
+                    aria-label="NEXT: Git笔记2-独自使用Git时的常见场景"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://example.com/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yuechen Wang</h4>
+        
+            <div id="about-card-bio"><p>Carnegie Mellon University</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>M.S. Computational Design Candidate</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-yl5kf65gwl5ghj916mxmtyxiui0knr8rznnrgoojfrmtwnuqfkrbmge4nzr2.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

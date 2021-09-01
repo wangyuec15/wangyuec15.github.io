@@ -1,0 +1,829 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hi!----wangyuec15">
+    <title>Git笔记2-独自使用Git时的常见场景 - Hi!----wangyuec15</title>
+    <meta name="author" content="Yuechen Wang">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"14:怎么删除不需要的分支1$ git branch -av\n\n\n1$ git branch -d 分支名\n \n\n1$ git branch -D 分支名\n\n\n-d报错not fully merged  确定删除-D\n15:修改最新commit的message1$ git commit amend\n\n1修改\n\n1wq!保存退出\n\n\n\n16:修改老旧commit的message1$ git rebase -i 要改的commit的父亲\n\n\n变基rebase进入交互式界面，在前面加r 保存退出，进入另一个交互界面可以改变message，再次保存退出commit的id改变了，但是内容没有变在log中可以看到改变后的message在原来的提交位置\n17:把连续的多个commit整理成一个1$ git rebase -i 最后一个要合并的commit的孩子\n\n\n在交互式页面中可以看到picks, squash 合并到前面的commit里将要向前合并的commit前缀改为s 保存退出写一句合并message 保存退出git log可以看到合并了commit\n18:把间隔的几个commit整理成一个1$ git rebase -i 最早的commit\n\n\n如果要合并最新的，交互式页面没有要加上将要合并的移动到相邻的位置 前缀为s\n1$ git rebase --continue\n\n\n加入新消息，保存\n19:比较暂存区和HEAD所含文件的差异1$ git status\n\n\n变更，git add 文件status会看到有文件被修改\n1$ git diff --cached\n\n\n必须加cached查看暂存区和HEAD之间的差异\n20:比较工作区和暂存区的差异1$ git diff\n\n\n可以加具体的文件名\n1$ git diff -- readme.md\n\n\n\n21:让暂存区恢复成HEAD的一样工作区的变更比暂存区的更好，暂存区中所有内容都不想保留\n1$ git reset HEAD\n\n\nunstaged changesgit diff –cached返回是空的，说明暂存区和HEAD已经完全一致\n22:让工作区的文件恢复成和暂存区一样1$ git checkout -- 文件名\n\n\n用git diff 文件名 查看，没有差别了\n23:取消暂存区部分文件的更改1$ git reset HEAD -- 文件名\n\n\n用status查看，没有了这个变更文件名处可以用空格添加多个文件\n24:消除最近的几次提交回退到以前的状况\n1$ git reset --hard 要恢复到的版本\n\n\n暂存区和工作区也回到原来状态，后续的变更都会丢失\n25:看看两次commit之间的文件差异1$ git diff commit号码 commit号码 --文件\n\n1$ git diff temp master (指向最近的一次提交）\n\n\n\n26:正确删除文件1$ rm 文件名\n\n\n在工作区删除\n1$ git rm 文件名\n\n\n在暂存区把工作文件删除\n1$ git reset --hard HEAD\n\n\n恢复文件\n直接用git rm可以直接删除\n27:开发中临时加塞的紧急任务1$ git stash\n\n\n存放到下一步不影响工作区的环境中再使用git status可以发现现在的工作区是干净的，可以做紧急任务\n继续做变更\n1$ git stash apply\n\n\n工作区的文件就会恢复到之前的状况作用：1.将之前存放的内容弹出到工作区 2.stash列表中还在 可以反复使用\n1$ git stash pop\n\n\n使用pop，会丢掉stash里面的信息\n28:指定不需要git管理的文件.gitignore*.文件类型\n1$ mkdir doc\n\n1$ echo ‘hi’ &gt; doc/readhim\n\n\n1\n1$ vi .gitignore\n\n\n1\n1输入doc\n\n\ndoc文件夹下的文件git不管理doc/ 也可以  不管理下面的文件但会管理doc文件夹\n29:将git仓库备份到本地传输协议：本地协议（哑协议/智能协议）、http/https协议（用户名和密码）、ssh协议（公私钥）哑协议传输进度不可见；智能协议传输进度可见智能协议传输速度比哑协议快\n备份特点：可以多点备份哑协议\n1$ git clone --bare 地址.git xx.git\n\n\n拷贝pwd展示的地址\n智能协议\n1$ git clone --bare file://地址.git xx.git\n\n\n有进度条\n将本地信息更新到远端\n1$ git remote add zhineng file://地址.git\n\n1$ git branch -av\n\n1$ git push --set-upstream zhineng xxx\n\n\n分支push到了远端\n","dateCreated":"2021-08-28T21:18:58-04:00","dateModified":"2021-08-31T20:22:40-04:00","datePublished":"2021-08-28T21:18:58-04:00","description":"14:怎么删除不需要的分支1$ git branch -av\n\n\n1$ git branch -d 分支名","headline":"Git笔记2-独自使用Git时的常见场景","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/","keywords":"Git"}</script>
+    <meta name="description" content="14:怎么删除不需要的分支1$ git branch -av   1$ git branch -d 分支名">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Git笔记2-独自使用Git时的常见场景">
+<meta property="og:url" content="http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/index.html">
+<meta property="og:site_name" content="Hi!----wangyuec15">
+<meta property="og:description" content="14:怎么删除不需要的分支1$ git branch -av   1$ git branch -d 分支名">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-29T01:18:58.000Z">
+<meta property="article:modified_time" content="2021-09-01T00:22:40.499Z">
+<meta property="article:author" content="Yuechen Wang">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://example.com/assets/images/author.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-migvazkmlhn4neeioayjfrnyheddmclkjltitjeam28pp9rzidnbrd6eitkf.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Hi!----wangyuec15
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yuechen Wang</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Carnegie Mellon University</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google +"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google +</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Git笔记2-独自使用Git时的常见场景
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-08-28T21:18:58-04:00">
+	
+		    Aug 28, 2021
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="14-怎么删除不需要的分支"><a href="#14-怎么删除不需要的分支" class="headerlink" title="14:怎么删除不需要的分支"></a>14:怎么删除不需要的分支</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -av</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d 分支名</span><br></pre></td></tr></table></figure>
+ <span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -D 分支名</span><br></pre></td></tr></table></figure>
+
+
+<p>-d报错not fully merged  确定删除-D</p>
+<h2 id="15-修改最新commit的message"><a href="#15-修改最新commit的message" class="headerlink" title="15:修改最新commit的message"></a>15:修改最新commit的message</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit amend</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">修改</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wq!保存退出</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="16-修改老旧commit的message"><a href="#16-修改老旧commit的message" class="headerlink" title="16:修改老旧commit的message"></a>16:修改老旧commit的message</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i 要改的commit的父亲</span><br></pre></td></tr></table></figure>
+
+
+<p>变基rebase<br>进入交互式界面，在前面加r 保存退出，进入另一个交互界面<br>可以改变message，再次保存退出<br>commit的id改变了，但是内容没有变<br>在log中可以看到改变后的message在原来的提交位置</p>
+<h2 id="17-把连续的多个commit整理成一个"><a href="#17-把连续的多个commit整理成一个" class="headerlink" title="17:把连续的多个commit整理成一个"></a>17:把连续的多个commit整理成一个</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i 最后一个要合并的commit的孩子</span><br></pre></td></tr></table></figure>
+
+
+<p>在交互式页面中可以看到pick<br>s, squash 合并到前面的commit里<br>将要向前合并的commit前缀改为s 保存退出<br>写一句合并message 保存退出<br>git log可以看到合并了commit</p>
+<h2 id="18-把间隔的几个commit整理成一个"><a href="#18-把间隔的几个commit整理成一个" class="headerlink" title="18:把间隔的几个commit整理成一个"></a>18:把间隔的几个commit整理成一个</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i 最早的commit</span><br></pre></td></tr></table></figure>
+
+
+<p>如果要合并最新的，交互式页面没有要加上<br>将要合并的移动到相邻的位置 前缀为s</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --continue</span><br></pre></td></tr></table></figure>
+
+
+<p>加入新消息，保存</p>
+<h2 id="19-比较暂存区和HEAD所含文件的差异"><a href="#19-比较暂存区和HEAD所含文件的差异" class="headerlink" title="19:比较暂存区和HEAD所含文件的差异"></a>19:比较暂存区和HEAD所含文件的差异</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+
+<p>变更，git add 文件<br>status会看到有文件被修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff --cached</span><br></pre></td></tr></table></figure>
+
+
+<p>必须加cached查看暂存区和HEAD之间的差异</p>
+<h2 id="20-比较工作区和暂存区的差异"><a href="#20-比较工作区和暂存区的差异" class="headerlink" title="20:比较工作区和暂存区的差异"></a>20:比较工作区和暂存区的差异</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff</span><br></pre></td></tr></table></figure>
+
+
+<p>可以加具体的文件名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff -- readme.md</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="21-让暂存区恢复成HEAD的一样"><a href="#21-让暂存区恢复成HEAD的一样" class="headerlink" title="21:让暂存区恢复成HEAD的一样"></a>21:让暂存区恢复成HEAD的一样</h2><p>工作区的变更比暂存区的更好，暂存区中所有内容都不想保留</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD</span><br></pre></td></tr></table></figure>
+
+
+<p>unstaged changes<br>git diff –cached返回是空的，说明暂存区和HEAD已经完全一致</p>
+<h2 id="22-让工作区的文件恢复成和暂存区一样"><a href="#22-让工作区的文件恢复成和暂存区一样" class="headerlink" title="22:让工作区的文件恢复成和暂存区一样"></a>22:让工作区的文件恢复成和暂存区一样</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- 文件名</span><br></pre></td></tr></table></figure>
+
+
+<p>用git diff 文件名 查看，没有差别了</p>
+<h2 id="23-取消暂存区部分文件的更改"><a href="#23-取消暂存区部分文件的更改" class="headerlink" title="23:取消暂存区部分文件的更改"></a>23:取消暂存区部分文件的更改</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD -- 文件名</span><br></pre></td></tr></table></figure>
+
+
+<p>用status查看，没有了这个变更<br>文件名处可以用空格添加多个文件</p>
+<h2 id="24-消除最近的几次提交"><a href="#24-消除最近的几次提交" class="headerlink" title="24:消除最近的几次提交"></a>24:消除最近的几次提交</h2><p>回退到以前的状况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard 要恢复到的版本</span><br></pre></td></tr></table></figure>
+
+
+<p>暂存区和工作区也回到原来状态，后续的变更都会丢失</p>
+<h2 id="25-看看两次commit之间的文件差异"><a href="#25-看看两次commit之间的文件差异" class="headerlink" title="25:看看两次commit之间的文件差异"></a>25:看看两次commit之间的文件差异</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff commit号码 commit号码 --文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff temp master (指向最近的一次提交）</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="26-正确删除文件"><a href="#26-正确删除文件" class="headerlink" title="26:正确删除文件"></a>26:正确删除文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm 文件名</span><br></pre></td></tr></table></figure>
+
+
+<p>在工作区删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm 文件名</span><br></pre></td></tr></table></figure>
+
+
+<p>在暂存区把工作文件删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD</span><br></pre></td></tr></table></figure>
+
+
+<p>恢复文件</p>
+<p>直接用git rm可以直接删除</p>
+<h2 id="27-开发中临时加塞的紧急任务"><a href="#27-开发中临时加塞的紧急任务" class="headerlink" title="27:开发中临时加塞的紧急任务"></a>27:开发中临时加塞的紧急任务</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash</span><br></pre></td></tr></table></figure>
+
+
+<p>存放到下一步不影响工作区的环境中<br>再使用git status可以发现现在的工作区是干净的，可以做紧急任务</p>
+<p>继续做变更</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash apply</span><br></pre></td></tr></table></figure>
+
+
+<p>工作区的文件就会恢复到之前的状况<br>作用：1.将之前存放的内容弹出到工作区 2.stash列表中还在 可以反复使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash pop</span><br></pre></td></tr></table></figure>
+
+
+<p>使用pop，会丢掉stash里面的信息</p>
+<h2 id="28-指定不需要git管理的文件"><a href="#28-指定不需要git管理的文件" class="headerlink" title="28:指定不需要git管理的文件"></a>28:指定不需要git管理的文件</h2><p>.gitignore<br>*.文件类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir doc</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo ‘hi’ &gt; doc/readhim</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi .gitignore</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入doc</span><br></pre></td></tr></table></figure>
+
+
+<p>doc文件夹下的文件git不管理<br>doc/ 也可以  不管理下面的文件但会管理doc文件夹</p>
+<h2 id="29-将git仓库备份到本地"><a href="#29-将git仓库备份到本地" class="headerlink" title="29:将git仓库备份到本地"></a>29:将git仓库备份到本地</h2><p>传输协议：本地协议（哑协议/智能协议）、http/https协议（用户名和密码）、ssh协议（公私钥）<br>哑协议传输进度不可见；智能协议传输进度可见<br>智能协议传输速度比哑协议快</p>
+<p>备份特点：可以多点备份<br>哑协议</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone --bare 地址.git xx.git</span><br></pre></td></tr></table></figure>
+
+
+<p>拷贝pwd展示的地址</p>
+<p>智能协议</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone --bare file://地址.git xx.git</span><br></pre></td></tr></table></figure>
+
+
+<p>有进度条</p>
+<p>将本地信息更新到远端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add zhineng file://地址.git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -av</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push --set-upstream zhineng xxx</span><br></pre></td></tr></table></figure>
+
+
+<p>分支push到了远端</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Git/" rel="tag">Git</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                    data-tooltip="Git笔记3-Git与GitHub的简单同步"
+                    aria-label="PREVIOUS: Git笔记3-Git与GitHub的简单同步"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                    data-tooltip="Git笔记1-Git基础"
+                    aria-label="NEXT: Git笔记1-Git基础"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Yuechen Wang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/29/Git%E7%AC%94%E8%AE%B03-Git%E4%B8%8EGitHub%E7%9A%84%E7%AE%80%E5%8D%95%E5%90%8C%E6%AD%A5/"
+                    data-tooltip="Git笔记3-Git与GitHub的简单同步"
+                    aria-label="PREVIOUS: Git笔记3-Git与GitHub的简单同步"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                    data-tooltip="Git笔记1-Git基础"
+                    aria-label="NEXT: Git笔记1-Git基础"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yuechen Wang</h4>
+        
+            <div id="about-card-bio"><p>Carnegie Mellon University</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>M.S. Computational Design Candidate</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-yl5kf65gwl5ghj916mxmtyxiui0knr8rznnrgoojfrmtwnuqfkrbmge4nzr2.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

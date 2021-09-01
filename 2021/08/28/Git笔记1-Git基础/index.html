@@ -1,0 +1,1055 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hi!----wangyuec15">
+    <title>Git笔记1-Git基础 - Hi!----wangyuec15</title>
+    <meta name="author" content="Yuechen Wang">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"1.课程综述版本控制系统原始​：目录拷贝，公共文件容易被覆盖，沟通成本高，效率低​发展​：集中式vcs，版本管理，分支管理。客户端没有完整历史，必须随时与服务器相连​分布式vcs​：服务端和客户端都有完整版本\n\n\n\ngit特点最优的存储能力，非凡的性能，开源的，容易备份，支持离线操作，容易定制工作流程\n课程内容如何使用git，git的工作原理\n2.安装git地址https://git-scm.com/book/zh/v2/起步-安装-Git链接-下载安装包-安装验证：终端输入git –version，如果成功显示版本号\n3.使用git之前要做的最小配置配置user信息配置user.name和user.email\n1$ git config --global user.name ‘your\\_name’\n\n1$ git config --global user.email ‘your\\_email@domain.com’\n\n\nglobal 可以改为local和system\n\nglobal：对当前用户所有仓库有效local：只对当前工作的仓库有效system：对系统所有登录的用户有效\n\n查看现有的设置 –list\n1$ git config --list --local   (只有当前路径在git仓库才有效)\n\n1$ git config --list --global\n\n1$ git config --list --system\n\n\npwd:当前工作的路径\n4.创建第一个仓库并配置local参数建git仓库两种场景：1.把已有项目代码纳入git管理\n1$ cd 项目代码所在的文件夹\n\n1$ git init (名称)\n\n\n操作后，文件夹中增加了.git文件\n向仓库中加入第一个文件readme，通过复制\n1cp ../0-material/readme\n\n\n添加commit\n1$ git commit -m ‘信息‘\n\n1如\n\n1$ git commit -m ‘Add readme’\n\n\n错误：\n\nUntracked files: readme说明新加入的文件readme没有被git管控，所以commit不生效加入\n\n1$ git add readme\n\n\n再次操作\n1$ git commit -m ‘Add readme’\n\n\n检查操作成功\n1$ git log\n\n\n\n2.新建的项目直接用git管理\n5.通过几次commit认识工作区和暂存区1.加入index.html和git-logo2.加入style.css3.加入script.js4.修改index.html和style.css\n工作目录 - git add files - 暂存区 - git commit - 版本历史\n\n拷贝index.html和git-logo1$ cp ../0-material/index.html.01  index.html\n\n1$ cp -r ../0-material/images .\n\n\n拷贝了index文件、images文件夹和其中的文件\n检查状态1$ git status\n\n\n显示了未管理的文件 untracked files\n1$ git add index.html images\n\n\n加入了文件\n正式提交一次1$ git commit -m ‘Add index \\+ logo’\n\n\nm: message\n\n拷贝css1$ mkdir styles\n\n1$ cp ../0-material/style.css.01 styles/styles.css\n\n\n将styles.css拷贝到了styles文件夹中\n查看styles1$ cd styles/\n\n1$ ls -al\n\n\n查看文件内容\n1vi style.css\n\n\n退出到父路径\n1$ cd ../\n\n\n\n用git将style.css管理起来1$ git add styles\n\n1$ git status\n\n\n显示changes to be committed\n1git commit -m ‘Add style.css’\n\n\n进行了提交再次检查历史\n1$ git log\n\n\n\n加入script.js将js文件夹拷贝到当前路径\n1$ cp -r ../0-material.js\n\n\n检查\n1$ pwd\n\n1$ ls -al\n\n\n1$ cd js\n\n1$ ls -al\n\n1$ vi script.js\n\n\n此时 在网页观看 js可以被接受\n添加到暂存区，commit\n1$ git add js\n\n1$ git commit -m ‘Add js’\n\n\n\n4.修改index.html和style.css1$ vi index.html\n\n\n直接修改index文件\n1wq!\n\n\n编辑css\n1vi styles/styles.css\n\n\n强制保存后退出\n1wq!\n\n\n查看状态\n1$ git status\n\n\n显示修改了两个文件\n1$ git add -u\n\n\nupdate: 工作区中已经被git管理的文件一起提交到暂存区\n1$ git commit -m ‘Add referring projectd’\n\n\n提交到版本历史\n6.给文件重命名的简便方法在工作目录直接重命名\n1$ mv readme readme.md\n\n1$ git status\n\n\n显示readme被删除，新增了readme.md\n1$ git add readme.md\n\n1$ git rm readme\n\n1$ git status\n\n\ngit识别出来重命名，changes显示renamed\n复原刚才的操作\n1$ git reset --hard\n\n\n清理掉了暂存区的所有操作，没有提交，没有破坏工作历史\n1$ git mv readme readme.md\n\n1$ git status\n\n\n用一个步骤替代三个步骤\n1$ git commit -m ‘Move readme to readme.md’\n\n\n\n\n7.通过git log查看版本历史1$ git log\n\n\n1$ git log --oneline\n\n\n简洁看到了commit消息列表\n1$ git log -n4 oneline\n\n\n只看最近的4次\n1$ git branch -v\n\n\n看本地有多少分支\n1$ git checkout -b temp (以前的版本号）\n\n\n基于以前的版本创建分支temp\n稍作修改\n1$ ls -al\n\n1$ vi readme.md\n\n\n稍作修改，继续commit\n1$ git commit -m’Add test’\n\n\n显示changes not staged for commit\n1$ git commit -am’Add test’ （-am没有add也可以）\n\n1$ git branch -av\n\n\n提交后看到有两个分支（-am直接提交到版本历史库，不推荐）\n1$ git log\n\n\n只看当前分支的历史\n1$ git log --all\n\n\n看到所有分支的历史\n1$ git log --all --graph\n\n\n看到图形化的历史\n总结：\n1$ git log --oneline\n\n1$ git log --oneline --all\n\n1$ git log --oneline --all --n4\n\n1$ git log --oneline --all --n4 --graph\n\n1$ git log --oneline --all temp(有了all指定分支不起作用）\n\n1$ git log --oneline temp\n\n\n简便的、指定是最后几个的、图形化的、指定分支的\n1$ git help --web log\n\n\n\n\n8.gitk：通过图形界面工具来查看版本历史1$ gitk\n\n\npatch:变更集tree:目录结构 显示文件的所有内容\nAuthor:Committer:挑选某一个commit放到另一个分支，committer是操作者，author是原作者\nparent:上一次的变更child同理\nbranches: 哪几个分支包含这个commit\n标签\n9.探秘.git目录1$ pwd\n\n1$ ls -al\n\n1$ cd .git\n\n1$ ls -al\n\n\n\nHEAD文件1$ cat HEAD\n\n\n显示：refs/heads/temp现在正在工作的分支是temp\n1$ git branch -av\n\n\n显示是在temp路径下\n回退到master\n1$ cd ..\n\n1$ git checkout master\n\n\n再观察HEAD\n1$ cat .git/HEAD\n\n\n显示 refs: refs/heads/master 在master路径工作\nconfig文件1$ cat .git/config\n\n\n显示原来设定的姓名 邮箱等 config存放了配置信息\nrefs1$ cd refs\n\n1$ ls -al\n\n\n显示包含heads tages包含标签 可以做里程碑heads就是分支（独立的开发空间）\n1$ cd heads\n\n\n显示了master和temp\n1$ cat master\n\n\n显示一串乱码观看它是什么类型\n1$ git cat-file -t xxxxxx\n\n\n显示commit，说明是commit的类型\n1git branch -av\n\n\n显示master指向这串乱码表示的commit\ntags指向的tag名称tag名称包含git对象的类型是commit\nobjects很多两个字母的文件 info pack将两个字母和其中哈希值拼在一起 是一个树的类型树的内容是文件 文件有哈希值 blob类型文件对象\n小结：三个对象 commit tree blobHEAD  分支config 配置 用户名 修改文件就是修改配置信息refs 引用 存放分支和tag信息object 任何文件内容相同在git中是唯一的blob\n10. commit tree和blob的关系commit 每一次执行git commit都会创建一个这样对象一个commit对应一棵树 一个快照 存放了当前commit对应的本项目仓库所有文件夹和文件的快照tree文件 里面包含树（文件夹） 有哈希值 blob blob指具体的文件blob和文件名没有关系 只有唯一的内容 节约存储空间\ncommit里的树 那个点看到的项目所包含的内容 叶子节点是文件\n11.小练习：数一数tree的个数commit 1tree：文件夹的个数+文件的个数blob：文件的个数\n12:分离头指针情况下的注意事项detached head\n打开git log\n1$ git checkout \\+commit\n\n\n基于commit建立checkout分离头指针可以继续开发，产生commit，并且不会影响其他分支在没有分支的情况下commit并且变更，切换到master，分离头指针的变更可能会丢失commit (HEAD)继续checkout到master提示：要不要为分离头指针的commit 建branch重要变更一定要和分支绑在一起\n13.进一步理解HEAD和branch1$ git checkout -b fix\\_readme fix\\_css\n\n\n-b:创建新分支并直接切换到新分支基于fix_css创建新分支fix_readme\n1$ git log -n1\n\n\n看到HEAD-&gt; fix_readme, fix_cssHEAD指向了新分支HEAD不仅可以指代新分支的最后一次提交，分离头时指向最后一次commit切换branch时HEAD也会跟随变化，指向新的分支HEAD最终会落脚于某一commit\n比较两个commit之间的差异\n1$ git diff xxxxx xxxxx\n\n\n1$ git diff HEAD HEAD^1\n\n\n比较HEAD的父亲   父亲的父亲HEAD^1^1 也可以^^ 或者~2\n","dateCreated":"2021-08-28T16:03:42-04:00","dateModified":"2021-08-31T20:20:28-04:00","datePublished":"2021-08-28T16:03:42-04:00","description":"1.课程综述版本控制系统原始​：目录拷贝，公共文件容易被覆盖，沟通成本高，效率低​发展​：集中式vcs，版本管理，分支管理。客户端没有完整历史，必须随时与服务器相连​分布式vcs​：服务端和客户端都有完整版本","headline":"Git笔记1-Git基础","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/","keywords":"Git"}</script>
+    <meta name="description" content="1.课程综述版本控制系统原始​：目录拷贝，公共文件容易被覆盖，沟通成本高，效率低​发展​：集中式vcs，版本管理，分支管理。客户端没有完整历史，必须随时与服务器相连​分布式vcs​：服务端和客户端都有完整版本">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Git笔记1-Git基础">
+<meta property="og:url" content="http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hi!----wangyuec15">
+<meta property="og:description" content="1.课程综述版本控制系统原始​：目录拷贝，公共文件容易被覆盖，沟通成本高，效率低​发展​：集中式vcs，版本管理，分支管理。客户端没有完整历史，必须随时与服务器相连​分布式vcs​：服务端和客户端都有完整版本">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-28T20:03:42.000Z">
+<meta property="article:modified_time" content="2021-09-01T00:20:28.010Z">
+<meta property="article:author" content="Yuechen Wang">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://example.com/assets/images/author.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-migvazkmlhn4neeioayjfrnyheddmclkjltitjeam28pp9rzidnbrd6eitkf.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Hi!----wangyuec15
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yuechen Wang</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Carnegie Mellon University</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google +"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google +</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Git笔记1-Git基础
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-08-28T16:03:42-04:00">
+	
+		    Aug 28, 2021
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="1-课程综述"><a href="#1-课程综述" class="headerlink" title="1.课程综述"></a>1.课程综述</h2><h3 id="版本控制系统"><a href="#版本控制系统" class="headerlink" title="版本控制系统"></a>版本控制系统</h3><p><strong>原始</strong>​：目录拷贝，公共文件容易被覆盖，沟通成本高，效率低<br>​<strong>发展</strong>​：集中式vcs，版本管理，分支管理。客户端没有完整历史，必须随时与服务器相连<br>​<strong>分布式vcs</strong>​：服务端和客户端都有完整版本</p>
+<span id="more"></span>
+
+
+<h3 id="git特点"><a href="#git特点" class="headerlink" title="git特点"></a>git特点</h3><p>最优的存储能力，非凡的性能，开源的，容易备份，支持离线操作，容易定制工作流程</p>
+<h3 id="课程内容"><a href="#课程内容" class="headerlink" title="课程内容"></a>课程内容</h3><p>如何使用git，git的工作原理</p>
+<h2 id="2-安装git"><a href="#2-安装git" class="headerlink" title="2.安装git"></a>2.安装git</h2><h3 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h3><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git">https://git-scm.com/book/zh/v2/起步-安装-Git</a><br>链接-下载安装包-安装<br>验证：终端输入git –version，如果成功显示版本号</p>
+<h2 id="3-使用git之前要做的最小配置"><a href="#3-使用git之前要做的最小配置" class="headerlink" title="3.使用git之前要做的最小配置"></a>3.使用git之前要做的最小配置</h2><h3 id="配置user信息"><a href="#配置user信息" class="headerlink" title="配置user信息"></a>配置user信息</h3><p>配置user.name和user.email</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name ‘your\_name’</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.email ‘your\_email@domain.com’</span><br></pre></td></tr></table></figure>
+
+
+<p>global 可以改为local和system</p>
+<blockquote>
+<p>global：对当前用户所有仓库有效<br>local：只对当前工作的仓库有效<br>system：对系统所有登录的用户有效</p>
+</blockquote>
+<p>查看现有的设置 –list</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list --local   (只有当前路径在git仓库才有效)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list --global</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list --system</span><br></pre></td></tr></table></figure>
+
+
+<p>pwd:当前工作的路径</p>
+<h2 id="4-创建第一个仓库并配置local参数"><a href="#4-创建第一个仓库并配置local参数" class="headerlink" title="4.创建第一个仓库并配置local参数"></a>4.创建第一个仓库并配置local参数</h2><h3 id="建git仓库"><a href="#建git仓库" class="headerlink" title="建git仓库"></a>建git仓库</h3><p>两种场景：<br>1.把已有项目代码纳入git管理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd 项目代码所在的文件夹</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init (名称)</span><br></pre></td></tr></table></figure>
+
+
+<p>操作后，文件夹中增加了.git文件</p>
+<p>向仓库中加入第一个文件readme，通过复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ../0-material/readme</span><br></pre></td></tr></table></figure>
+
+
+<p>添加commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m ‘信息‘</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m ‘Add readme’</span><br></pre></td></tr></table></figure>
+
+
+<p>错误：</p>
+<blockquote>
+<p>Untracked files: readme<br>说明新加入的文件readme没有被git管控，所以commit不生效<br>加入</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add readme</span><br></pre></td></tr></table></figure>
+
+
+<p>再次操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m ‘Add readme’</span><br></pre></td></tr></table></figure>
+
+
+<p>检查操作成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.新建的项目直接用git管理</p>
+<h2 id="5-通过几次commit认识工作区和暂存区"><a href="#5-通过几次commit认识工作区和暂存区" class="headerlink" title="5.通过几次commit认识工作区和暂存区"></a>5.通过几次commit认识工作区和暂存区</h2><p>1.加入index.html和git-logo<br>2.加入style.css<br>3.加入script.js<br>4.修改index.html和style.css</p>
+<p>工作目录 - git add files - 暂存区 - git commit - 版本历史</p>
+<hr>
+<h3 id="拷贝index-html和git-logo"><a href="#拷贝index-html和git-logo" class="headerlink" title="拷贝index.html和git-logo"></a>拷贝index.html和git-logo</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp ../0-material/index.html.01  index.html</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp -r ../0-material/images .</span><br></pre></td></tr></table></figure>
+
+
+<p>拷贝了index文件、images文件夹和其中的文件</p>
+<h3 id="检查状态"><a href="#检查状态" class="headerlink" title="检查状态"></a>检查状态</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+
+<p>显示了未管理的文件 untracked files</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add index.html images</span><br></pre></td></tr></table></figure>
+
+
+<p>加入了文件</p>
+<h3 id="正式提交一次"><a href="#正式提交一次" class="headerlink" title="正式提交一次"></a>正式提交一次</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m ‘Add index \+ logo’</span><br></pre></td></tr></table></figure>
+
+
+<p>m: message</p>
+<hr>
+<h3 id="拷贝css"><a href="#拷贝css" class="headerlink" title="拷贝css"></a>拷贝css</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir styles</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp ../0-material/style.css.01 styles/styles.css</span><br></pre></td></tr></table></figure>
+
+
+<p>将styles.css拷贝到了styles文件夹中</p>
+<h3 id="查看styles"><a href="#查看styles" class="headerlink" title="查看styles"></a>查看styles</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd styles/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+
+
+<p>查看文件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi style.css</span><br></pre></td></tr></table></figure>
+
+
+<p>退出到父路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ../</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="用git将style-css管理起来"><a href="#用git将style-css管理起来" class="headerlink" title="用git将style.css管理起来"></a>用git将style.css管理起来</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add styles</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+
+<p>显示changes to be committed</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m ‘Add style.css’</span><br></pre></td></tr></table></figure>
+
+
+<p>进行了提交<br>再次检查历史</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h3 id="加入script-js"><a href="#加入script-js" class="headerlink" title="加入script.js"></a>加入script.js</h3><p>将js文件夹拷贝到当前路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp -r ../0-material.js</span><br></pre></td></tr></table></figure>
+
+
+<p>检查</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pwd</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd js</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi script.js</span><br></pre></td></tr></table></figure>
+
+
+<p>此时 在网页观看 js可以被接受</p>
+<p>添加到暂存区，commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add js</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m ‘Add js’</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h3 id="4-修改index-html和style-css"><a href="#4-修改index-html和style-css" class="headerlink" title="4.修改index.html和style.css"></a>4.修改index.html和style.css</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi index.html</span><br></pre></td></tr></table></figure>
+
+
+<p>直接修改index文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wq!</span><br></pre></td></tr></table></figure>
+
+
+<p>编辑css</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi styles/styles.css</span><br></pre></td></tr></table></figure>
+
+
+<p>强制保存后退出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wq!</span><br></pre></td></tr></table></figure>
+
+
+<p>查看状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+
+<p>显示修改了两个文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add -u</span><br></pre></td></tr></table></figure>
+
+
+<p>update: 工作区中已经被git管理的文件一起提交到暂存区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m ‘Add referring projectd’</span><br></pre></td></tr></table></figure>
+
+
+<p>提交到版本历史</p>
+<h2 id="6-给文件重命名的简便方法"><a href="#6-给文件重命名的简便方法" class="headerlink" title="6.给文件重命名的简便方法"></a>6.给文件重命名的简便方法</h2><p>在工作目录直接重命名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mv readme readme.md</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+
+<p>显示readme被删除，新增了readme.md</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add readme.md</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm readme</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+
+<p>git识别出来重命名，changes显示renamed</p>
+<p>复原刚才的操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard</span><br></pre></td></tr></table></figure>
+
+
+<p>清理掉了暂存区的所有操作，没有提交，没有破坏工作历史</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv readme readme.md</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+
+<p>用一个步骤替代三个步骤</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m ‘Move readme to readme.md’</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="7-通过git-log查看版本历史"><a href="#7-通过git-log查看版本历史" class="headerlink" title="7.通过git log查看版本历史"></a>7.通过git log查看版本历史</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline</span><br></pre></td></tr></table></figure>
+
+
+<p>简洁看到了commit消息列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log -n4 oneline</span><br></pre></td></tr></table></figure>
+
+
+<p>只看最近的4次</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -v</span><br></pre></td></tr></table></figure>
+
+
+<p>看本地有多少分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b temp (以前的版本号）</span><br></pre></td></tr></table></figure>
+
+
+<p>基于以前的版本创建分支temp</p>
+<p>稍作修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi readme.md</span><br></pre></td></tr></table></figure>
+
+
+<p>稍作修改，继续commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m’Add test’</span><br></pre></td></tr></table></figure>
+
+
+<p>显示changes not staged for commit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -am’Add test’ （-am没有add也可以）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -av</span><br></pre></td></tr></table></figure>
+
+
+<p>提交后看到有两个分支（-am直接提交到版本历史库，不推荐）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+
+
+<p>只看当前分支的历史</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --all</span><br></pre></td></tr></table></figure>
+
+
+<p>看到所有分支的历史</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --all --graph</span><br></pre></td></tr></table></figure>
+
+
+<p>看到图形化的历史</p>
+<p>总结：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline --all</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline --all --n4</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline --all --n4 --graph</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline --all temp(有了all指定分支不起作用）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline temp</span><br></pre></td></tr></table></figure>
+
+
+<p>简便的、指定是最后几个的、图形化的、指定分支的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git help --web log</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="8-gitk：通过图形界面工具来查看版本历史"><a href="#8-gitk：通过图形界面工具来查看版本历史" class="headerlink" title="8.gitk：通过图形界面工具来查看版本历史"></a>8.gitk：通过图形界面工具来查看版本历史</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gitk</span><br></pre></td></tr></table></figure>
+
+
+<p>patch:变更集<br>tree:目录结构 显示文件的所有内容</p>
+<p>Author:<br>Committer:<br>挑选某一个commit放到另一个分支，committer是操作者，author是原作者</p>
+<p>parent:上一次的变更<br>child同理</p>
+<p>branches: 哪几个分支包含这个commit</p>
+<p>标签</p>
+<h2 id="9-探秘-git目录"><a href="#9-探秘-git目录" class="headerlink" title="9.探秘.git目录"></a>9.探秘.git目录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pwd</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd .git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="HEAD文件"><a href="#HEAD文件" class="headerlink" title="HEAD文件"></a>HEAD文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat HEAD</span><br></pre></td></tr></table></figure>
+
+
+<p>显示：<br>refs/heads/temp<br>现在正在工作的分支是temp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -av</span><br></pre></td></tr></table></figure>
+
+
+<p>显示是在temp路径下</p>
+<p>回退到master</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ..</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure>
+
+
+<p>再观察HEAD</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git/HEAD</span><br></pre></td></tr></table></figure>
+
+
+<p>显示 refs: refs/heads/master 在master路径工作</p>
+<h3 id="config文件"><a href="#config文件" class="headerlink" title="config文件"></a>config文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git/config</span><br></pre></td></tr></table></figure>
+
+
+<p>显示原来设定的姓名 邮箱等 config存放了配置信息</p>
+<h3 id="refs"><a href="#refs" class="headerlink" title="refs"></a>refs</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd refs</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure>
+
+
+<p>显示包含heads tages<br>包含标签 可以做里程碑<br>heads就是分支（独立的开发空间）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd heads</span><br></pre></td></tr></table></figure>
+
+
+<p>显示了master和temp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat master</span><br></pre></td></tr></table></figure>
+
+
+<p>显示一串乱码<br>观看它是什么类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git cat-file -t xxxxxx</span><br></pre></td></tr></table></figure>
+
+
+<p>显示commit，说明是commit的类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -av</span><br></pre></td></tr></table></figure>
+
+
+<p>显示master指向这串乱码表示的commit</p>
+<p>tags指向的tag名称<br>tag名称包含git对象的类型是commit</p>
+<h3 id="objects"><a href="#objects" class="headerlink" title="objects"></a>objects</h3><p>很多两个字母的文件 info pack<br>将两个字母和其中哈希值拼在一起 是一个树的类型<br>树的内容是文件 文件有哈希值 blob类型文件对象</p>
+<h3 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h3><p>三个对象 commit tree blob<br>HEAD  分支<br>config 配置 用户名 修改文件就是修改配置信息<br>refs 引用 存放分支和tag信息<br>object 任何文件内容相同在git中是唯一的blob</p>
+<h2 id="10-commit-tree和blob的关系"><a href="#10-commit-tree和blob的关系" class="headerlink" title="10. commit tree和blob的关系"></a>10. commit tree和blob的关系</h2><p>commit 每一次执行git commit都会创建一个这样对象<br>一个commit对应一棵树 一个快照 存放了当前commit对应的本项目仓库所有文件夹和文件的快照<br>tree文件 里面包含树（文件夹） 有哈希值 blob blob指具体的文件<br>blob和文件名没有关系 只有唯一的内容 节约存储空间</p>
+<p>commit里的树 那个点看到的项目所包含的内容 叶子节点是文件</p>
+<h2 id="11-小练习：数一数tree的个数"><a href="#11-小练习：数一数tree的个数" class="headerlink" title="11.小练习：数一数tree的个数"></a>11.小练习：数一数tree的个数</h2><p>commit 1<br>tree：文件夹的个数+文件的个数<br>blob：文件的个数</p>
+<h2 id="12-分离头指针情况下的注意事项"><a href="#12-分离头指针情况下的注意事项" class="headerlink" title="12:分离头指针情况下的注意事项"></a>12:分离头指针情况下的注意事项</h2><p>detached head</p>
+<p>打开git log</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout \+commit</span><br></pre></td></tr></table></figure>
+
+
+<p>基于commit建立checkout<br>分离头指针<br>可以继续开发，产生commit，并且不会影响其他分支<br>在没有分支的情况下commit并且变更，切换到master，分离头指针的变更可能会丢失<br>commit (HEAD)<br>继续checkout到master<br>提示：要不要为分离头指针的commit 建branch<br>重要变更一定要和分支绑在一起</p>
+<h2 id="13-进一步理解HEAD和branch"><a href="#13-进一步理解HEAD和branch" class="headerlink" title="13.进一步理解HEAD和branch"></a>13.进一步理解HEAD和branch</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b fix\_readme fix\_css</span><br></pre></td></tr></table></figure>
+
+
+<p>-b:创建新分支并直接切换到新分支<br>基于fix_css创建新分支fix_readme</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log -n1</span><br></pre></td></tr></table></figure>
+
+
+<p>看到HEAD-&gt; fix_readme, fix_css<br>HEAD指向了新分支<br>HEAD不仅可以指代新分支的最后一次提交，分离头时指向最后一次commit<br>切换branch时HEAD也会跟随变化，指向新的分支<br>HEAD最终会落脚于某一commit</p>
+<p>比较两个commit之间的差异</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff xxxxx xxxxx</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff HEAD HEAD^1</span><br></pre></td></tr></table></figure>
+
+
+<p>比较HEAD的父亲   父亲的父亲HEAD^1^1 也可以^^ 或者~2</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Git/" rel="tag">Git</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    data-tooltip="Git笔记2-独自使用Git时的常见场景"
+                    aria-label="PREVIOUS: Git笔记2-独自使用Git时的常见场景"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/06/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%8610/"
+                    data-tooltip="数据结构错题集10"
+                    aria-label="NEXT: 数据结构错题集10"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Yuechen Wang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/08/28/Git%E7%AC%94%E8%AE%B02-%E7%8B%AC%E8%87%AA%E4%BD%BF%E7%94%A8Git%E6%97%B6%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF/"
+                    data-tooltip="Git笔记2-独自使用Git时的常见场景"
+                    aria-label="PREVIOUS: Git笔记2-独自使用Git时的常见场景"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/06/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%8610/"
+                    data-tooltip="数据结构错题集10"
+                    aria-label="NEXT: 数据结构错题集10"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://example.com/2021/08/28/Git%E7%AC%94%E8%AE%B01-Git%E5%9F%BA%E7%A1%80/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yuechen Wang</h4>
+        
+            <div id="about-card-bio"><p>Carnegie Mellon University</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>M.S. Computational Design Candidate</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-yl5kf65gwl5ghj916mxmtyxiui0knr8rznnrgoojfrmtwnuqfkrbmge4nzr2.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

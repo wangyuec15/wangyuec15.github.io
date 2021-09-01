@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hi!----wangyuec15">
+    <title>IGI-1 - Hi!----wangyuec15</title>
+    <meta name="author" content="Yuechen Wang">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"感谢JK大佬的workshop！\n \n1.图形学简介渲染：程序-&gt;图像【满足要求、高效】按应用：实时渲染、离线渲染（作为标准参考）“看起来对就是对的”-可能并不符合物理规律\n2.渲染一帧pbr基于物理的渲染（基于物理的材质、相机、光源）怎样表现一个场景？（不同的层级）（物体，材质、光源、相机、其它资源）\n2.1 着色模型shading model描述表面对光照的响应（只关注邻域、光路可逆性）数学表达：B’x’DF描述：一点的法线方向、入射方向、观察方向近似为漫反射和镜面反射（迪士尼标准BRDF）\n2.2 光HDR 线性空间 存储光的物理参数到显卡 rgb只有0-1，无法区分白色和发光的物体，有HDR可以实现发光的效果游戏中的光源点光/平行光（现实不存在）面光源游戏中的光源颜色、强度、范围、性能大部分只计算直接光照单次反射全局光照光在多种介质中多次传播、烘焙、实时RTX渲染方程 http://xked.com/1133/\n2.3 影相机接受的辐射照度小就是影如何判断是否对光可见？shadow map（最常见）是否被遮挡&lt;-&gt;是否对光源可见面光源（半影问题）透明物体（存储额外信息/dithered shadows）\n2.4 相机正交相机、透视相机基于物理的相机（光圈、感光度、快门、胶片*）前两项一般用后处理、曝光；快门-动态模糊近似；胶片-一般用后处理\n2.5 渲染管线(graphics pipeline)渲染的步骤都在渲染管线之上硬件与软件互相影响结构（GPU）：应用-CPU给GPU传数据 调用图形接口-设置各种配置-&gt;几何处理-传过各种物品 模型顶点数据等 运输到屏幕/render target上-&gt;光栅化-将得到的信息分配到每个像素上 不可编程 课配置-&gt;像素处理- pixel shading - merging\n3.unity实现3.1 场景管理4.进一步学习github miloyip/game-programmer/《unity shader 入门》Inigo quilezshadertoyb站 games101jwildfire\npbr基于物理的npr非真实感主要改动的是着色的部分，质感、打光方式、shader着色模型对光的响应 对像素编程\n","dateCreated":"2021-05-05T07:34:39-04:00","dateModified":"2021-05-13T05:16:29-04:00","datePublished":"2021-05-05T07:34:39-04:00","description":"感谢JK大佬的workshop！","headline":"IGI-1","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/05/IGI-1/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/05/05/IGI-1/","keywords":"图形学, 笔记"}</script>
+    <meta name="description" content="感谢JK大佬的workshop！">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="IGI-1">
+<meta property="og:url" content="http://example.com/2021/05/05/IGI-1/index.html">
+<meta property="og:site_name" content="Hi!----wangyuec15">
+<meta property="og:description" content="感谢JK大佬的workshop！">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-05T11:34:39.000Z">
+<meta property="article:modified_time" content="2021-05-13T09:16:29.000Z">
+<meta property="article:author" content="Yuechen Wang">
+<meta property="article:tag" content="图形学">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://example.com/assets/images/author.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-migvazkmlhn4neeioayjfrnyheddmclkjltitjeam28pp9rzidnbrd6eitkf.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Hi!----wangyuec15
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yuechen Wang</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Carnegie Mellon University</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google +"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google +</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            IGI-1
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-05-05T07:34:39-04:00">
+	
+		    May 05, 2021
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>感谢JK大佬的workshop！</p>
+<span id="more"></span> 
+<h2 id="1-图形学简介"><a href="#1-图形学简介" class="headerlink" title="1.图形学简介"></a>1.图形学简介</h2><p>渲染：程序-&gt;图像<br>【满足要求、高效】<br>按应用：实时渲染、离线渲染（作为标准参考）<br>“看起来对就是对的”-可能并不符合物理规律</p>
+<h2 id="2-渲染一帧"><a href="#2-渲染一帧" class="headerlink" title="2.渲染一帧"></a>2.渲染一帧</h2><p>pbr基于物理的渲染（基于物理的材质、相机、光源）<br>怎样表现一个场景？（不同的层级）（物体，材质、光源、相机、其它资源）</p>
+<h3 id="2-1-着色模型shading-model"><a href="#2-1-着色模型shading-model" class="headerlink" title="2.1 着色模型shading model"></a>2.1 着色模型shading model</h3><p>描述表面对光照的响应（只关注邻域、光路可逆性）<br>数学表达：B’x’DF<br>描述：一点的法线方向、入射方向、观察方向<br>近似为漫反射和镜面反射<br>（迪士尼标准BRDF）</p>
+<h3 id="2-2-光"><a href="#2-2-光" class="headerlink" title="2.2 光"></a>2.2 光</h3><p>HDR 线性空间 存储光的物理参数到显卡 rgb只有0-1，无法区分白色和发光的物体，有HDR可以实现发光的效果<br>游戏中的光源<br>点光/平行光（现实不存在）<br>面光源<br>游戏中的光源<br>颜色、强度、范围、性能<br>大部分只计算直接光照<br>单次反射<br>全局光照<br>光在多种介质中多次传播、烘焙、实时RTX<br>渲染方程 <a target="_blank" rel="noopener" href="http://xked.com/1133/">http://xked.com/1133/</a></p>
+<h3 id="2-3-影"><a href="#2-3-影" class="headerlink" title="2.3 影"></a>2.3 影</h3><p>相机接受的辐射照度小就是影<br>如何判断是否对光可见？<br>shadow map（最常见）<br>是否被遮挡&lt;-&gt;是否对光源可见<br>面光源（半影问题）<br>透明物体（存储额外信息/dithered shadows）</p>
+<h3 id="2-4-相机"><a href="#2-4-相机" class="headerlink" title="2.4 相机"></a>2.4 相机</h3><p>正交相机、透视相机<br>基于物理的相机（光圈、感光度、快门、胶片*）<br>前两项一般用后处理、曝光；快门-动态模糊近似；胶片-一般用后处理</p>
+<h3 id="2-5-渲染管线-graphics-pipeline"><a href="#2-5-渲染管线-graphics-pipeline" class="headerlink" title="2.5 渲染管线(graphics pipeline)"></a>2.5 渲染管线(graphics pipeline)</h3><p>渲染的步骤都在渲染管线之上<br>硬件与软件互相影响<br>结构（GPU）：应用-CPU给GPU传数据 调用图形接口-设置各种配置-&gt;几何处理-传过各种物品 模型顶点数据等 运输到屏幕/render target上<br>-&gt;光栅化-将得到的信息分配到每个像素上 不可编程 课配置-&gt;像素处理- pixel shading - merging</p>
+<h2 id="3-unity实现"><a href="#3-unity实现" class="headerlink" title="3.unity实现"></a>3.unity实现</h2><h3 id="3-1-场景管理"><a href="#3-1-场景管理" class="headerlink" title="3.1 场景管理"></a>3.1 场景管理</h3><h2 id="4-进一步学习"><a href="#4-进一步学习" class="headerlink" title="4.进一步学习"></a>4.进一步学习</h2><p>github miloyip/game-programmer/<br>《unity shader 入门》<br>Inigo quilez<br>shadertoy<br>b站 games101<br>jwildfire</p>
+<p>pbr基于物理的<br>npr非真实感<br>主要改动的是着色的部分，质感、打光方式、shader着色模型对光的响应 对像素编程</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">图形学</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                    data-tooltip="数据结构错题集4"
+                    aria-label="PREVIOUS: 数据结构错题集4"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
+                    data-tooltip="数据结构错题集3"
+                    aria-label="NEXT: 数据结构错题集3"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/05/IGI-1/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/05/IGI-1/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/05/IGI-1/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Yuechen Wang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                    data-tooltip="数据结构错题集4"
+                    aria-label="PREVIOUS: 数据结构错题集4"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%863/"
+                    data-tooltip="数据结构错题集3"
+                    aria-label="NEXT: 数据结构错题集3"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/05/IGI-1/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/05/IGI-1/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/05/IGI-1/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/05/IGI-1/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/05/IGI-1/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://example.com/2021/05/05/IGI-1/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yuechen Wang</h4>
+        
+            <div id="about-card-bio"><p>Carnegie Mellon University</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>M.S. Computational Design Candidate</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-yl5kf65gwl5ghj916mxmtyxiui0knr8rznnrgoojfrmtwnuqfkrbmge4nzr2.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

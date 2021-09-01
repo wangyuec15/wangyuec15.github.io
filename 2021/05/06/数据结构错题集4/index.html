@@ -1,0 +1,853 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hi!----wangyuec15">
+    <title>数据结构错题集4 - Hi!----wangyuec15</title>
+    <meta name="author" content="Yuechen Wang">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"Collection 2工作分配https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=53\n \n第一次运行（25/100）思路：计算出所有分配组合，再从中挑选最小值。\n12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879#include &lt;cstdio&gt;#include &lt;iostream&gt;using namespace std;int **A;int factoral(int n)&#123;    int f=1;    for(int i = n;i&gt;0;i--)&#123;        f*=i;    &#125;    return f;&#125;void permutation(int *a,int k,int m)&#123;//k到m全排列的一种情况 k:当前固定的位数 m:总位数    int i,j;    if(k==m)&#123;\t//排完一组，记录整组        for(i = 0;i &lt; m;i++)&#123;            A[seq][i]=a[i];        &#125;    &#125;    else&#123;\t//没排完一组，排这组的下一位        for(j=k;j&lt;m;j++)&#123;            swap(a[j], a[k]);\t\t//把后面每一个换到当前位上            permutation(a, k+1, m);\t\t//分解为子问题k+1到m的全排列            swap(a[j], a[k]);\t\t//换回来        &#125;    &#125;&#125;int main(void)&#123;    int N;    scanf(&quot;%d&quot;,&amp;N);    int F = factoral(N);    A = new int *[F];    for(int i = 0;i&lt;F;i++)&#123;        A[i]=new int[N];    &#125;            int Z[N][N];    for(int i=0;i&lt;N;i++)&#123;        for(int j=0;j&lt;N;j++)&#123;            scanf(&quot;%d&quot;,&amp;Z[i][j]);        &#125;    &#125;        int b[N];    for(int i = 0;i &lt; N ; i++)&#123;        b[i]=i;    &#125;    permutation(b, 0, N);        int sum[F];    int s = 0;    for(int i = 0;i&lt;F;i++)&#123;        for(int j = 0;j&lt;N;j++)&#123;            s+=Z[j][A[i][j]];        &#125;        sum[i]=s;        s=0;    &#125;    int min = sum[0];    for(int i=0;i&lt;F;i++)&#123;        if(sum[i]&lt;min)&#123;            min=sum[i];        &#125;    &#125;    printf(&quot;%d\\n&quot;,min);    &#125;\n\n\n\nCase No.\nResult\nTime(ms)\nMemory(KB)\n\n\n\n\n1\nAccepted\n1\n13996\n\n2\nAccepted\n30\n35160\n\n3\nRuntime Error (signal 11)\n265\n212364\n\n4\nMemory Limit Exceeded\n1\n325848\n\n5\nAccepted\n30\n35156\n\n6\nRuntime Error (signal 11)\n269\n212364\n\n7\nMemory Limit Exceeded\n1\n325848\n\n8\nMemory Limit Exceeded\n1\n325848\n\n9\nRuntime Error (signal 6)\n1\n13996\n\n10\nRuntime Error (signal 6)\n1\n13996\n\n11\nRuntime Error (signal 6)\n1\n13996\n\n12\nRuntime Error (signal 6)\n1\n13996\n\n\n\n\n第二次运行（66.7/100）减少一个二维数组\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;cstdio&gt;#include &lt;iostream&gt;using namespace std;int mm =0;int **Z;int factoral(int n)&#123;    int f=1;    for(int i = n;i&gt;0;i--)&#123;        f*=i;    &#125;    return f;&#125;void permutation(int *a,int k,int m)&#123;    int i,j;    if(k==m)&#123;        int com=0;        for(i = 0;i &lt; m;i++)&#123;            com+=Z[i][a[i]];        &#125;        if(com&lt;mm)&#123;            mm=com;        &#125;    &#125;    else&#123;        for(j=k;j&lt;m;j++)&#123;            swap(a[j], a[k]);            permutation(a, k+1, m);            swap(a[j], a[k]);        &#125;    &#125;&#125;int main(void)&#123;    int N;    scanf(&quot;%d&quot;,&amp;N);        Z = new int*[N];    for(int i=0;i&lt;N;i++)&#123;        Z[i]=new int[N];        for(int j=0;j&lt;N;j++)&#123;            scanf(&quot;%d&quot;,&amp;Z[i][j]);        &#125;        mm+=Z[i][0];    &#125;        int b[N];    for(int i = 0;i &lt; N ; i++)&#123;        b[i]=i;    &#125;    permutation(b, 0, N);        printf(&quot;%d\\n&quot;,mm);    &#125;\n\n\n\nCase No.\nResult\nTime(ms)\nMemory(KB)\n\n\n\n\n1\nAccepted\n1\n13996\n\n2\nAccepted\n5\n 13996 \n\n3\nAccepted\n45\n 13996 \n\n4\nAccepted\n507\n 13996 \n\n5\nAccepted\n5\n 13996 \n\n6\nAccepted\n45\n 13996 \n\n7\nAccepted\n507\n 13996 \n\n8\nAccepted\n507\n 13996 \n\n9\nTime Limit Exceeded\n>2999\n13996\n\n10\nTime Limit Exceeded    \n>2998\n13996\n\n11\nTime Limit Exceeded    \n>2999\n13996\n\n12\nTime Limit Exceeded    \n>2999\n13996\n\n\n\n\n参考答案（100/100）逐行注释\n12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455#include&lt;iostream&gt;#include&lt;cstdio&gt;using namespace std;#define MAX 16int vist[MAX];//vist:已经被使用计数的任务编号int d[MAX][MAX];//d:记录每人完成每任务时间的二维数组int n;//n:实际的人数/任务总数int minp=1000000;//minp:最小所用时间void dfs(int cur,int curp)//dfs:深度优先搜索算法 cur:当前人士 curp:当前所用总时间&#123;   if(cur==n)    //当此人编号等于总人数，完成了总时间计算   &#123;      if(curp&lt;minp)          minp=curp;      //进行比较，是否是最短时间      return;   &#125;   for(int i=0;i&lt;n;i++)    //对于每个任务来说:   &#123;       if(vist[i]==false&amp;&amp;d[cur][i]+curp&lt;minp)        //如果当前任务还没有人认领，并且当前人士完成当前任务后时间总和尚小于已知最短时间:       &#123;           vist[i]=true;           //将当前任务标记为有人认领，总时间加上此人完成此任务所需时间           dfs(cur+1,d[cur][i]+curp);           //对后面的人士用相同方法分配其它任务           //发现：递归放置的位置就是分支的位置           vist[i]=false;           //再把当前任务标记为没人认领，对后面的人分配此个任务       &#125;   &#125;&#125;int main()&#123;      cin&gt;&gt;n;    //从输入中取得:总人数/总任务数   for(int i=0;i&lt;n;i++)    for(int j=0;j&lt;n;j++)    &#123;        cin&gt;&gt;d[i][j];        //获取每人完成每任务所需时间     &#125;    dfs(0,0);    //从第0个人开始分配任务，初始总时间为0    cout&lt;&lt;minp&lt;&lt;endl;&#125;","dateCreated":"2021-05-06T04:58:54-04:00","dateModified":"2021-05-13T05:11:09-04:00","datePublished":"2021-05-06T04:58:54-04:00","description":"Collection 2工作分配https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=53","headline":"数据结构错题集4","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/","keywords":"C++, 数据结构, DFS"}</script>
+    <meta name="description" content="Collection 2工作分配https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;53">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="数据结构错题集4">
+<meta property="og:url" content="http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/index.html">
+<meta property="og:site_name" content="Hi!----wangyuec15">
+<meta property="og:description" content="Collection 2工作分配https:&#x2F;&#x2F;dsa.cs.tsinghua.edu.cn&#x2F;oj&#x2F;problem.shtml?id&#x3D;53">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://editor.analyticsvidhya.com/uploads/94356Screenshot%202021-02-05%20at%204.39.05%20PM.png">
+<meta property="article:published_time" content="2021-05-06T08:58:54.000Z">
+<meta property="article:modified_time" content="2021-05-13T09:11:09.000Z">
+<meta property="article:author" content="Yuechen Wang">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="DFS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://editor.analyticsvidhya.com/uploads/94356Screenshot%202021-02-05%20at%204.39.05%20PM.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://example.com/assets/images/author.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-migvazkmlhn4neeioayjfrnyheddmclkjltitjeam28pp9rzidnbrd6eitkf.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Hi!----wangyuec15
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yuechen Wang</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Carnegie Mellon University</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google +"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google +</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            数据结构错题集4
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-05-06T04:58:54-04:00">
+	
+		    May 06, 2021
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="Collection-2"><a href="#Collection-2" class="headerlink" title="Collection 2"></a>Collection 2</h2><h3 id="工作分配"><a href="#工作分配" class="headerlink" title="工作分配"></a>工作分配</h3><p><a target="_blank" rel="noopener" href="https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=53">https://dsa.cs.tsinghua.edu.cn/oj/problem.shtml?id=53</a></p>
+<span id="more"></span> 
+<h3 id="第一次运行（25-100）"><a href="#第一次运行（25-100）" class="headerlink" title="第一次运行（25/100）"></a>第一次运行（25/100）</h3><p>思路：计算出所有分配组合，再从中挑选最小值。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> **A;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">factoral</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">        f*=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">permutation</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> k,<span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line"><span class="comment">//k到m全排列的一种情况 k:当前固定的位数 m:总位数</span></span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">if</span>(k==m)&#123;</span><br><span class="line">	<span class="comment">//排完一组，记录整组</span></span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; m;i++)&#123;</span><br><span class="line">            A[seq][i]=a[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="comment">//没排完一组，排这组的下一位</span></span><br><span class="line">        <span class="keyword">for</span>(j=k;j&lt;m;j++)&#123;</span><br><span class="line">            <span class="built_in">swap</span>(a[j], a[k]);</span><br><span class="line">		<span class="comment">//把后面每一个换到当前位上</span></span><br><span class="line">            <span class="built_in">permutation</span>(a, k+<span class="number">1</span>, m);</span><br><span class="line">		<span class="comment">//分解为子问题k+1到m的全排列</span></span><br><span class="line">            <span class="built_in">swap</span>(a[j], a[k]);</span><br><span class="line">		<span class="comment">//换回来</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">    <span class="keyword">int</span> F = <span class="built_in">factoral</span>(N);</span><br><span class="line">    A = <span class="keyword">new</span> <span class="keyword">int</span> *[F];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;F;i++)&#123;</span><br><span class="line">        A[i]=<span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> Z[N][N];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;N;j++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;Z[i][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> b[N];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; N ; i++)&#123;</span><br><span class="line">        b[i]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">permutation</span>(b, <span class="number">0</span>, N);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> sum[F];</span><br><span class="line">    <span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;F;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j&lt;N;j++)&#123;</span><br><span class="line">            s+=Z[j][A[i][j]];</span><br><span class="line">        &#125;</span><br><span class="line">        sum[i]=s;</span><br><span class="line">        s=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> min = sum[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;F;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(sum[i]&lt;min)&#123;</span><br><span class="line">            min=sum[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,min);    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Case No.</th>
+<th>Result</th>
+<th>Time(ms)</th>
+<th>Memory(KB)</th>
+<tr>
+</thead>
+<tbody>
+<tr>
+<th>1</th>
+<th style="color:#000000">Accepted</th>
+<th>1</th>
+<th>13996</th>
+</tr><tr>
+<th>2</th>
+<th style="color:#000000">Accepted</th>
+<th>30</th>
+<th>35160</th>
+</tr><tr>
+<th>3</th>
+<th>Runtime Error (signal 11)</th>
+<th>265</th>
+<th>212364</th>
+</tr><tr>
+<th>4</th>
+<th>Memory Limit Exceeded</th>
+<th>1</th>
+<th>325848</th>
+</tr><tr>
+<th>5</th>
+<th style="color:#000000">Accepted</th>
+<th>30</th>
+<th>35156</th>
+</tr><tr>
+<th>6</th>
+<th>Runtime Error (signal 11)</th>
+<th>269</th>
+<th>212364</th>
+</tr><tr>
+<th>7</th>
+<th>Memory Limit Exceeded</th>
+<th>1</th>
+<th>325848</th>
+</tr><tr>
+<th>8</th>
+<th>Memory Limit Exceeded</th>
+<th>1</th>
+<th>325848</th>
+</tr><tr>
+<th>9</th>
+<th>Runtime Error (signal 6)</th>
+<th>1</th>
+<th>13996</th>
+</tr><tr>
+<th>10</th>
+<th>Runtime Error (signal 6)</th>
+<th>1</th>
+<th>13996</th>
+</tr><tr>
+<th>11</th>
+<th>Runtime Error (signal 6)</th>
+<th>1</th>
+<th>13996</th>
+</tr><tr>
+<th>12</th>
+<th>Runtime Error (signal 6)</th>
+<th>1</th>
+<th>13996</th>
+</tr>
+</tbody>
+</table>
+
+<h3 id="第二次运行（66-7-100）"><a href="#第二次运行（66-7-100）" class="headerlink" title="第二次运行（66.7/100）"></a>第二次运行（66.7/100）</h3><p>减少一个二维数组</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">int</span> mm =<span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> **Z;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">factoral</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">        f*=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">permutation</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> k,<span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">if</span>(k==m)&#123;</span><br><span class="line">        <span class="keyword">int</span> com=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; m;i++)&#123;</span><br><span class="line">            com+=Z[i][a[i]];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(com&lt;mm)&#123;</span><br><span class="line">            mm=com;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(j=k;j&lt;m;j++)&#123;</span><br><span class="line">            <span class="built_in">swap</span>(a[j], a[k]);</span><br><span class="line">            <span class="built_in">permutation</span>(a, k+<span class="number">1</span>, m);</span><br><span class="line">            <span class="built_in">swap</span>(a[j], a[k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">    </span><br><span class="line">    Z = <span class="keyword">new</span> <span class="keyword">int</span>*[N];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">        Z[i]=<span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;N;j++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;Z[i][j]);</span><br><span class="line">        &#125;</span><br><span class="line">        mm+=Z[i][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> b[N];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; N ; i++)&#123;</span><br><span class="line">        b[i]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">permutation</span>(b, <span class="number">0</span>, N);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,mm);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Case No.</th>
+<th>Result</th>
+<th>Time(ms)</th>
+<th>Memory(KB)</th>
+<tr>
+</thead>
+<tbody>
+<tr>
+<th>1</th>
+<th style="color:#000000">Accepted</th>
+<th>1</th>
+<th>13996</th>
+</tr><tr>
+<th>2</th>
+<th style="color:#000000">Accepted</th>
+<th>5</th>
+<th> 13996 </th>
+</tr><tr>
+<th>3</th>
+<th style="color:#000000">Accepted</th>
+<th>45</th>
+<th> 13996 </th>
+</tr><tr>
+<th>4</th>
+<th style="color:#000000">Accepted</th>
+<th>507</th>
+<th> 13996 </th>
+</tr><tr>
+<th>5</th>
+<th style="color:#000000">Accepted</th>
+<th>5</th>
+<th> 13996 </th>
+</tr><tr>
+<th>6</th>
+<th style="color:#000000">Accepted</th>
+<th>45</th>
+<th> 13996 </th>
+</tr><tr>
+<th>7</th>
+<th style="color:#000000">Accepted</th>
+<th>507</th>
+<th> 13996 </th>
+</tr><tr>
+<th>8</th>
+<th style="color:#000000">Accepted</th>
+<th>507</th>
+<th> 13996 </th>
+</tr><tr>
+<th>9</th>
+<th>Time Limit Exceeded</th>
+<th>>2999</th>
+<th>13996</th>
+</tr><tr>
+<th>10</th>
+<th>Time Limit Exceeded    </th>
+<th>>2998</th>
+<th>13996</th>
+</tr><tr>
+<th>11</th>
+<th>Time Limit Exceeded    </th>
+<th>>2999</th>
+<th>13996</th>
+</tr><tr>
+<th>12</th>
+<th>Time Limit Exceeded    </th>
+<th>>2999</th>
+<th>13996</th>
+</tr>
+</tbody>
+</table>
+
+<h3 id="参考答案（100-100）"><a href="#参考答案（100-100）" class="headerlink" title="参考答案（100/100）"></a>参考答案（100/100）</h3><p><img src="https://editor.analyticsvidhya.com/uploads/94356Screenshot%202021-02-05%20at%204.39.05%20PM.png" alt="depth-first-search"></img><br>逐行注释</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 16</span></span><br><span class="line"><span class="keyword">int</span> vist[MAX];</span><br><span class="line"><span class="comment">//vist:已经被使用计数的任务编号</span></span><br><span class="line"><span class="keyword">int</span> d[MAX][MAX];</span><br><span class="line"><span class="comment">//d:记录每人完成每任务时间的二维数组</span></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="comment">//n:实际的人数/任务总数</span></span><br><span class="line"><span class="keyword">int</span> minp=<span class="number">1000000</span>;</span><br><span class="line"><span class="comment">//minp:最小所用时间</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> cur,<span class="keyword">int</span> curp)</span></span></span><br><span class="line"><span class="function"><span class="comment">//dfs:深度优先搜索算法 cur:当前人士 curp:当前所用总时间</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">if</span>(cur==n)</span><br><span class="line">    <span class="comment">//当此人编号等于总人数，完成了总时间计算</span></span><br><span class="line">   &#123;</span><br><span class="line">      <span class="keyword">if</span>(curp&lt;minp)</span><br><span class="line">          minp=curp;</span><br><span class="line">      <span class="comment">//进行比较，是否是最短时间</span></span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    <span class="comment">//对于每个任务来说:</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">if</span>(vist[i]==<span class="literal">false</span>&amp;&amp;d[cur][i]+curp&lt;minp)</span><br><span class="line">        <span class="comment">//如果当前任务还没有人认领，并且当前人士完成当前任务后时间总和尚小于已知最短时间:</span></span><br><span class="line">       &#123;</span><br><span class="line">           vist[i]=<span class="literal">true</span>;</span><br><span class="line">           <span class="comment">//将当前任务标记为有人认领，总时间加上此人完成此任务所需时间</span></span><br><span class="line">           <span class="built_in">dfs</span>(cur+<span class="number">1</span>,d[cur][i]+curp);</span><br><span class="line">           <span class="comment">//对后面的人士用相同方法分配其它任务</span></span><br><span class="line">           <span class="comment">//发现：递归放置的位置就是分支的位置</span></span><br><span class="line">           vist[i]=<span class="literal">false</span>;</span><br><span class="line">           <span class="comment">//再把当前任务标记为没人认领，对后面的人分配此个任务</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   </span><br><span class="line">   cin&gt;&gt;n;</span><br><span class="line">    <span class="comment">//从输入中取得:总人数/总任务数</span></span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin&gt;&gt;d[i][j];</span><br><span class="line">        <span class="comment">//获取每人完成每任务所需时间</span></span><br><span class="line">     &#125;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="comment">//从第0个人开始分配任务，初始总时间为0</span></span><br><span class="line">    cout&lt;&lt;minp&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/C/" rel="tag">C++</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/DFS/" rel="tag">DFS</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%865/"
+                    data-tooltip="数据结构错题集5"
+                    aria-label="PREVIOUS: 数据结构错题集5"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/05/IGI-1/"
+                    data-tooltip="IGI-1"
+                    aria-label="NEXT: IGI-1"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Yuechen Wang. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%865/"
+                    data-tooltip="数据结构错题集5"
+                    aria-label="PREVIOUS: 数据结构错题集5"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/05/05/IGI-1/"
+                    data-tooltip="IGI-1"
+                    aria-label="NEXT: IGI-1"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://example.com/2021/05/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%94%99%E9%A2%98%E9%9B%864/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/author.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yuechen Wang</h4>
+        
+            <div id="about-card-bio"><p>Carnegie Mellon University</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>M.S. Computational Design Candidate</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-yl5kf65gwl5ghj916mxmtyxiui0knr8rznnrgoojfrmtwnuqfkrbmge4nzr2.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
