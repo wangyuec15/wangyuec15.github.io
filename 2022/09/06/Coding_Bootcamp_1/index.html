@@ -6,39 +6,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hi!----wangyuec15">
-    <title>ssh-tutorial - Hi!----wangyuec15</title>
+    <title>Coding Bootcamp Note 1 - Hi!----wangyuec15</title>
     <meta name="author" content="Yuechen Wang">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"A simple guide for connecting to shark machinesThis is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.\n\n\nDisclaimer: \nThe course staff generally don’t help with VS Code issues but we will try our best. \nThe following instructions are only one of the ways to connect to shark machines, you are free to use any methods. There is no preference.\nFirst, what is a shark machine?\nPlease refer to the page: http://www.cs.cmu.edu/~213/labmachines.html to get a general idea of the shark machines.\nSecond, how can we connect to shark machines?\n1unix&gt; ssh replaceWithYourAndrewId@angelshark.ics.cs.cmu.edu\n\n\n\nyou can use SCP to copy files to shark machines.\nHere is an example of the command:\n1scp handout.tar andrewid@shark.ics.cs.cmu.edu:~/private/15xxx\n\n\n\nThird, how to use VS Code to help?\nRemote extension. The official guidance can be found on this website: https://code.visualstudio.com/docs/remote/ssh\nS1: download the extension from the extension marketplace\n\nS2: set up the ssh connection.\n\n\nS3: connect to the shark machine (you can choose anyone from the list on the course website)\n\nchoose Linux when connecting! and then input your passwords.\n\nS4: go back to the explorer, and open the folder. You may need to re-enter your passwords;\n\n(chances are that there is nothing in the /private folder)\n\nThen you are all set. You can edit remote files in VS Code. You can drag files from local to the remote folder also.\nFourth, if you’d prefer CLion on Mac?\nOfficial guideline can be found here: https://www.jetbrains.com/help/clion/create-ssh-configurations.html\nS1: After creating an empty directory, in the Settings/Preferences dialog ⌘, (command+comma), search for deployment. \n\nS2: in deployment, click “+” and choose “SFTP”. For the “New server name”, type your favorite Shark machine, i.e. angelshark.ics.cs.cmu.edu.\n\nS3: click the “…” to add a configuration of SSH. \n\nS4: in the SSH Configurations window, follow these steps. The user name should be your andrewid, and the password is the one you use for ssh to Shark. After you “Test Connection”, if it pops a window saying “successfully connected”, you are good! Then, click “Apply” and “OK”. \n\nS5: Then, you are back to the Preferences window. You could click “Autodetect” to search for your working directory in Shark. Usually, if the local directory you create has the same name as the remote directory on Shark, it will be autodetected and the path is the full path. Otherwise, you need to put the full path manually. To find your pull path of your remote directory of your lab, you could type “pwd” in the remote directory and copy &amp; paste it here. \nNote: if it says “Connection failed”, sometimes you need to “Test Connection” again or do these steps with connecting to CMU VPN.\n\nS6: Among the navigation bars, in “Tools”, you can see “Browse Remote Host” under “Deployment”. Click it, and you will see a list of files in your remote directory of your lab. You could click on any file you want to edit. \n\nS7: After you make any changes, you will see a header saying “This file has been modified. Upload?”. There are two options: one is to revert to the last uploaded version, the other is to upload current version to remote. This allows you to edit files on CLion without scp from/to remote to local over and over again. \n\nS8: Enjoy!\nmy AFS is full how do I clear it up?If you use VSCode, try deleting the directory that has all of your connections with VSCode. It can get very bloated, very quickly. I had this issue on Wednesday and after deleting my VSCode directory it went from 100% storage to 4%.\nThe command is rm -rf .vscode-server, from your root directory.\nCannot Access to Shark Machine with VSCodeI cannot access to the shark machine with my VSCode. It just jumping out the password box and ask me to input the password again and again without really connecting to it. I wonder how could I solve this? Thank you\nNot sure if this will solve your issue but this is a fix I’ve used for repetitive password prompting:\n\nOpen the Command Palette (control-shift-p)\nSearch for “Kill VS Code Server on Host…” and select it\nSelect the shark server you’re trying to connect to (shark.andrew.cmu.edu or whichever specific shark you’re using)\nGo to VS Code settings (Control-comma)\nType remote.ssh.useFlock into the search field\nChange the “Remote.SSH: Use Flock” checkbox (i.e., check it if it’s unchecked, or uncheck it if it’s checked)\nRestart VS Code and try logging in over SSH.\n\nCloning IssueAfter downloading handout and creating the repo for tsh lab, I was trying to clone the github repo and got the error below. Is there a way to work around this?\nGithub has troubleshooting instructions for this error at https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey\n","dateCreated":"2021-12-16T21:30:01-05:00","dateModified":"2022-05-31T17:43:28-04:00","datePublished":"2021-12-16T21:30:01-05:00","description":"A simple guide for connecting to shark machinesThis is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.","headline":"ssh-tutorial","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/12/16/ssh-tutorial/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/12/16/ssh-tutorial/","keywords":"ssh"}</script>
-    <meta name="description" content="A simple guide for connecting to shark machinesThis is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"InterviewingInterviewee:\nMake sure know problem to solve\nresolve ambiguities\nask for clarifications\n\n\n“Talk out” \nkeep up running commentary of thought process\nconsider multiple choices\n\n\n\nWhiteBoard Technique\nwrite legibly\nadapt to size\nuse a corner to write down requirements, example figures\nleave enough space for code\ndon’t be afraid to erase\n\nInterviewer\nGive questions in order\nState questions clearly and concisely, no need to spell every detail\nGive hints when interviewee got stuck\nControl the time\nDon’t start new question when time is limited\nSpeed along the current question\n\n\n\nThe ShuffleShuffle 1: chapter 1, 2 and 1145-55 minute mock interview - 3 questions\nTesting Requires Its Own Mindset\nWhen programming, make code work\nWhen testing, make code fail\nThink about how code could fail, and what conditions might cause it fail\nbad input data\nexternal errors\n\n\n\nTest a Pen\nDrop the pen\n\nWrite on variety surface\n\nNormal operation\n\nDoes it extend smoothly, cap easy to remove\ndoes ot generates smooth line on paper\n\n\nUnexpected operation\n\nwrite upside down?\nwhite on sth other than paper?\n\n\n\nUnit testing\nDetermine smallest testable pert of program\nfunction, module, etc.\n\n\na set of test cases to verify correct outputs for given inputs\nnormal operation\nboundary conditions\nerroneous input\n\n\nclosely related to defensive programming\n\nBoundary Conditions / Edge Cases\nConsider the extremes that might be encountered\nempty input\nextremely large imput\nsmallest valid value\nlargest valid value\n\n\ninputs that can cause boundary or error conditions in internal functions\ndivision by 0, overflow, accessing invalid array index\nodd number of items in search or divide and conquer algorithms\n\n\n\nWhite vs. Black\nDepending on how much access you have to the code under test,\nBlack box testing: see only inputs and outputs\nWhite boc\n\n\n\nDefensive programming\na form of defensive design intended to develop programs that are capable of detect potential security abnormalities and make predetermined response.\n\nNever trust the Input\nCheck the validity for every argument you don’t control\nCheck Intermediate Results\noverflow, underflow, div by 0 ….\n\n\n\nThe Robustness PrincipleIn computing, the robustness principle is a design guideline for software that states: “be conservative in what you do, be liberal in what you accept from others”. It is often reworded as: “be conservative in what you send, be liberal in what you accept”\nPerformance Bottlenecks\nA program should be considered to have failed if it is too slow even if the result eas corrent\ne.g. real-time operation\n\n\nNeed to consider inputs that could cause too-slow operation\nlarge inputs for o(n^3) or O(2^N) algorithms\nsorted input to QuickSort(&gt;&gt; next lecture)\n\n\n\nPerformance example: 2D ArraysJava: one-dimensional array of pointers to one-dimensional arrays\n2D array performance in java\nEvery array access in bounds-checked\nIterate: the first dimension change slowest\n\nMulti-Threading\nUsing multiple threads introduces uncertainty\nRace condition:\nif the results differ depending on the order in which multiple threads access a variable, we call that a data race\nFix in java:\nvolatile keyword\ndisable caching of the variable, so every modification is immediately written to main memorym and every read uses the current value in main memory\nuseful when a single thread is making updates and one or more other threads are reading\n\n\nsynchronized keyword\nenforces one-at-a-time accessing\n\n\n\nvolatile example:\n1volatile static int done;\n\nsynchronized example:\n123synchronized void doSomething() &#123;        ...&#125;\n\nPerformance Implications\nvolatile and synchronized slow down program\nvolatile prevents various optimizations, forces memory access\n\n\n\nSolutions: Do not Redistribute\n\nExerciseString last and next to last:toCharArray, charAt, …\nAdorable Stringsin key, double backslash matches single backslash\n","dateCreated":"2022-09-06T11:50:00-04:00","dateModified":"2022-09-06T12:48:49-04:00","datePublished":"2022-09-06T11:50:00-04:00","description":"InterviewingInterviewee:\nMake sure know problem to solve\nresolve ambiguities\nask for clarifications\n\n\n“Talk out”","headline":"Coding Bootcamp Note 1","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/09/06/Coding_Bootcamp_1/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2022/09/06/Coding_Bootcamp_1/","keywords":"coding, interview, testing, multi thread, defensive programming"}</script>
+    <meta name="description" content="InterviewingInterviewee: Make sure know problem to solve resolve ambiguities ask for clarifications   “Talk out”">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="ssh-tutorial">
-<meta property="og:url" content="http://example.com/2021/12/16/ssh-tutorial/index.html">
+<meta property="og:title" content="Coding Bootcamp Note 1">
+<meta property="og:url" content="http://example.com/2022/09/06/Coding_Bootcamp_1/index.html">
 <meta property="og:site_name" content="Hi!----wangyuec15">
-<meta property="og:description" content="A simple guide for connecting to shark machinesThis is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.">
+<meta property="og:description" content="InterviewingInterviewee: Make sure know problem to solve resolve ambiguities ask for clarifications   “Talk out”">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/01.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/02.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/03.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/04.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/07.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/05.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/06.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-2.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-3.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-4.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-5.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-6.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-7.png">
-<meta property="article:published_time" content="2021-12-17T02:30:01.000Z">
-<meta property="article:modified_time" content="2022-05-31T21:43:28.995Z">
+<meta property="article:published_time" content="2022-09-06T15:50:00.000Z">
+<meta property="article:modified_time" content="2022-09-06T16:48:49.137Z">
 <meta property="article:author" content="Yuechen Wang">
-<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="coding">
+<meta property="article:tag" content="interview">
+<meta property="article:tag" content="testing">
+<meta property="article:tag" content="multi thread">
+<meta property="article:tag" content="defensive programming">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/ssh-tutorial/01.png">
     
     
         
@@ -360,14 +349,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            ssh-tutorial
+            Coding Bootcamp Note 1
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2021-12-16T21:30:01-05:00">
+    <time datetime="2022-09-06T11:50:00-04:00">
 	
-		    Dec 16, 2021
+		    Sep 06, 2022
     	
     </time>
     
@@ -379,74 +368,155 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="A-simple-guide-for-connecting-to-shark-machines"><a href="#A-simple-guide-for-connecting-to-shark-machines" class="headerlink" title="A simple guide for connecting to shark machines"></a>A simple guide for connecting to shark machines</h1><p>This is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.</p>
-<span id="more"></span>
+            <h1 id="Interviewing"><a href="#Interviewing" class="headerlink" title="Interviewing"></a>Interviewing</h1><h2 id="Interviewee"><a href="#Interviewee" class="headerlink" title="Interviewee:"></a>Interviewee:</h2><ul>
+<li>Make sure know problem to solve</li>
+<li>resolve ambiguities<ul>
+<li>ask for clarifications</li>
+</ul>
+</li>
+<li>“Talk out” <span id="more"></span><ul>
+<li>keep up running commentary of thought process</li>
+<li>consider multiple choices</li>
+</ul>
+</li>
+</ul>
+<h2 id="WhiteBoard-Technique"><a href="#WhiteBoard-Technique" class="headerlink" title="WhiteBoard Technique"></a>WhiteBoard Technique</h2><ul>
+<li>write legibly</li>
+<li>adapt to size</li>
+<li>use a corner to write down requirements, example figures</li>
+<li>leave enough space for code</li>
+<li>don’t be afraid to erase</li>
+</ul>
+<h2 id="Interviewer"><a href="#Interviewer" class="headerlink" title="Interviewer"></a>Interviewer</h2><ul>
+<li>Give questions in order</li>
+<li>State questions clearly and concisely, no need to spell every detail</li>
+<li>Give hints when interviewee got stuck</li>
+<li>Control the time<ul>
+<li>Don’t start new question when time is limited</li>
+<li>Speed along the current question</li>
+</ul>
+</li>
+</ul>
+<h2 id="The-Shuffle"><a href="#The-Shuffle" class="headerlink" title="The Shuffle"></a>The Shuffle</h2><p>Shuffle 1: chapter 1, 2 and 11<br>45-55 minute mock interview - 3 questions</p>
+<h2 id="Testing-Requires-Its-Own-Mindset"><a href="#Testing-Requires-Its-Own-Mindset" class="headerlink" title="Testing Requires Its Own Mindset"></a>Testing Requires Its Own Mindset</h2><ul>
+<li>When programming, make code work</li>
+<li>When testing, make code fail</li>
+<li>Think about how code could fail, and what conditions might cause it fail<ul>
+<li>bad input data</li>
+<li>external errors</li>
+</ul>
+</li>
+</ul>
+<h3 id="Test-a-Pen"><a href="#Test-a-Pen" class="headerlink" title="Test a Pen"></a>Test a Pen</h3><ul>
+<li><p>Drop the pen</p>
+</li>
+<li><p>Write on variety surface</p>
+</li>
+<li><p>Normal operation</p>
+<ul>
+<li>Does it extend smoothly, cap easy to remove</li>
+<li>does ot generates smooth line on paper</li>
+</ul>
+</li>
+<li><p>Unexpected operation</p>
+<ul>
+<li>write upside down?</li>
+<li>white on sth other than paper?</li>
+</ul>
+</li>
+</ul>
+<h3 id="Unit-testing"><a href="#Unit-testing" class="headerlink" title="Unit testing"></a>Unit testing</h3><ul>
+<li>Determine smallest testable pert of program<ul>
+<li>function, module, etc.</li>
+</ul>
+</li>
+<li>a set of test cases to verify correct outputs for given inputs<ul>
+<li>normal operation</li>
+<li>boundary conditions</li>
+<li>erroneous input</li>
+</ul>
+</li>
+<li>closely related to <strong>defensive programming</strong></li>
+</ul>
+<h2 id="Boundary-Conditions-Edge-Cases"><a href="#Boundary-Conditions-Edge-Cases" class="headerlink" title="Boundary Conditions / Edge Cases"></a>Boundary Conditions / Edge Cases</h2><ul>
+<li>Consider the extremes that might be encountered<ul>
+<li>empty input</li>
+<li>extremely large imput</li>
+<li>smallest valid value</li>
+<li>largest valid value</li>
+</ul>
+</li>
+<li>inputs that can cause boundary or error conditions in internal functions<ul>
+<li>division by 0, overflow, accessing invalid array index</li>
+<li>odd number of items in search or divide and conquer algorithms</li>
+</ul>
+</li>
+</ul>
+<h3 id="White-vs-Black"><a href="#White-vs-Black" class="headerlink" title="White vs. Black"></a>White vs. Black</h3><ul>
+<li>Depending on how much access you have to the code under test,<ul>
+<li>Black box testing: see only inputs and outputs</li>
+<li>White boc</li>
+</ul>
+</li>
+</ul>
+<h2 id="Defensive-programming"><a href="#Defensive-programming" class="headerlink" title="Defensive programming"></a>Defensive programming</h2><ul>
+<li>a form of defensive design <strong>intended to develop programs that are capable of detect potential security abnormalities and make predetermined response.</strong></li>
+</ul>
+<h3 id="Never-trust-the-Input"><a href="#Never-trust-the-Input" class="headerlink" title="Never trust the Input"></a>Never trust the Input</h3><ul>
+<li>Check the validity for every argument you don’t control</li>
+<li>Check Intermediate Results<ul>
+<li>overflow, underflow, div by 0 ….</li>
+</ul>
+</li>
+</ul>
+<h3 id="The-Robustness-Principle"><a href="#The-Robustness-Principle" class="headerlink" title="The Robustness Principle"></a>The Robustness Principle</h3><p>In computing, the robustness principle is a design guideline for software that states: “be conservative in what you do, be liberal in what you accept from others”. It is often reworded as: “be conservative in what you send, be liberal in what you accept”</p>
+<h3 id="Performance-Bottlenecks"><a href="#Performance-Bottlenecks" class="headerlink" title="Performance Bottlenecks"></a>Performance Bottlenecks</h3><ul>
+<li>A program should be considered to have failed if it is too slow even if the result eas corrent<ul>
+<li>e.g. real-time operation</li>
+</ul>
+</li>
+<li>Need to consider inputs that could cause too-slow operation<ul>
+<li>large inputs for o(n^3) or O(2^N) algorithms</li>
+<li>sorted input to QuickSort(&gt;&gt; next lecture)</li>
+</ul>
+</li>
+</ul>
+<h4 id="Performance-example-2D-Arrays"><a href="#Performance-example-2D-Arrays" class="headerlink" title="Performance example: 2D Arrays"></a>Performance example: 2D Arrays</h4><p>Java: one-dimensional array of pointers to one-dimensional arrays</p>
+<h3 id="2D-array-performance-in-java"><a href="#2D-array-performance-in-java" class="headerlink" title="2D array performance in java"></a>2D array performance in java</h3><ul>
+<li>Every array access in bounds-checked</li>
+<li>Iterate: the first dimension change slowest</li>
+</ul>
+<h2 id="Multi-Threading"><a href="#Multi-Threading" class="headerlink" title="Multi-Threading"></a>Multi-Threading</h2><ul>
+<li>Using multiple threads introduces uncertainty</li>
+<li>Race condition:</li>
+<li>if the results differ depending on the order in which multiple threads access a variable, we call that a data race</li>
+<li>Fix in java:</li>
+<li><strong><code>volatile</code></strong> keyword<ul>
+<li>disable caching of the variable, so every modification is immediately written to main memorym and every read uses the current value in main memory</li>
+<li>useful when a single thread is making updates and one or more other threads are reading</li>
+</ul>
+</li>
+<li><strong><code>synchronized</code></strong> keyword<ul>
+<li>enforces one-at-a-time accessing</li>
+</ul>
+</li>
+</ul>
+<p>volatile example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> done;</span><br></pre></td></tr></table></figure>
 
-<p><strong>Disclaimer:</strong> </p>
-<p>The course staff generally don’t help with VS Code issues but we will try our best. </p>
-<p>The following instructions are only one of the ways to connect to shark machines, you are free to use any methods. There is no preference.</p>
-<p><strong>First, what is a shark machine?</strong></p>
-<p>Please refer to the page: <a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~213/labmachines.html">http://www.cs.cmu.edu/~213/labmachines.html</a> to get a general idea of the shark machines.</p>
-<p><strong>Second, how can we connect to shark machines?</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unix&gt; ssh replaceWithYourAndrewId@angelshark.ics.cs.cmu.edu</span><br></pre></td></tr></table></figure>
+<p>synchronized example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-<p>you can use SCP to copy files to shark machines.</p>
-<p>Here is an example of the command:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp handout.tar andrewid@shark.ics.cs.cmu.edu:~/private/15xxx</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>Third, how to use VS Code to help?</strong></p>
-<p>Remote extension. The official guidance can be found on this website: <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/remote/ssh">https://code.visualstudio.com/docs/remote/ssh</a></p>
-<p><strong>S1:</strong> download the extension from the extension marketplace</p>
-<p><img src="/images/ssh-tutorial/01.png" alt="img"></p>
-<p><strong>S2:</strong> set up the ssh connection.</p>
-<p><img src="/images/ssh-tutorial/02.png" alt="img"></p>
-<p><img src="/images/ssh-tutorial/03.png" alt="img"></p>
-<p><strong>S3:</strong> connect to the shark machine (you can choose anyone from the list on the course website)</p>
-<p><img src="/images/ssh-tutorial/04.png" alt="img"></p>
-<p>choose Linux when connecting! and then input your passwords.</p>
-<p><img src="/images/ssh-tutorial/07.png" alt="img"></p>
-<p><strong>S4:</strong> go back to the explorer, and open the folder. You may need to re-enter your passwords;</p>
-<p><img src="/images/ssh-tutorial/05.png" alt="img"></p>
-<p>(chances are that there is nothing in the /private folder)</p>
-<p><img src="/images/ssh-tutorial/06.png" alt="img"></p>
-<p>Then you are all set. You can edit remote files in VS Code. You can drag files from local to the remote folder also.</p>
-<p><strong>Fourth, if you’d prefer CLion on Mac?</strong></p>
-<p>Official guideline can be found here: <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/clion/create-ssh-configurations.html">https://www.jetbrains.com/help/clion/create-ssh-configurations.html</a></p>
-<p><strong>S1:</strong> After creating an empty directory, in the Settings/Preferences dialog ⌘, (command+comma), search for deployment. </p>
-<p><img src="/images/ssh-tutorial/image.png" alt="image.png"></p>
-<p><strong>S2:</strong> in deployment, click “+” and choose “SFTP”. For the “New server name”, type your favorite Shark machine, i.e. angelshark.ics.cs.cmu.edu.</p>
-<p><img src="/images/ssh-tutorial/image-2.png" alt="image.png"></p>
-<p><strong>S3:</strong> click the “…” to add a configuration of SSH. </p>
-<p><img src="/images/ssh-tutorial/image-3.png" alt="image.png"></p>
-<p><strong>S4:</strong> in the SSH Configurations window, follow these steps. The user name should be your andrewid, and the password is the one you use for ssh to Shark. After you “Test Connection”, if it pops a window saying “successfully connected”, you are good! Then, click “Apply” and “OK”. </p>
-<p><img src="/images/ssh-tutorial/image-4.png" alt="image.png"></p>
-<p><strong>S5:</strong> Then, you are back to the Preferences window. You could click “Autodetect” to search for your working directory in Shark. Usually, if the local directory you create has the same name as the remote directory on Shark, it will be autodetected and the path is the full path. Otherwise, you need to put the full path manually. To find your pull path of your remote directory of your lab, you could type “pwd” in the remote directory and copy &amp; paste it here. </p>
-<p>Note: if it says “Connection failed”, sometimes you need to “Test Connection” again or do these steps with connecting to CMU VPN.</p>
-<p><strong><img src="/images/ssh-tutorial/image-5.png" alt="image.png"></strong></p>
-<p><strong>S6:</strong> Among the navigation bars, in “Tools”, you can see “Browse Remote Host” under “Deployment”. Click it, and you will see a list of files in your remote directory of your lab. You could click on any file you want to edit. </p>
-<p><strong><img src="/images/ssh-tutorial/image-6.png" alt="image.png"></strong></p>
-<p><strong>S7:</strong> After you make any changes, you will see a header saying “This file has been modified. Upload?”. There are two options: one is to revert to the last uploaded version, the other is to upload current version to remote. This allows you to edit files on CLion without scp from/to remote to local over and over again. </p>
-<p><strong><img src="/images/ssh-tutorial/image-7.png" alt="image.png"></strong></p>
-<p><strong>S8: Enjoy!</strong></p>
-<h3 id="my-AFS-is-full-how-do-I-clear-it-up"><a href="#my-AFS-is-full-how-do-I-clear-it-up" class="headerlink" title="my AFS is full how do I clear it up?"></a>my AFS is full how do I clear it up?</h3><p>If you use VSCode, try deleting the directory that has all of your connections with VSCode. It can get very bloated, very quickly. I had this issue on Wednesday and after deleting my VSCode directory it went from 100% storage to 4%.</p>
-<p>The command is <code>rm -rf .vscode-server</code>, from your root directory.</p>
-<h3 id="Cannot-Access-to-Shark-Machine-with-VSCode"><a href="#Cannot-Access-to-Shark-Machine-with-VSCode" class="headerlink" title="Cannot Access to Shark Machine with VSCode"></a>Cannot Access to Shark Machine with VSCode</h3><p>I cannot access to the shark machine with my VSCode. It just jumping out the password box and ask me to input the password again and again without really connecting to it. I wonder how could I solve this? Thank you</p>
-<p>Not sure if this will solve your issue but this is a fix I’ve used for repetitive password prompting:</p>
-<ol>
-<li>Open the Command Palette (control-shift-p)</li>
-<li>Search for “Kill VS Code Server on Host…” and select it</li>
-<li>Select the shark server you’re trying to connect to (shark.andrew.cmu.edu or whichever specific shark you’re using)</li>
-<li>Go to VS Code settings (Control-comma)</li>
-<li>Type <code>remote.ssh.useFlock</code> into the search field</li>
-<li>Change the “Remote.SSH: Use Flock” checkbox (i.e., check it if it’s unchecked, or uncheck it if it’s checked)</li>
-<li>Restart VS Code and try logging in over SSH.</li>
-</ol>
-<h3 id="Cloning-Issue"><a href="#Cloning-Issue" class="headerlink" title="Cloning Issue"></a>Cloning Issue</h3><p>After downloading handout and creating the repo for tsh lab, I was trying to clone the github repo and got the error below. Is there a way to work around this?</p>
-<p>Github has troubleshooting instructions for this error at <a target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey">https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey</a></p>
+<h3 id="Performance-Implications"><a href="#Performance-Implications" class="headerlink" title="Performance Implications"></a>Performance Implications</h3><ul>
+<li>volatile and synchronized slow down program<ul>
+<li>volatile prevents various optimizations, forces memory access</li>
+</ul>
+</li>
+</ul>
+<p><strong>Solutions: Do not Redistribute</strong></p>
+<hr>
+<h3 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h3><h4 id="String-last-and-next-to-last"><a href="#String-last-and-next-to-last" class="headerlink" title="String last and next to last:"></a>String last and next to last:</h4><p>toCharArray, charAt, …</p>
+<h4 id="Adorable-Strings"><a href="#Adorable-Strings" class="headerlink" title="Adorable Strings"></a>Adorable Strings</h4><p>in key, double backslash matches single backslash</p>
 
             
 
@@ -458,7 +528,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/ssh/" rel="tag">ssh</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/coding/" rel="tag">coding</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/defensive-programming/" rel="tag">defensive programming</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/interview/" rel="tag">interview</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/multi-thread/" rel="tag">multi thread</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/testing/" rel="tag">testing</a>
 
             </div>
         
@@ -468,14 +538,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/01/27/Reading_What_Is_Research/"
-                    data-tooltip="Reading - What Is Research"
-                    aria-label="PREVIOUS: Reading - What Is Research"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -485,9 +552,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2021/08/29/Git%E7%AC%94%E8%AE%B08-GitLab%E5%AE%9E%E8%B7%B5/"
-                    data-tooltip="Git笔记8-GitLab实践"
-                    aria-label="NEXT: Git笔记8-GitLab实践"
+                    href="/2022/05/31/networks-Networked-Applications/"
+                    data-tooltip="1. Networked Applications"
+                    aria-label="NEXT: 1. Networked Applications"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -512,7 +579,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/06/Coding_Bootcamp_1/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -525,7 +592,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/06/Coding_Bootcamp_1/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -538,7 +605,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/06/Coding_Bootcamp_1/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -583,14 +650,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/01/27/Reading_What_Is_Research/"
-                    data-tooltip="Reading - What Is Research"
-                    aria-label="PREVIOUS: Reading - What Is Research"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -600,9 +664,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2021/08/29/Git%E7%AC%94%E8%AE%B08-GitLab%E5%AE%9E%E8%B7%B5/"
-                    data-tooltip="Git笔记8-GitLab实践"
-                    aria-label="NEXT: Git笔记8-GitLab实践"
+                    href="/2022/05/31/networks-Networked-Applications/"
+                    data-tooltip="1. Networked Applications"
+                    aria-label="NEXT: 1. Networked Applications"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -627,7 +691,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/06/Coding_Bootcamp_1/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -640,7 +704,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/06/Coding_Bootcamp_1/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -653,7 +717,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/06/Coding_Bootcamp_1/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -687,7 +751,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/12/16/ssh-tutorial/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/06/Coding_Bootcamp_1/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -700,7 +764,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/12/16/ssh-tutorial/"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/06/Coding_Bootcamp_1/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -713,7 +777,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=http://example.com/2021/12/16/ssh-tutorial/"
+                        href="https://plus.google.com/share?url=http://example.com/2022/09/06/Coding_Bootcamp_1/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>

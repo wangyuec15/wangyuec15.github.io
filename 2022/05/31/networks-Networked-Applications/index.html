@@ -6,39 +6,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hi!----wangyuec15">
-    <title>ssh-tutorial - Hi!----wangyuec15</title>
+    <title>1. Networked Applications - Hi!----wangyuec15</title>
     <meta name="author" content="Yuechen Wang">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"A simple guide for connecting to shark machinesThis is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.\n\n\nDisclaimer: \nThe course staff generally don’t help with VS Code issues but we will try our best. \nThe following instructions are only one of the ways to connect to shark machines, you are free to use any methods. There is no preference.\nFirst, what is a shark machine?\nPlease refer to the page: http://www.cs.cmu.edu/~213/labmachines.html to get a general idea of the shark machines.\nSecond, how can we connect to shark machines?\n1unix&gt; ssh replaceWithYourAndrewId@angelshark.ics.cs.cmu.edu\n\n\n\nyou can use SCP to copy files to shark machines.\nHere is an example of the command:\n1scp handout.tar andrewid@shark.ics.cs.cmu.edu:~/private/15xxx\n\n\n\nThird, how to use VS Code to help?\nRemote extension. The official guidance can be found on this website: https://code.visualstudio.com/docs/remote/ssh\nS1: download the extension from the extension marketplace\n\nS2: set up the ssh connection.\n\n\nS3: connect to the shark machine (you can choose anyone from the list on the course website)\n\nchoose Linux when connecting! and then input your passwords.\n\nS4: go back to the explorer, and open the folder. You may need to re-enter your passwords;\n\n(chances are that there is nothing in the /private folder)\n\nThen you are all set. You can edit remote files in VS Code. You can drag files from local to the remote folder also.\nFourth, if you’d prefer CLion on Mac?\nOfficial guideline can be found here: https://www.jetbrains.com/help/clion/create-ssh-configurations.html\nS1: After creating an empty directory, in the Settings/Preferences dialog ⌘, (command+comma), search for deployment. \n\nS2: in deployment, click “+” and choose “SFTP”. For the “New server name”, type your favorite Shark machine, i.e. angelshark.ics.cs.cmu.edu.\n\nS3: click the “…” to add a configuration of SSH. \n\nS4: in the SSH Configurations window, follow these steps. The user name should be your andrewid, and the password is the one you use for ssh to Shark. After you “Test Connection”, if it pops a window saying “successfully connected”, you are good! Then, click “Apply” and “OK”. \n\nS5: Then, you are back to the Preferences window. You could click “Autodetect” to search for your working directory in Shark. Usually, if the local directory you create has the same name as the remote directory on Shark, it will be autodetected and the path is the full path. Otherwise, you need to put the full path manually. To find your pull path of your remote directory of your lab, you could type “pwd” in the remote directory and copy &amp; paste it here. \nNote: if it says “Connection failed”, sometimes you need to “Test Connection” again or do these steps with connecting to CMU VPN.\n\nS6: Among the navigation bars, in “Tools”, you can see “Browse Remote Host” under “Deployment”. Click it, and you will see a list of files in your remote directory of your lab. You could click on any file you want to edit. \n\nS7: After you make any changes, you will see a header saying “This file has been modified. Upload?”. There are two options: one is to revert to the last uploaded version, the other is to upload current version to remote. This allows you to edit files on CLion without scp from/to remote to local over and over again. \n\nS8: Enjoy!\nmy AFS is full how do I clear it up?If you use VSCode, try deleting the directory that has all of your connections with VSCode. It can get very bloated, very quickly. I had this issue on Wednesday and after deleting my VSCode directory it went from 100% storage to 4%.\nThe command is rm -rf .vscode-server, from your root directory.\nCannot Access to Shark Machine with VSCodeI cannot access to the shark machine with my VSCode. It just jumping out the password box and ask me to input the password again and again without really connecting to it. I wonder how could I solve this? Thank you\nNot sure if this will solve your issue but this is a fix I’ve used for repetitive password prompting:\n\nOpen the Command Palette (control-shift-p)\nSearch for “Kill VS Code Server on Host…” and select it\nSelect the shark server you’re trying to connect to (shark.andrew.cmu.edu or whichever specific shark you’re using)\nGo to VS Code settings (Control-comma)\nType remote.ssh.useFlock into the search field\nChange the “Remote.SSH: Use Flock” checkbox (i.e., check it if it’s unchecked, or uncheck it if it’s checked)\nRestart VS Code and try logging in over SSH.\n\nCloning IssueAfter downloading handout and creating the repo for tsh lab, I was trying to clone the github repo and got the error below. Is there a way to work around this?\nGithub has troubleshooting instructions for this error at https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey\n","dateCreated":"2021-12-16T21:30:01-05:00","dateModified":"2022-05-31T17:43:28-04:00","datePublished":"2021-12-16T21:30:01-05:00","description":"A simple guide for connecting to shark machinesThis is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.","headline":"ssh-tutorial","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/12/16/ssh-tutorial/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2021/12/16/ssh-tutorial/","keywords":"ssh"}</script>
-    <meta name="description" content="A simple guide for connecting to shark machinesThis is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"Connectivity: two computers in different parts of the word can connect to one another and exchange data.\n\nBasic model: two computers, each running a program locally, two programs communicate over network.\nmost common communication model used: bidirectional, reliable stream of bytes.\n \n\nprogram A on computer A: write data goes over network\nprogram B on computer B: read\n\n\n\nByte Stream Model\ncomputer B: waiting for other computer to connect to it (eg. web server)\ncomputer A: connect to computer B (eg. mobile phone)\nA and B setup a connection\nA write data to connection\ndata travel through network that B can read it\nsimilarly, if B write data to the connection, data travel through the network that A can read it\neither side can close the connection (eg. web browser is done requesting data from web server)\n\n\nWord Wide Web (HTTP)HTTP: HyperText Transfer Protocol\nA client opens a connection to a server and send commands to it (eg. GET-request a page)\nHTTP : document-centric way for programs to communicate\n\ntype ‘http://www.cmu.edu/&#39; in browser\nthe browser opens connection to the server www.cmu.edu, and sends a GET request for the root page of the site\nthe server receives the request, check validity, and sends the response (associated with numeric code. eg. 200 OK, 400 Bad Request)\n\nbecause HTTP is document centric, client requests name a file. ASCIIclient sends a request by writing to the connection, the server reads the request, processes it, and writes a response to the connection, which the client then reads.\n\nBitTorrentIn BitTorrent a client requests documents from other clients. Unlike the web, where client requests documents from a server.\nA single client can request from many others in parallel.\nBitTorrent breaks files up into chunks of data called pieces. When a client downloads a complete piece from other client, it then tells other clients it has that piece so they can download it too.\nThese collections of collaborating clients are called swarms.\nBitTorrent uses the exact same mechanism as the word wide web: a reliable, bidirectional byte stream. But in a slightly more complex way.\nWhen a client was to download a file, it first has to find a torrent file. The torrent file describes some information about the data file to download. It also tells BitTorrent about who the tracker is for the torrent.\nA tracker is a node that keeps track of what clients are members of the swarm.\nTo join a torrent, your client \n\ncontacts the tracker over HTTP, to request a list of other clients.\nopens connections to some of these clients and start requesting pieces of the file. Those clients, in turn, can request pieces on their own.\nWhen a new client joins the swarm, the tracker can tell the client to connect to your client.\n\n\nRather than a single connect between the client and the server, you have a dense graph of connections between clients, dynamically exchanging data. \n\nSkypesimple client-server exchange\nThe caller open a connection to the recipient. If the recipient accept the call, you start exchanging voice, video or chat data.\nIn Skype case you have two clients, two personal computers requesting data from each other. \nThe complication comes from NAT, Network Address Translator. (eg. home wireless router)\nIf you are behind the NAT, you can open connections out to the internet, but other nodes on the Internet can’t asily open connections to you.\n\nSkype using Rendezvous server to work around NAT.\n\nwhen login to Skype, Client B opens connections to a network of control servers (rendezvous server)\nwhen Client A calls Client B, it sends a message to the rendezvous server. Since the server has an open connection to client B, it tells B that there’s a call request from A.\nif Client B accepts the call, then it opens the connection to Client A\n\nreverse connection - reverse the expected direction for initiating the connection.\n\nPersonal computers are often behind NATs for security and other reasons. \nBoth behind NATs? - Relay\nboth clients open connections to the relay. When client A sends data, relay forwards it to client B through the connection that B opened.\n\n\nWord Wide Web - client-server model : a client opens a connection to a server and requests documents.\nBitTorrent = peer-to-peer model: swarms of clients open connections to each other to exchange pieces of data, creating a dense network of connections.\nSkype is the mix of the two: when skype clients can communicate directly, peer-to-peer fashion. otherwise go through rendezvous or relay servers.\n\n","dateCreated":"2022-05-31T16:08:48-04:00","dateModified":"2022-05-31T17:44:15-04:00","datePublished":"2022-05-31T16:08:48-04:00","description":"Connectivity: two computers in different parts of the word can connect to one another and exchange data.\n\nBasic model: two computers, each running a program locally, two programs communicate over network.\nmost common communication model used: bidirectional, reliable stream of bytes.","headline":"1. Networked Applications","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/05/31/networks-Networked-Applications/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2022/05/31/networks-Networked-Applications/","keywords":"networks, client-server model, peer-to-peer model, HTTP, Skype, BitTorrent"}</script>
+    <meta name="description" content="Connectivity: two computers in different parts of the word can connect to one another and exchange data.  Basic model: two computers, each running a program locally, two programs communicate over netw">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="ssh-tutorial">
-<meta property="og:url" content="http://example.com/2021/12/16/ssh-tutorial/index.html">
+<meta property="og:title" content="1. Networked Applications">
+<meta property="og:url" content="http://example.com/2022/05/31/networks-Networked-Applications/index.html">
 <meta property="og:site_name" content="Hi!----wangyuec15">
-<meta property="og:description" content="A simple guide for connecting to shark machinesThis is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.">
+<meta property="og:description" content="Connectivity: two computers in different parts of the word can connect to one another and exchange data.  Basic model: two computers, each running a program locally, two programs communicate over netw">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/01.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/02.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/03.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/04.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/07.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/05.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/06.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-2.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-3.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-4.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-5.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-6.png">
-<meta property="og:image" content="http://example.com/images/ssh-tutorial/image-7.png">
-<meta property="article:published_time" content="2021-12-17T02:30:01.000Z">
-<meta property="article:modified_time" content="2022-05-31T21:43:28.995Z">
+<meta property="og:image" content="http://example.com/images/networks/1/network_applications.png">
+<meta property="og:image" content="http://example.com/images/networks/1/byte_stream_model.png">
+<meta property="og:image" content="http://example.com/images/networks/1/http.png">
+<meta property="og:image" content="http://example.com/images/networks/1/bittorrent.png">
+<meta property="og:image" content="http://example.com/images/networks/1/skype1.png">
+<meta property="og:image" content="http://example.com/images/networks/1/skype2.png">
+<meta property="og:image" content="http://example.com/images/networks/1/skype3.png">
+<meta property="og:image" content="http://example.com/images/networks/1/application_communication.png">
+<meta property="article:published_time" content="2022-05-31T20:08:48.000Z">
+<meta property="article:modified_time" content="2022-05-31T21:44:15.920Z">
 <meta property="article:author" content="Yuechen Wang">
-<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="networks">
+<meta property="article:tag" content="client-server model">
+<meta property="article:tag" content="peer-to-peer model">
+<meta property="article:tag" content="HTTP">
+<meta property="article:tag" content="Skype">
+<meta property="article:tag" content="BitTorrent">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/ssh-tutorial/01.png">
+<meta name="twitter:image" content="http://example.com/images/networks/1/network_applications.png">
     
     
         
@@ -360,14 +359,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            ssh-tutorial
+            1. Networked Applications
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2021-12-16T21:30:01-05:00">
+    <time datetime="2022-05-31T16:08:48-04:00">
 	
-		    Dec 16, 2021
+		    May 31, 2022
     	
     </time>
     
@@ -379,74 +378,76 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="A-simple-guide-for-connecting-to-shark-machines"><a href="#A-simple-guide-for-connecting-to-shark-machines" class="headerlink" title="A simple guide for connecting to shark machines"></a>A simple guide for connecting to shark machines</h1><p>This is a simple guide for you to use VS Code to connect to a shark machine and help you get started smoothly.</p>
-<span id="more"></span>
-
-<p><strong>Disclaimer:</strong> </p>
-<p>The course staff generally don’t help with VS Code issues but we will try our best. </p>
-<p>The following instructions are only one of the ways to connect to shark machines, you are free to use any methods. There is no preference.</p>
-<p><strong>First, what is a shark machine?</strong></p>
-<p>Please refer to the page: <a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~213/labmachines.html">http://www.cs.cmu.edu/~213/labmachines.html</a> to get a general idea of the shark machines.</p>
-<p><strong>Second, how can we connect to shark machines?</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unix&gt; ssh replaceWithYourAndrewId@angelshark.ics.cs.cmu.edu</span><br></pre></td></tr></table></figure>
-
-
-
-<p>you can use SCP to copy files to shark machines.</p>
-<p>Here is an example of the command:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp handout.tar andrewid@shark.ics.cs.cmu.edu:~/private/15xxx</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>Third, how to use VS Code to help?</strong></p>
-<p>Remote extension. The official guidance can be found on this website: <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/remote/ssh">https://code.visualstudio.com/docs/remote/ssh</a></p>
-<p><strong>S1:</strong> download the extension from the extension marketplace</p>
-<p><img src="/images/ssh-tutorial/01.png" alt="img"></p>
-<p><strong>S2:</strong> set up the ssh connection.</p>
-<p><img src="/images/ssh-tutorial/02.png" alt="img"></p>
-<p><img src="/images/ssh-tutorial/03.png" alt="img"></p>
-<p><strong>S3:</strong> connect to the shark machine (you can choose anyone from the list on the course website)</p>
-<p><img src="/images/ssh-tutorial/04.png" alt="img"></p>
-<p>choose Linux when connecting! and then input your passwords.</p>
-<p><img src="/images/ssh-tutorial/07.png" alt="img"></p>
-<p><strong>S4:</strong> go back to the explorer, and open the folder. You may need to re-enter your passwords;</p>
-<p><img src="/images/ssh-tutorial/05.png" alt="img"></p>
-<p>(chances are that there is nothing in the /private folder)</p>
-<p><img src="/images/ssh-tutorial/06.png" alt="img"></p>
-<p>Then you are all set. You can edit remote files in VS Code. You can drag files from local to the remote folder also.</p>
-<p><strong>Fourth, if you’d prefer CLion on Mac?</strong></p>
-<p>Official guideline can be found here: <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/clion/create-ssh-configurations.html">https://www.jetbrains.com/help/clion/create-ssh-configurations.html</a></p>
-<p><strong>S1:</strong> After creating an empty directory, in the Settings/Preferences dialog ⌘, (command+comma), search for deployment. </p>
-<p><img src="/images/ssh-tutorial/image.png" alt="image.png"></p>
-<p><strong>S2:</strong> in deployment, click “+” and choose “SFTP”. For the “New server name”, type your favorite Shark machine, i.e. angelshark.ics.cs.cmu.edu.</p>
-<p><img src="/images/ssh-tutorial/image-2.png" alt="image.png"></p>
-<p><strong>S3:</strong> click the “…” to add a configuration of SSH. </p>
-<p><img src="/images/ssh-tutorial/image-3.png" alt="image.png"></p>
-<p><strong>S4:</strong> in the SSH Configurations window, follow these steps. The user name should be your andrewid, and the password is the one you use for ssh to Shark. After you “Test Connection”, if it pops a window saying “successfully connected”, you are good! Then, click “Apply” and “OK”. </p>
-<p><img src="/images/ssh-tutorial/image-4.png" alt="image.png"></p>
-<p><strong>S5:</strong> Then, you are back to the Preferences window. You could click “Autodetect” to search for your working directory in Shark. Usually, if the local directory you create has the same name as the remote directory on Shark, it will be autodetected and the path is the full path. Otherwise, you need to put the full path manually. To find your pull path of your remote directory of your lab, you could type “pwd” in the remote directory and copy &amp; paste it here. </p>
-<p>Note: if it says “Connection failed”, sometimes you need to “Test Connection” again or do these steps with connecting to CMU VPN.</p>
-<p><strong><img src="/images/ssh-tutorial/image-5.png" alt="image.png"></strong></p>
-<p><strong>S6:</strong> Among the navigation bars, in “Tools”, you can see “Browse Remote Host” under “Deployment”. Click it, and you will see a list of files in your remote directory of your lab. You could click on any file you want to edit. </p>
-<p><strong><img src="/images/ssh-tutorial/image-6.png" alt="image.png"></strong></p>
-<p><strong>S7:</strong> After you make any changes, you will see a header saying “This file has been modified. Upload?”. There are two options: one is to revert to the last uploaded version, the other is to upload current version to remote. This allows you to edit files on CLion without scp from/to remote to local over and over again. </p>
-<p><strong><img src="/images/ssh-tutorial/image-7.png" alt="image.png"></strong></p>
-<p><strong>S8: Enjoy!</strong></p>
-<h3 id="my-AFS-is-full-how-do-I-clear-it-up"><a href="#my-AFS-is-full-how-do-I-clear-it-up" class="headerlink" title="my AFS is full how do I clear it up?"></a>my AFS is full how do I clear it up?</h3><p>If you use VSCode, try deleting the directory that has all of your connections with VSCode. It can get very bloated, very quickly. I had this issue on Wednesday and after deleting my VSCode directory it went from 100% storage to 4%.</p>
-<p>The command is <code>rm -rf .vscode-server</code>, from your root directory.</p>
-<h3 id="Cannot-Access-to-Shark-Machine-with-VSCode"><a href="#Cannot-Access-to-Shark-Machine-with-VSCode" class="headerlink" title="Cannot Access to Shark Machine with VSCode"></a>Cannot Access to Shark Machine with VSCode</h3><p>I cannot access to the shark machine with my VSCode. It just jumping out the password box and ask me to input the password again and again without really connecting to it. I wonder how could I solve this? Thank you</p>
-<p>Not sure if this will solve your issue but this is a fix I’ve used for repetitive password prompting:</p>
-<ol>
-<li>Open the Command Palette (control-shift-p)</li>
-<li>Search for “Kill VS Code Server on Host…” and select it</li>
-<li>Select the shark server you’re trying to connect to (shark.andrew.cmu.edu or whichever specific shark you’re using)</li>
-<li>Go to VS Code settings (Control-comma)</li>
-<li>Type <code>remote.ssh.useFlock</code> into the search field</li>
-<li>Change the “Remote.SSH: Use Flock” checkbox (i.e., check it if it’s unchecked, or uncheck it if it’s checked)</li>
-<li>Restart VS Code and try logging in over SSH.</li>
-</ol>
-<h3 id="Cloning-Issue"><a href="#Cloning-Issue" class="headerlink" title="Cloning Issue"></a>Cloning Issue</h3><p>After downloading handout and creating the repo for tsh lab, I was trying to clone the github repo and got the error below. Is there a way to work around this?</p>
-<p>Github has troubleshooting instructions for this error at <a target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey">https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey</a></p>
+            <p>Connectivity: two computers in different parts of the word can connect to one another and exchange data.</p>
+<hr>
+<p>Basic model: two computers, each running a program locally, two programs communicate over network.</p>
+<p><strong>most common</strong> communication model used: <strong>bidirectional, reliable stream of bytes</strong>.</p>
+<span id="more"></span> 
+<ul>
+<li>program A on computer A: write data goes over network</li>
+<li>program B on computer B: read</li>
+</ul>
+<p><img src="/images/networks/1/network_applications.png" alt="network_applications"></p>
+<hr>
+<h4 id="Byte-Stream-Model"><a href="#Byte-Stream-Model" class="headerlink" title="Byte Stream Model"></a>Byte Stream Model</h4><ul>
+<li>computer B: waiting for other computer to connect to it (eg. web server)</li>
+<li>computer A: connect to computer B (eg. mobile phone)</li>
+<li>A and B setup a connection</li>
+<li>A write data to connection</li>
+<li>data travel through network that B can read it</li>
+<li>similarly, if B write data to the connection, data travel through the network that A can read it</li>
+<li>either side can close the connection (eg. web browser is done requesting data from web server)<br><img src="/images/networks/1/byte_stream_model.png" alt="byte stream model"></li>
+</ul>
+<hr>
+<h4 id="Word-Wide-Web-HTTP"><a href="#Word-Wide-Web-HTTP" class="headerlink" title="Word Wide Web (HTTP)"></a>Word Wide Web (HTTP)</h4><p><strong>HTTP</strong>: HyperText Transfer Protocol</p>
+<p>A client opens a connection to a server and send commands to it (eg. GET-request a page)</p>
+<p>HTTP : <strong>document-centric</strong> way for programs to communicate</p>
+<ul>
+<li>type ‘<a target="_blank" rel="noopener" href="http://www.cmu.edu/&#39;">http://www.cmu.edu/&#39;</a> in browser</li>
+<li>the browser opens connection to the server <a target="_blank" rel="noopener" href="http://www.cmu.edu/">www.cmu.edu</a>, and sends a GET request for the root page of the site</li>
+<li>the server receives the request, check validity, and sends the response (associated with numeric code. eg. 200 OK, 400 Bad Request)</li>
+</ul>
+<p>because HTTP is document centric, client requests name a file. ASCII<br><img src="/images/networks/1/http.png" alt="http"><br>client sends a request by writing to the connection, the server reads the request, processes it, and writes a response to the connection, which the client then reads.</p>
+<hr>
+<h4 id="BitTorrent"><a href="#BitTorrent" class="headerlink" title="BitTorrent"></a>BitTorrent</h4><p>In BitTorrent a client requests documents <strong>from other clients</strong>. Unlike the web, where client requests documents from a server.</p>
+<p>A single client can request from many others in parallel.</p>
+<p>BitTorrent breaks files up into chunks of data called <strong>pieces</strong>. When a client downloads a complete piece from other client, it then tells other clients it has that piece so they can download it too.</p>
+<p>These collections of collaborating clients are called <strong>swarms</strong>.</p>
+<p>BitTorrent uses the exact same mechanism as the word wide web: a reliable, bidirectional byte stream. But in a slightly more complex way.</p>
+<p>When a client was to download a file, it first has to find a torrent file. The <strong>torrent file</strong> describes some information about the data file to download. It also tells BitTorrent about who the tracker is for the torrent.</p>
+<p>A tracker is a node that keeps track of what clients are members of the swarm.</p>
+<p>To join a torrent, your client </p>
+<ul>
+<li>contacts the tracker over HTTP, to request a list of other clients.</li>
+<li>opens connections to some of these clients and start requesting pieces of the file. Those clients, in turn, can request pieces on their own.</li>
+<li>When a new client joins the swarm, the tracker can tell the client to connect to your client.</li>
+</ul>
+<p><img src="/images/networks/1/bittorrent.png" alt="bittorrent"></p>
+<p>Rather than a single connect between the client and the server, you have a dense graph of connections between clients, dynamically exchanging data. </p>
+<hr>
+<h4 id="Skype"><a href="#Skype" class="headerlink" title="Skype"></a>Skype</h4><p>simple client-server exchange</p>
+<p>The caller open a connection to the recipient. If the recipient accept the call, you start exchanging voice, video or chat data.</p>
+<p>In Skype case you have two clients, two personal computers requesting data from each other. </p>
+<p>The complication comes from <strong>NAT</strong>, Network Address Translator. (eg. home wireless router)</p>
+<p>If you are behind the NAT, you can open connections out to the internet, but other nodes on the Internet can’t asily open connections to you.</p>
+<p><img src="/images/networks/1/skype1.png" alt="skype1"></p>
+<p>Skype using Rendezvous server to work around NAT.</p>
+<ul>
+<li>when login to Skype, Client B opens connections to a network of control servers (rendezvous server)</li>
+<li>when Client A calls Client B, it sends a message to the rendezvous server. Since the server has an open connection to client B, it tells B that there’s a call request from A.</li>
+<li>if Client B accepts the call, then it opens the connection to Client A</li>
+</ul>
+<p><strong>reverse connection</strong> - reverse the expected direction for initiating the connection.</p>
+<p><img src="/images/networks/1/skype2.png" alt="skype2"></p>
+<p>Personal computers are often behind NATs for security and other reasons. </p>
+<p>Both behind NATs? - <strong>Relay</strong></p>
+<p>both clients open connections to the relay. When client A sends data, relay forwards it to client B through the connection that B opened.</p>
+<p><img src="/images/networks/1/skype3.png" alt="skype3"></p>
+<hr>
+<p>Word Wide Web - <strong>client-server model</strong> : a client opens a connection to a server and requests documents.</p>
+<p>BitTorrent = <strong>peer-to-peer model</strong>: swarms of clients open connections to each other to exchange pieces of data, creating a dense network of connections.</p>
+<p>Skype is the mix of the two: when skype clients can communicate directly, peer-to-peer fashion. otherwise go through rendezvous or relay servers.</p>
+<p><img src="/images/networks/1/application_communication.png" alt="application communication"></p>
 
             
 
@@ -458,7 +459,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/ssh/" rel="tag">ssh</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/BitTorrent/" rel="tag">BitTorrent</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/HTTP/" rel="tag">HTTP</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/Skype/" rel="tag">Skype</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/client-server-model/" rel="tag">client-server model</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/networks/" rel="tag">networks</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/peer-to-peer-model/" rel="tag">peer-to-peer model</a>
 
             </div>
         
@@ -471,9 +472,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/01/27/Reading_What_Is_Research/"
-                    data-tooltip="Reading - What Is Research"
-                    aria-label="PREVIOUS: Reading - What Is Research"
+                    href="/2022/09/06/Coding_Bootcamp_1/"
+                    data-tooltip="Coding Bootcamp Note 1"
+                    aria-label="PREVIOUS: Coding Bootcamp Note 1"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -485,9 +486,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2021/08/29/Git%E7%AC%94%E8%AE%B08-GitLab%E5%AE%9E%E8%B7%B5/"
-                    data-tooltip="Git笔记8-GitLab实践"
-                    aria-label="NEXT: Git笔记8-GitLab实践"
+                    href="/2022/04/22/Reading_Writing_Your_Argument/"
+                    data-tooltip="Reading - Writing Your Argument"
+                    aria-label="NEXT: Reading - Writing Your Argument"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -512,7 +513,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/05/31/networks-Networked-Applications/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -525,7 +526,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/05/31/networks-Networked-Applications/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -538,7 +539,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/05/31/networks-Networked-Applications/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -586,9 +587,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/01/27/Reading_What_Is_Research/"
-                    data-tooltip="Reading - What Is Research"
-                    aria-label="PREVIOUS: Reading - What Is Research"
+                    href="/2022/09/06/Coding_Bootcamp_1/"
+                    data-tooltip="Coding Bootcamp Note 1"
+                    aria-label="PREVIOUS: Coding Bootcamp Note 1"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -600,9 +601,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2021/08/29/Git%E7%AC%94%E8%AE%B08-GitLab%E5%AE%9E%E8%B7%B5/"
-                    data-tooltip="Git笔记8-GitLab实践"
-                    aria-label="NEXT: Git笔记8-GitLab实践"
+                    href="/2022/04/22/Reading_Writing_Your_Argument/"
+                    data-tooltip="Reading - Writing Your Argument"
+                    aria-label="NEXT: Reading - Writing Your Argument"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -627,7 +628,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/05/31/networks-Networked-Applications/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -640,7 +641,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/05/31/networks-Networked-Applications/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -653,7 +654,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2021/12/16/ssh-tutorial/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/05/31/networks-Networked-Applications/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -687,7 +688,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/12/16/ssh-tutorial/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/05/31/networks-Networked-Applications/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -700,7 +701,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=http://example.com/2021/12/16/ssh-tutorial/"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2022/05/31/networks-Networked-Applications/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -713,7 +714,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=http://example.com/2021/12/16/ssh-tutorial/"
+                        href="https://plus.google.com/share?url=http://example.com/2022/05/31/networks-Networked-Applications/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
