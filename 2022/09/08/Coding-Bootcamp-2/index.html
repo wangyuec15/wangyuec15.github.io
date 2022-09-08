@@ -6,27 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hi!----wangyuec15">
-    <title>Coding Bootcamp Note 1 - Hi!----wangyuec15</title>
+    <title>Coding_Bootcamp_2 - Hi!----wangyuec15</title>
     <meta name="author" content="Yuechen Wang">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"InterviewingInterviewee:\nMake sure know problem to solve\nresolve ambiguities\nask for clarifications\n\n\n“Talk out” \nkeep up running commentary of thought process\nconsider multiple choices\n\n\n\nWhiteBoard Technique\nwrite legibly\nadapt to size\nuse a corner to write down requirements, example figures\nleave enough space for code\ndon’t be afraid to erase\n\nInterviewer\nGive questions in order\nState questions clearly and concisely, no need to spell every detail\nGive hints when interviewee got stuck\nControl the time\nDon’t start new question when time is limited\nSpeed along the current question\n\n\n\nThe ShuffleShuffle 1: chapter 1, 2 and 1145-55 minute mock interview - 3 questions\nTesting Requires Its Own Mindset\nWhen programming, make code work\nWhen testing, make code fail\nThink about how code could fail, and what conditions might cause it fail\nbad input data\nexternal errors\n\n\n\nTest a Pen\nDrop the pen\n\nWrite on variety surface\n\nNormal operation\n\nDoes it extend smoothly, cap easy to remove\ndoes ot generates smooth line on paper\n\n\nUnexpected operation\n\nwrite upside down?\nwhite on sth other than paper?\n\n\n\nUnit testing\nDetermine smallest testable pert of program\nfunction, module, etc.\n\n\na set of test cases to verify correct outputs for given inputs\nnormal operation\nboundary conditions\nerroneous input\n\n\nclosely related to defensive programming\n\nBoundary Conditions / Edge Cases\nConsider the extremes that might be encountered\nempty input\nextremely large imput\nsmallest valid value\nlargest valid value\n\n\ninputs that can cause boundary or error conditions in internal functions\ndivision by 0, overflow, accessing invalid array index\nodd number of items in search or divide and conquer algorithms\n\n\n\nWhite vs. Black\nDepending on how much access you have to the code under test,\nBlack box testing: see only inputs and outputs\nWhite boc\n\n\n\nDefensive programming\na form of defensive design intended to develop programs that are capable of detect potential security abnormalities and make predetermined response.\n\nNever trust the Input\nCheck the validity for every argument you don’t control\nCheck Intermediate Results\noverflow, underflow, div by 0 ….\n\n\n\nThe Robustness PrincipleIn computing, the robustness principle is a design guideline for software that states: “be conservative in what you do, be liberal in what you accept from others”. It is often reworded as: “be conservative in what you send, be liberal in what you accept”\nPerformance Bottlenecks\nA program should be considered to have failed if it is too slow even if the result eas corrent\ne.g. real-time operation\n\n\nNeed to consider inputs that could cause too-slow operation\nlarge inputs for o(n^3) or O(2^N) algorithms\nsorted input to QuickSort(&gt;&gt; next lecture)\n\n\n\nPerformance example: 2D ArraysJava: one-dimensional array of pointers to one-dimensional arrays\n2D array performance in java\nEvery array access in bounds-checked\nIterate: the first dimension change slowest\n\nMulti-Threading\nUsing multiple threads introduces uncertainty\nRace condition:\nif the results differ depending on the order in which multiple threads access a variable, we call that a data race\nFix in java:\nvolatile keyword\ndisable caching of the variable, so every modification is immediately written to main memorym and every read uses the current value in main memory\nuseful when a single thread is making updates and one or more other threads are reading\n\n\nsynchronized keyword\nenforces one-at-a-time accessing\n\n\n\nvolatile example:\n1volatile static int done;\n\nsynchronized example:\n123synchronized void doSomething() &#123;        ...&#125;\n\nPerformance Implications\nvolatile and synchronized slow down program\nvolatile prevents various optimizations, forces memory access\n\n\n\nSolutions: Do not Redistribute\n\nExerciseString last and next to last:toCharArray, charAt, …\nAdorable Stringsin key, double backslash matches single backslash\n","dateCreated":"2022-09-06T11:50:00-04:00","dateModified":"2022-09-06T12:48:49-04:00","datePublished":"2022-09-06T11:50:00-04:00","description":"InterviewingInterviewee:\nMake sure know problem to solve\nresolve ambiguities\nask for clarifications\n\n\n“Talk out”","headline":"Coding Bootcamp Note 1","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/09/06/Coding_Bootcamp_1/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2022/09/06/Coding_Bootcamp_1/","keywords":"coding, interview, testing, multi thread, defensive programming"}</script>
-    <meta name="description" content="InterviewingInterviewee: Make sure know problem to solve resolve ambiguities ask for clarifications   “Talk out”">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"sorting \nLomuto Partitioning in ActionHoare Partitioning in Action\nadvance left past elements less than pivot\nadvance right until we see an element less than or equal to the pivot\n\nComplexity: Merge Sort\nfirst pass merges N/2 pairs of elements\nsecond pass merges N/4 pairs of two-elements runs\nthird pass merges N/8 pairs of four element runs\n…\neach pass does O(n) work\nthere are O(log n) passes\nso the total for the entire sort is O(log n)*O(n) - O(n log n)\n\nComplexity: Quick Sort\nAverage case: we split the array approximately in half\nso the recursive depth is O(log n)\neach layer of recursion does a total of O(n) work\nso the total is O(log n)*O(n) = O(n log n)\n\n\nWorst case\nO(n^2)\n\n\n\nTimsort\nA hybrid of Merge Sort and Insertion Sort\nfind runs in the data and processes the runs according to their size\nmore complex than Merge Sort, but gains efficiencies on real-world inputs\nnow the standard sorting algorithm in Python\n\nJava Sorting functions12345Arrays.sort(arr)Arrays.sort(arr, int from, int to)Arrays.sort(arr, int from, int to, Comparator c)Collections.sort(coll)Collections.sort(coll, Comparator c)\n\nJava 8 adds parallelSort()\n\nsame APIs as .sort(), but runs in multiple threads\n\nmerge sort for Arrays.sort() and collections.sort()\na two pivot varient of QuickSort for Arrays.Sort\nIn Coding InterviewStep 1: Read the Problem statement\nfigure the actual problem to solve from narrative\nDetermine the type of problem\nstring manipulation\nsorting\nsearch\noptimization(best path/order/selection)\n\nStep 2: Figure out Possible Decompositions\nMultiple subtasks may be easier to solve individually\nMultiple subtasks may each need a different algorithm or data structure\nIf one or more in a version of real problem\n\nStep 3: Analyze the constraints\nAre there limits on algorithm time/space\nAre there limits on input values\nAre there limits on input sizeStep 4: Enumerate Candidate Algorithms\na set of candidate algorithms, okay to include b\n\nStep 5: Adapt Algorithms\ntry adapt known algorithms via minor modifications\ntry adapt known algorithms by changing interpretation of data\n\nStep 6: Select Best Algorithm For Each Part\ncompare time/space complexities\ncompare coding difficulty\ntake the constraints into account\n\nStep 7: Connect Sub-ProblemsDesign overall solutions\nStep 8: Try out examples\nManually run through a small example or two using the chosen solution\nIf don’t get the right answer, recheck choice of algorithms, check connections between algorithms\n\nStep 9: Figure out edges / boundariesspecial input: max, min…\nStep 10: Write Codedetailed solution hand check\nStep 11: Test and Debugdouble check calculations, make sure handle boundaries\nChekhov’sGunany specifically-mentioned details are probably important to the solution\nreviewString.substring() is a slow function.\nedge input of string\ncompletely empty input\nswitches only\nmultiple consecutive strings\nempty switches (slash followed by blank)\nempty negated switches (/-)\ndash following one or more switch characters (/A-notaswitch)\n\nJavaCommand Using Regular Expressions\nSwitch is matched with “/-?[A-Za-z]*”\nTo extract just the non-switch strings, convert switches to blanks, then merge away extraneous blanks and split on blanks\ncmdline.replaceAll(&quot;/-?[A-Za-z]*&quot;,&quot;&quot;).replaceAll(&quot;  +&quot;, &quot;&quot;).replaceFirst(&quot;^+&quot;,&quot;&quot;).replaceFirst(&quot;+$&quot;.&quot;&quot;).split(&quot;&quot;)(two blanks before +)\n\n\nTo get the switches, build a regex matcher and apply find() in a loop\nMatcher m=Pattern.compile(&quot;/-?[A-Za-z]*&quot;).matcher(cmdline)\nwhile (m.find()) ( String sw=m.group().toUpperCase0;...)\n\n\n\n","dateCreated":"2022-09-08T12:18:23-04:00","dateModified":"2022-09-08T13:03:30-04:00","datePublished":"2022-09-08T12:18:23-04:00","description":"sorting","headline":"Coding_Bootcamp_2","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/09/08/Coding-Bootcamp-2/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2022/09/08/Coding-Bootcamp-2/","keywords":"coding, interview, sorting, string manipulation"}</script>
+    <meta name="description" content="sorting">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Coding Bootcamp Note 1">
-<meta property="og:url" content="http://example.com/2022/09/06/Coding_Bootcamp_1/index.html">
+<meta property="og:title" content="Coding_Bootcamp_2">
+<meta property="og:url" content="http://example.com/2022/09/08/Coding-Bootcamp-2/index.html">
 <meta property="og:site_name" content="Hi!----wangyuec15">
-<meta property="og:description" content="InterviewingInterviewee: Make sure know problem to solve resolve ambiguities ask for clarifications   “Talk out”">
+<meta property="og:description" content="sorting">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-09-06T15:50:00.000Z">
-<meta property="article:modified_time" content="2022-09-06T16:48:49.137Z">
+<meta property="article:published_time" content="2022-09-08T16:18:23.000Z">
+<meta property="article:modified_time" content="2022-09-08T17:03:30.980Z">
 <meta property="article:author" content="Yuechen Wang">
 <meta property="article:tag" content="coding">
 <meta property="article:tag" content="interview">
-<meta property="article:tag" content="testing">
-<meta property="article:tag" content="multi thread">
-<meta property="article:tag" content="defensive programming">
+<meta property="article:tag" content="sorting">
+<meta property="article:tag" content="string manipulation">
 <meta name="twitter:card" content="summary">
     
     
@@ -349,14 +348,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            Coding Bootcamp Note 1
+            Coding_Bootcamp_2
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2022-09-06T11:50:00-04:00">
+    <time datetime="2022-09-08T12:18:23-04:00">
 	
-		    Sep 06, 2022
+		    Sep 08, 2022
     	
     </time>
     
@@ -368,155 +367,104 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="Interviewing"><a href="#Interviewing" class="headerlink" title="Interviewing"></a>Interviewing</h1><h2 id="Interviewee"><a href="#Interviewee" class="headerlink" title="Interviewee:"></a>Interviewee:</h2><ul>
-<li>Make sure know problem to solve</li>
-<li>resolve ambiguities<ul>
-<li>ask for clarifications</li>
+            <p>sorting <span id="more"></span></p>
+<h2 id="Lomuto-Partitioning-in-Action"><a href="#Lomuto-Partitioning-in-Action" class="headerlink" title="Lomuto Partitioning in Action"></a>Lomuto Partitioning in Action</h2><h2 id="Hoare-Partitioning-in-Action"><a href="#Hoare-Partitioning-in-Action" class="headerlink" title="Hoare Partitioning in Action"></a>Hoare Partitioning in Action</h2><ul>
+<li>advance <strong>left</strong> past elements less than pivot</li>
+<li>advance <strong>right</strong> until we see an element less than or equal to the pivot</li>
+</ul>
+<h2 id="Complexity-Merge-Sort"><a href="#Complexity-Merge-Sort" class="headerlink" title="Complexity: Merge Sort"></a>Complexity: Merge Sort</h2><ul>
+<li>first pass merges N/2 pairs of elements</li>
+<li>second pass merges N/4 pairs of two-elements runs</li>
+<li>third pass merges N/8 pairs of four element runs</li>
+<li>…</li>
+<li>each pass does O(n) work</li>
+<li>there are O(log n) passes</li>
+<li>so the total for the entire sort is O(log n)*O(n) - O(n log n)</li>
+</ul>
+<h2 id="Complexity-Quick-Sort"><a href="#Complexity-Quick-Sort" class="headerlink" title="Complexity: Quick Sort"></a>Complexity: Quick Sort</h2><ul>
+<li>Average case: we split the array approximately in half<ul>
+<li>so the recursive depth is O(log n)</li>
+<li>each layer of recursion does a total of O(n) work</li>
+<li>so the total is O(log n)*O(n) = O(n log n)</li>
 </ul>
 </li>
-<li>“Talk out” <span id="more"></span><ul>
-<li>keep up running commentary of thought process</li>
-<li>consider multiple choices</li>
-</ul>
-</li>
-</ul>
-<h2 id="WhiteBoard-Technique"><a href="#WhiteBoard-Technique" class="headerlink" title="WhiteBoard Technique"></a>WhiteBoard Technique</h2><ul>
-<li>write legibly</li>
-<li>adapt to size</li>
-<li>use a corner to write down requirements, example figures</li>
-<li>leave enough space for code</li>
-<li>don’t be afraid to erase</li>
-</ul>
-<h2 id="Interviewer"><a href="#Interviewer" class="headerlink" title="Interviewer"></a>Interviewer</h2><ul>
-<li>Give questions in order</li>
-<li>State questions clearly and concisely, no need to spell every detail</li>
-<li>Give hints when interviewee got stuck</li>
-<li>Control the time<ul>
-<li>Don’t start new question when time is limited</li>
-<li>Speed along the current question</li>
+<li>Worst case<ul>
+<li>O(n^2)</li>
 </ul>
 </li>
 </ul>
-<h2 id="The-Shuffle"><a href="#The-Shuffle" class="headerlink" title="The Shuffle"></a>The Shuffle</h2><p>Shuffle 1: chapter 1, 2 and 11<br>45-55 minute mock interview - 3 questions</p>
-<h2 id="Testing-Requires-Its-Own-Mindset"><a href="#Testing-Requires-Its-Own-Mindset" class="headerlink" title="Testing Requires Its Own Mindset"></a>Testing Requires Its Own Mindset</h2><ul>
-<li>When programming, make code work</li>
-<li>When testing, make code fail</li>
-<li>Think about how code could fail, and what conditions might cause it fail<ul>
-<li>bad input data</li>
-<li>external errors</li>
+<h2 id="Timsort"><a href="#Timsort" class="headerlink" title="Timsort"></a>Timsort</h2><ul>
+<li>A hybrid of Merge Sort and Insertion Sort</li>
+<li>find <em>runs</em> in the data and processes the runs according to their size</li>
+<li>more complex than Merge Sort, but gains efficiencies on real-world inputs</li>
+<li>now the standard sorting algorithm in Python</li>
 </ul>
-</li>
-</ul>
-<h3 id="Test-a-Pen"><a href="#Test-a-Pen" class="headerlink" title="Test a Pen"></a>Test a Pen</h3><ul>
-<li><p>Drop the pen</p>
-</li>
-<li><p>Write on variety surface</p>
-</li>
-<li><p>Normal operation</p>
-<ul>
-<li>Does it extend smoothly, cap easy to remove</li>
-<li>does ot generates smooth line on paper</li>
-</ul>
-</li>
-<li><p>Unexpected operation</p>
-<ul>
-<li>write upside down?</li>
-<li>white on sth other than paper?</li>
-</ul>
-</li>
-</ul>
-<h3 id="Unit-testing"><a href="#Unit-testing" class="headerlink" title="Unit testing"></a>Unit testing</h3><ul>
-<li>Determine smallest testable pert of program<ul>
-<li>function, module, etc.</li>
-</ul>
-</li>
-<li>a set of test cases to verify correct outputs for given inputs<ul>
-<li>normal operation</li>
-<li>boundary conditions</li>
-<li>erroneous input</li>
-</ul>
-</li>
-<li>closely related to <strong>defensive programming</strong></li>
-</ul>
-<h2 id="Boundary-Conditions-Edge-Cases"><a href="#Boundary-Conditions-Edge-Cases" class="headerlink" title="Boundary Conditions / Edge Cases"></a>Boundary Conditions / Edge Cases</h2><ul>
-<li>Consider the extremes that might be encountered<ul>
-<li>empty input</li>
-<li>extremely large imput</li>
-<li>smallest valid value</li>
-<li>largest valid value</li>
-</ul>
-</li>
-<li>inputs that can cause boundary or error conditions in internal functions<ul>
-<li>division by 0, overflow, accessing invalid array index</li>
-<li>odd number of items in search or divide and conquer algorithms</li>
-</ul>
-</li>
-</ul>
-<h3 id="White-vs-Black"><a href="#White-vs-Black" class="headerlink" title="White vs. Black"></a>White vs. Black</h3><ul>
-<li>Depending on how much access you have to the code under test,<ul>
-<li>Black box testing: see only inputs and outputs</li>
-<li>White boc</li>
-</ul>
-</li>
-</ul>
-<h2 id="Defensive-programming"><a href="#Defensive-programming" class="headerlink" title="Defensive programming"></a>Defensive programming</h2><ul>
-<li>a form of defensive design <strong>intended to develop programs that are capable of detect potential security abnormalities and make predetermined response.</strong></li>
-</ul>
-<h3 id="Never-trust-the-Input"><a href="#Never-trust-the-Input" class="headerlink" title="Never trust the Input"></a>Never trust the Input</h3><ul>
-<li>Check the validity for every argument you don’t control</li>
-<li>Check Intermediate Results<ul>
-<li>overflow, underflow, div by 0 ….</li>
-</ul>
-</li>
-</ul>
-<h3 id="The-Robustness-Principle"><a href="#The-Robustness-Principle" class="headerlink" title="The Robustness Principle"></a>The Robustness Principle</h3><p>In computing, the robustness principle is a design guideline for software that states: “be conservative in what you do, be liberal in what you accept from others”. It is often reworded as: “be conservative in what you send, be liberal in what you accept”</p>
-<h3 id="Performance-Bottlenecks"><a href="#Performance-Bottlenecks" class="headerlink" title="Performance Bottlenecks"></a>Performance Bottlenecks</h3><ul>
-<li>A program should be considered to have failed if it is too slow even if the result eas corrent<ul>
-<li>e.g. real-time operation</li>
-</ul>
-</li>
-<li>Need to consider inputs that could cause too-slow operation<ul>
-<li>large inputs for o(n^3) or O(2^N) algorithms</li>
-<li>sorted input to QuickSort(&gt;&gt; next lecture)</li>
-</ul>
-</li>
-</ul>
-<h4 id="Performance-example-2D-Arrays"><a href="#Performance-example-2D-Arrays" class="headerlink" title="Performance example: 2D Arrays"></a>Performance example: 2D Arrays</h4><p>Java: one-dimensional array of pointers to one-dimensional arrays</p>
-<h3 id="2D-array-performance-in-java"><a href="#2D-array-performance-in-java" class="headerlink" title="2D array performance in java"></a>2D array performance in java</h3><ul>
-<li>Every array access in bounds-checked</li>
-<li>Iterate: the first dimension change slowest</li>
-</ul>
-<h2 id="Multi-Threading"><a href="#Multi-Threading" class="headerlink" title="Multi-Threading"></a>Multi-Threading</h2><ul>
-<li>Using multiple threads introduces uncertainty</li>
-<li>Race condition:</li>
-<li>if the results differ depending on the order in which multiple threads access a variable, we call that a data race</li>
-<li>Fix in java:</li>
-<li><strong><code>volatile</code></strong> keyword<ul>
-<li>disable caching of the variable, so every modification is immediately written to main memorym and every read uses the current value in main memory</li>
-<li>useful when a single thread is making updates and one or more other threads are reading</li>
-</ul>
-</li>
-<li><strong><code>synchronized</code></strong> keyword<ul>
-<li>enforces one-at-a-time accessing</li>
-</ul>
-</li>
-</ul>
-<p>volatile example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> done;</span><br></pre></td></tr></table></figure>
+<h2 id="Java-Sorting-functions"><a href="#Java-Sorting-functions" class="headerlink" title="Java Sorting functions"></a>Java Sorting functions</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(arr)</span><br><span class="line">Arrays.sort(arr, <span class="keyword">int</span> from, <span class="keyword">int</span> to)</span><br><span class="line">Arrays.sort(arr, <span class="keyword">int</span> from, <span class="keyword">int</span> to, Comparator c)</span><br><span class="line">Collections.sort(coll)</span><br><span class="line">Collections.sort(coll, Comparator c)</span><br></pre></td></tr></table></figure>
 
-<p>synchronized example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Performance-Implications"><a href="#Performance-Implications" class="headerlink" title="Performance Implications"></a>Performance Implications</h3><ul>
-<li>volatile and synchronized slow down program<ul>
-<li>volatile prevents various optimizations, forces memory access</li>
+<p>Java 8 adds parallelSort()</p>
+<ul>
+<li>same APIs as <code>.sort()</code>, but runs in multiple threads</li>
+</ul>
+<p>merge sort for <code>Arrays.sort()</code> and <code>collections.sort()</code></p>
+<p>a two pivot varient of QuickSort for Arrays.Sort</p>
+<h2 id="In-Coding-Interview"><a href="#In-Coding-Interview" class="headerlink" title="In Coding Interview"></a>In Coding Interview</h2><h3 id="Step-1-Read-the-Problem-statement"><a href="#Step-1-Read-the-Problem-statement" class="headerlink" title="Step 1: Read the Problem statement"></a>Step 1: Read the Problem statement</h3><ul>
+<li>figure the actual problem to solve from narrative</li>
+<li>Determine the type of problem</li>
+<li>string manipulation</li>
+<li>sorting</li>
+<li>search</li>
+<li>optimization(<strong>best</strong> path/order/selection)</li>
+</ul>
+<h3 id="Step-2-Figure-out-Possible-Decompositions"><a href="#Step-2-Figure-out-Possible-Decompositions" class="headerlink" title="Step 2: Figure out Possible Decompositions"></a>Step 2: Figure out Possible Decompositions</h3><ul>
+<li>Multiple subtasks may be easier to solve individually</li>
+<li>Multiple subtasks may each need a different algorithm or data structure</li>
+<li>If one or more in a version of real problem</li>
+</ul>
+<h3 id="Step-3-Analyze-the-constraints"><a href="#Step-3-Analyze-the-constraints" class="headerlink" title="Step 3: Analyze the constraints"></a>Step 3: Analyze the constraints</h3><ul>
+<li>Are there limits on algorithm time/space</li>
+<li>Are there limits on input <em>values</em></li>
+<li>Are there limits on input <em>size</em><h3 id="Step-4-Enumerate-Candidate-Algorithms"><a href="#Step-4-Enumerate-Candidate-Algorithms" class="headerlink" title="Step 4: Enumerate Candidate Algorithms"></a>Step 4: Enumerate Candidate Algorithms</h3></li>
+<li>a set of candidate algorithms, okay to include b</li>
+</ul>
+<h3 id="Step-5-Adapt-Algorithms"><a href="#Step-5-Adapt-Algorithms" class="headerlink" title="Step 5: Adapt Algorithms"></a>Step 5: Adapt Algorithms</h3><ul>
+<li>try adapt known algorithms via minor modifications</li>
+<li>try adapt known algorithms by changing interpretation of data</li>
+</ul>
+<h3 id="Step-6-Select-Best-Algorithm-For-Each-Part"><a href="#Step-6-Select-Best-Algorithm-For-Each-Part" class="headerlink" title="Step 6: Select Best Algorithm For Each Part"></a>Step 6: Select Best Algorithm For Each Part</h3><ul>
+<li>compare time/space complexities</li>
+<li>compare coding difficulty</li>
+<li>take the constraints into account</li>
+</ul>
+<h3 id="Step-7-Connect-Sub-Problems"><a href="#Step-7-Connect-Sub-Problems" class="headerlink" title="Step 7: Connect Sub-Problems"></a>Step 7: Connect Sub-Problems</h3><p>Design overall solutions</p>
+<h3 id="Step-8-Try-out-examples"><a href="#Step-8-Try-out-examples" class="headerlink" title="Step 8: Try out examples"></a>Step 8: Try out examples</h3><ul>
+<li>Manually run through a small example or two using the chosen solution</li>
+<li>If don’t get the right answer, recheck choice of algorithms, check connections between algorithms</li>
+</ul>
+<h3 id="Step-9-Figure-out-edges-boundaries"><a href="#Step-9-Figure-out-edges-boundaries" class="headerlink" title="Step 9: Figure out edges / boundaries"></a>Step 9: Figure out edges / boundaries</h3><p>special input: max, min…</p>
+<h3 id="Step-10-Write-Code"><a href="#Step-10-Write-Code" class="headerlink" title="Step 10: Write Code"></a>Step 10: Write Code</h3><p>detailed solution hand check</p>
+<h3 id="Step-11-Test-and-Debug"><a href="#Step-11-Test-and-Debug" class="headerlink" title="Step 11: Test and Debug"></a>Step 11: Test and Debug</h3><p>double check calculations, make sure handle boundaries</p>
+<h3 id="Chekhov’sGun"><a href="#Chekhov’sGun" class="headerlink" title="Chekhov’sGun"></a>Chekhov’sGun</h3><p>any specifically-mentioned details are probably important to the solution</p>
+<h3 id="review"><a href="#review" class="headerlink" title="review"></a>review</h3><p><code>String.substring()</code> is a slow function.</p>
+<h2 id="edge-input-of-string"><a href="#edge-input-of-string" class="headerlink" title="edge input of string"></a>edge input of string</h2><ul>
+<li>completely empty input</li>
+<li>switches only</li>
+<li>multiple consecutive strings</li>
+<li>empty switches (slash followed by blank)</li>
+<li>empty negated switches (/-)</li>
+<li>dash following one or more switch characters (/A-notaswitch)</li>
+</ul>
+<h3 id="JavaCommand-Using-Regular-Expressions"><a href="#JavaCommand-Using-Regular-Expressions" class="headerlink" title="JavaCommand Using Regular Expressions"></a>JavaCommand Using Regular Expressions</h3><ul>
+<li>Switch is matched with “/-?[A-Za-z]*”</li>
+<li>To extract just the non-switch strings, convert switches to blanks, then merge away extraneous blanks and split on blanks<ul>
+<li><code>cmdline.replaceAll(&quot;/-?[A-Za-z]*&quot;,&quot;&quot;).replaceAll(&quot;  +&quot;, &quot;&quot;).replaceFirst(&quot;^+&quot;,&quot;&quot;).replaceFirst(&quot;+$&quot;.&quot;&quot;).split(&quot;&quot;)</code><br>(two blanks before +)</li>
+</ul>
+</li>
+<li>To get the switches, build a regex matcher and apply <code>find()</code> in a loop<ul>
+<li><code>Matcher m=Pattern.compile(&quot;/-?[A-Za-z]*&quot;).matcher(cmdline)</code></li>
+<li><code>while (m.find()) ( String sw=m.group().toUpperCase0;...)</code></li>
 </ul>
 </li>
 </ul>
-<p><strong>Solutions: Do not Redistribute</strong></p>
-<hr>
-<h3 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h3><h4 id="String-last-and-next-to-last"><a href="#String-last-and-next-to-last" class="headerlink" title="String last and next to last:"></a>String last and next to last:</h4><p>toCharArray, charAt, …</p>
-<h4 id="Adorable-Strings"><a href="#Adorable-Strings" class="headerlink" title="Adorable Strings"></a>Adorable Strings</h4><p>in key, double backslash matches single backslash</p>
 
             
 
@@ -528,7 +476,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/coding/" rel="tag">coding</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/defensive-programming/" rel="tag">defensive programming</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/interview/" rel="tag">interview</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/multi-thread/" rel="tag">multi thread</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/testing/" rel="tag">testing</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/coding/" rel="tag">coding</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/interview/" rel="tag">interview</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/sorting/" rel="tag">sorting</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/string-manipulation/" rel="tag">string manipulation</a>
 
             </div>
         
@@ -538,14 +486,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/09/06/Network-Lecture-3/"
-                    data-tooltip="Network_Lecture_3"
-                    aria-label="PREVIOUS: Network_Lecture_3"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -555,9 +500,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/05/31/networks-Networked-Applications/"
-                    data-tooltip="1. Networked Applications"
-                    aria-label="NEXT: 1. Networked Applications"
+                    href="/2022/09/06/Network-Lecture-3/"
+                    data-tooltip="Network_Lecture_3"
+                    aria-label="NEXT: Network_Lecture_3"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -582,7 +527,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/06/Coding_Bootcamp_1/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/08/Coding-Bootcamp-2/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -595,7 +540,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/06/Coding_Bootcamp_1/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/08/Coding-Bootcamp-2/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -608,7 +553,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/06/Coding_Bootcamp_1/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/08/Coding-Bootcamp-2/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -653,14 +598,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/09/06/Network-Lecture-3/"
-                    data-tooltip="Network_Lecture_3"
-                    aria-label="PREVIOUS: Network_Lecture_3"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -670,9 +612,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/05/31/networks-Networked-Applications/"
-                    data-tooltip="1. Networked Applications"
-                    aria-label="NEXT: 1. Networked Applications"
+                    href="/2022/09/06/Network-Lecture-3/"
+                    data-tooltip="Network_Lecture_3"
+                    aria-label="NEXT: Network_Lecture_3"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -697,7 +639,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/06/Coding_Bootcamp_1/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/08/Coding-Bootcamp-2/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -710,7 +652,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/06/Coding_Bootcamp_1/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/08/Coding-Bootcamp-2/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -723,7 +665,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/06/Coding_Bootcamp_1/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/08/Coding-Bootcamp-2/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -757,7 +699,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/06/Coding_Bootcamp_1/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/08/Coding-Bootcamp-2/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -770,7 +712,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/06/Coding_Bootcamp_1/"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/08/Coding-Bootcamp-2/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -783,7 +725,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=http://example.com/2022/09/06/Coding_Bootcamp_1/"
+                        href="https://plus.google.com/share?url=http://example.com/2022/09/08/Coding-Bootcamp-2/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
