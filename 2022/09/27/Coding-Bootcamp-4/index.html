@@ -6,27 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hi!----wangyuec15">
-    <title>Coding_Bootcamp_3 - Hi!----wangyuec15</title>
+    <title>Coding-Bootcamp-4 - Hi!----wangyuec15</title>
     <meta name="author" content="Yuechen Wang">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"Searching:\nUnsorted Array\nlinear search O(n)\n\n\nSorted Array\nbinary search O(log n)\n\n\nUnsorted Linked List\nO(n)\n\n\nSorted Linked List\nO(n)\n\n\nUnsorted Tree\nO(n)\n\n\n\nTree traversal\nEnumerating all of the nodes in a binary tree\nPre-order, In-order, Post-order\n\nBinary Search Trees\nBinary trees\neach node has a value, a left child and a right child\nthe value of left child always &lt; value of node\nthe value of right child always &gt; value of node\n\n\nSimple search\ncompare key against node’s value\n\n\n\nBST Search Complexity\nO(height), which is only O(log n) for a balanced tree\nWorst case: O(n)  (only one child for each nodes)\n\nBST Balancing\nlocal rotations\n\nImplicit Binary Trees\narray\na[i]’s children are a[2i+1] and a[2i+2] if a[0] is the root\nif the tree is complete, there are no unused element in the array\nor just use sorted array!\n\n\n\nGeneral Trees\na tree with up to k children per child is called a k-ary tree\nany k-ary tree can be sorted in a binary tree\n‘left’ points as first child, ‘right’ as siblings\n\n\n\nSpecial k-ary trees: Tries\nalso called radix tree or prefix tree\nlike a radix sort, treats the key as a number and operates on one digit at a time\nnodes in a trie do not store keys\nthe node’s key value is implicit in its position in the trie\n\n\ncan be used to replace a hash table\nlookups are O(keylength), just as in a hashtable\n\n(alphabet)\n\none option: use terminators\nstore flag or special values in node\n\nCommon Uses\nprefix searches\nauto completion\nspell checking\n\nPath Searches\nwhat if we need to find a path to an item, rather than the item?\nif we need to generate the actual path rather than just its length, also need to remember the nodes\n\nGraphs\nTrees are special case of graphs\nGraphs consist of a set of vertices and a set of edges\nTwo common representations\nadjacency matrix \n(N*N) matrix can be weighs 1/0 for present/absent\n\n\nadjacency lists \neach node stores a list of its neighbors reachable via single edge\ncan also store weight for each neighbour\n\n\n\n\n\nGraph SearchDepth First Search\nstart at origin vertex\nif no valid neighbours, failure\nfor each vertex reachable from the current, recursively search using neighbor as the origin\nstop as soon as a recursive search is successful, and return success\nif none of the recursive calls successful, failure\n\n\n\n123456789101112boolean dfs(curr, goal, visited) &#123;    if(current == goal) return true;    visited[current] = true;    bool found = false;    for(next:graph.neighbors(current, visited)) &#123;        if(dfs(next, goal, visited)) &#123;            found = true; break;        &#125;    &#125;    visited[current] = false;    return found;&#125;\n\nreachable Vertices\n\ntaking every neighbor works for tree and directed acyclic graphs\nbut if there are any loops, need to remember where visited\n\nDepth-first Search: Shortest PathBreadth-First Search\nSearches the graph in order by distance from the start node\nneed to maintain a queue of nodes to be visited\nStart by putting origin vertex on queue\nwhile(!queue.empty)\npop vertex from queue\nif target, return success\notherwise, add vertices reachable from there to queue\n\n\n\n123456789101112131415161718frontier = new Queue();frontier.put(start_node);visited = new Map();visited[start_node] = true;while(!frontier.empty()) &#123;    current = frontier.get();        // early exit!    if(current == goal) break;        for(next: graph.neighbors(current)) &#123;        if(!visited[next]) &#123;            frontier.put(next);            visited[next = true];        &#125;    &#125;&#125;\n\nConstructing the PathExercise: Sorting String123char[] c = s.toCharArray();Arrays.sort(c);return new String(c);","dateCreated":"2022-09-13T11:54:23-04:00","dateModified":"2022-09-13T12:42:59-04:00","datePublished":"2022-09-13T11:54:23-04:00","description":"Searching:\nUnsorted Array\nlinear search O(n)\n\n\nSorted Array\nbinary search O(log n)","headline":"Coding_Bootcamp_3","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/09/13/Coding-Bootcamp-3/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2022/09/13/Coding-Bootcamp-3/","keywords":"coding, sorting, tree, BFS, DFS"}</script>
-    <meta name="description" content="Searching: Unsorted Array linear search O(n)   Sorted Array binary search O(log n)">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"Recursion\nCode Optimization \nWhat is Recursion\nDefining a potentionally infinite set of objects or computations with a finite statement bydefining the set in terms of a varition\n\nUse cases for recursion\nDivide-and-conquer algorithms\nThe basis for Dynamic Programming\n\nThe different Cases\nBase case\nterminates recursion, generates the r4esult which ultimately produces the final answer\na missing or bad case results in infinite recursionTrivial Case - outputs a result with no recursionRecursive Case - outputs with one or more recursions\n\n\n\nWhat If There Is No Base Case\ndeal with this bu using a parameter specifying when to stop\nnumber of recirsions\nthreshold on the value\nor some stopping criteria\n\nRecurrence Relations\ndescribes the sequence of values as you iterate an input value by giving\n\nExample: Factorial/FibonacciRecursive Data Strasctures\nlinked lists\nbinary trees\n\nUsing\naccessors\nmerging\nadding \ndeleting\nmutating\n\nRecursion and Iteration\nMany algorithms can eliminate the stack when turned into iteration\n\nparameter to fixed value\n\nthe fixed value becomes the base case\nthe parameter doubles as the iteration index\n\n\nfixed value to parameter\n\nneed a second parameter to direction as other action index\n\n\n\nTail Recursionrecursive call is the very last thing done by the function\n\nInstead of making the recursive call, just update the function parameters and jump back to the function’s entry point\nreduce stack space from O(n) to O(1)\n\n\n\nComputational Complexity\nDraw the call tree\nThen either\ndetermine the height of the tree\ndetermine the work done each level of the tree\n\n\n\nCode Optimization\nMake sure that you are using the proper algorithm\n\n\noptimizing an O(N^3)\n\n\nfind out which parts of your code need to be faster\n\n\nreduce function nesting\nstrength reduction\nshift instead of multiply/divide by a power of 2\nCommon subexpression Elimination\nInduction Variables\nLoop Unrolling\nAvoiding Branches\nremove reference\nCache Awareness\n\n","dateCreated":"2022-09-27T11:49:01-04:00","dateModified":"2022-09-27T15:14:49-04:00","datePublished":"2022-09-27T11:49:01-04:00","description":"Recursion\nCode Optimization","headline":"Coding-Bootcamp-4","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/09/27/Coding-Bootcamp-4/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2022/09/27/Coding-Bootcamp-4/","keywords":"coding, recursion, iteration, optimization"}</script>
+    <meta name="description" content="Recursion Code Optimization">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Coding_Bootcamp_3">
-<meta property="og:url" content="http://example.com/2022/09/13/Coding-Bootcamp-3/index.html">
+<meta property="og:title" content="Coding-Bootcamp-4">
+<meta property="og:url" content="http://example.com/2022/09/27/Coding-Bootcamp-4/index.html">
 <meta property="og:site_name" content="Hi!----wangyuec15">
-<meta property="og:description" content="Searching: Unsorted Array linear search O(n)   Sorted Array binary search O(log n)">
+<meta property="og:description" content="Recursion Code Optimization">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-09-13T15:54:23.000Z">
-<meta property="article:modified_time" content="2022-09-13T16:42:59.885Z">
+<meta property="article:published_time" content="2022-09-27T15:49:01.000Z">
+<meta property="article:modified_time" content="2022-09-27T19:14:49.900Z">
 <meta property="article:author" content="Yuechen Wang">
 <meta property="article:tag" content="coding">
-<meta property="article:tag" content="sorting">
-<meta property="article:tag" content="tree">
-<meta property="article:tag" content="BFS">
-<meta property="article:tag" content="DFS">
+<meta property="article:tag" content="recursion">
+<meta property="article:tag" content="iteration">
+<meta property="article:tag" content="optimization">
 <meta name="twitter:card" content="summary">
     
     
@@ -349,14 +348,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            Coding_Bootcamp_3
+            Coding-Bootcamp-4
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2022-09-13T11:54:23-04:00">
+    <time datetime="2022-09-27T11:49:01-04:00">
 	
-		    Sep 13, 2022
+		    Sep 27, 2022
     	
     </time>
     
@@ -368,136 +367,93 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h2 id="Searching"><a href="#Searching" class="headerlink" title="Searching:"></a>Searching:</h2><ul>
-<li>Unsorted Array<ul>
-<li>linear search O(n)</li>
+            <p>Recursion</p>
+<p>Code Optimization<br> <span id="more"></span></p>
+<h2 id="What-is-Recursion"><a href="#What-is-Recursion" class="headerlink" title="What is Recursion"></a>What is Recursion</h2><ul>
+<li>Defining a potentionally infinite set of objects or computations with a finite statement by<br>defining the set in terms of a varition</li>
 </ul>
-</li>
-<li>Sorted Array<ul>
-<li>binary search O(log n)<span id="more"></span></li>
+<h2 id="Use-cases-for-recursion"><a href="#Use-cases-for-recursion" class="headerlink" title="Use cases for recursion"></a>Use cases for recursion</h2><ul>
+<li>Divide-and-conquer algorithms</li>
+<li>The basis for Dynamic Programming</li>
 </ul>
-</li>
-<li>Unsorted Linked List<ul>
-<li>O(n)</li>
-</ul>
-</li>
-<li>Sorted Linked List<ul>
-<li>O(n)</li>
-</ul>
-</li>
-<li>Unsorted Tree<ul>
-<li>O(n)</li>
+<h2 id="The-different-Cases"><a href="#The-different-Cases" class="headerlink" title="The different Cases"></a>The different Cases</h2><ul>
+<li>Base case<ul>
+<li>terminates recursion, generates the r4esult which ultimately produces the final answer</li>
+<li>a missing or bad case results in infinite recursion<br>Trivial Case - outputs a result with no recursion<br>Recursive Case - outputs with one or more recursions</li>
 </ul>
 </li>
 </ul>
-<h2 id="Tree-traversal"><a href="#Tree-traversal" class="headerlink" title="Tree traversal"></a>Tree traversal</h2><ul>
-<li>Enumerating all of the nodes in a binary tree</li>
-<li>Pre-order, In-order, Post-order</li>
+<h3 id="What-If-There-Is-No-Base-Case"><a href="#What-If-There-Is-No-Base-Case" class="headerlink" title="What If There Is No Base Case"></a>What If There Is No Base Case</h3><ul>
+<li>deal with this bu using a parameter specifying when to stop</li>
+<li>number of recirsions</li>
+<li>threshold on the value</li>
+<li>or some stopping criteria</li>
 </ul>
-<h2 id="Binary-Search-Trees"><a href="#Binary-Search-Trees" class="headerlink" title="Binary Search Trees"></a>Binary Search Trees</h2><ul>
-<li>Binary trees<ul>
-<li>each node has a value, a left child and a right child</li>
-<li>the value of left child always &lt; value of node</li>
-<li>the value of right child always &gt; value of node</li>
+<h2 id="Recurrence-Relations"><a href="#Recurrence-Relations" class="headerlink" title="Recurrence Relations"></a>Recurrence Relations</h2><ul>
+<li>describes the sequence of values as you iterate an input value by giving</li>
 </ul>
+<h3 id="Example-Factorial-Fibonacci"><a href="#Example-Factorial-Fibonacci" class="headerlink" title="Example: Factorial/Fibonacci"></a>Example: Factorial/Fibonacci</h3><h2 id="Recursive-Data-Strasctures"><a href="#Recursive-Data-Strasctures" class="headerlink" title="Recursive Data Strasctures"></a>Recursive Data Strasctures</h2><ul>
+<li>linked lists</li>
+<li>binary trees</li>
+</ul>
+<h2 id="Using"><a href="#Using" class="headerlink" title="Using"></a>Using</h2><ul>
+<li>accessors</li>
+<li>merging</li>
+<li>adding </li>
+<li>deleting</li>
+<li>mutating</li>
+</ul>
+<h2 id="Recursion-and-Iteration"><a href="#Recursion-and-Iteration" class="headerlink" title="Recursion and Iteration"></a>Recursion and Iteration</h2><ul>
+<li><p>Many algorithms can eliminate the stack when turned into iteration</p>
 </li>
-<li>Simple search<ul>
-<li>compare key against node’s value</li>
-</ul>
-</li>
-</ul>
-<h3 id="BST-Search-Complexity"><a href="#BST-Search-Complexity" class="headerlink" title="BST Search Complexity"></a>BST Search Complexity</h3><ul>
-<li><strong>O(height)</strong>, which is only O(log n) for a balanced tree</li>
-<li>Worst case: O(n)  (only one child for each nodes)</li>
-</ul>
-<h3 id="BST-Balancing"><a href="#BST-Balancing" class="headerlink" title="BST Balancing"></a>BST Balancing</h3><ul>
-<li>local rotations</li>
-</ul>
-<h3 id="Implicit-Binary-Trees"><a href="#Implicit-Binary-Trees" class="headerlink" title="Implicit Binary Trees"></a>Implicit Binary Trees</h3><ul>
-<li>array<ul>
-<li>a[i]’s children are a[2i+1] and a[2i+2] if a[0] is the root</li>
-<li>if the tree is complete, there are no unused element in the array</li>
-<li>or just use sorted array!</li>
-</ul>
-</li>
-</ul>
-<h2 id="General-Trees"><a href="#General-Trees" class="headerlink" title="General Trees"></a>General Trees</h2><ul>
-<li>a tree with up to k children per child is called a <strong>k-ary tree</strong></li>
-<li>any k-ary tree can be sorted in a binary tree<ul>
-<li>‘left’ points as first child, ‘right’ as siblings</li>
-</ul>
-</li>
-</ul>
-<h2 id="Special-k-ary-trees-Tries"><a href="#Special-k-ary-trees-Tries" class="headerlink" title="Special k-ary trees: Tries"></a>Special k-ary trees: Tries</h2><ul>
-<li>also called radix tree or prefix tree</li>
-<li>like a radix sort, treats the key as a number and operates on one digit at a time</li>
-<li>nodes in a trie do not store keys<ul>
-<li>the node’s key value is implicit in its position in the trie</li>
-</ul>
-</li>
-<li>can be used to replace a hash table</li>
-<li>lookups are O(keylength), just as in a hashtable</li>
-</ul>
-<p>(alphabet)</p>
+<li><p>parameter to fixed value</p>
 <ul>
-<li>one option: use terminators</li>
-<li>store flag or special values in node</li>
-</ul>
-<h3 id="Common-Uses"><a href="#Common-Uses" class="headerlink" title="Common Uses"></a>Common Uses</h3><ul>
-<li>prefix searches</li>
-<li>auto completion</li>
-<li>spell checking</li>
-</ul>
-<h2 id="Path-Searches"><a href="#Path-Searches" class="headerlink" title="Path Searches"></a>Path Searches</h2><ul>
-<li>what if we need to find a path to an item, rather than the item?</li>
-<li>if we need to generate the actual path rather than just its length, also need to remember the nodes</li>
-</ul>
-<h2 id="Graphs"><a href="#Graphs" class="headerlink" title="Graphs"></a>Graphs</h2><ul>
-<li>Trees are special case of graphs</li>
-<li>Graphs consist of a set of vertices and a set of edges</li>
-<li>Two common representations<ul>
-<li>adjacency matrix <ul>
-<li>(N*N) matrix can be weighs 1/0 for present/absent</li>
+<li>the fixed value becomes the base case</li>
+<li>the parameter doubles as the iteration index</li>
 </ul>
 </li>
-<li>adjacency lists <ul>
-<li>each node stores a list of its neighbors reachable via single edge</li>
-<li>can also store weight for each neighbour</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Graph-Search"><a href="#Graph-Search" class="headerlink" title="Graph Search"></a>Graph Search</h2><h3 id="Depth-First-Search"><a href="#Depth-First-Search" class="headerlink" title="Depth First Search"></a>Depth First Search</h3><ul>
-<li>start at origin vertex<ul>
-<li>if no valid neighbours, failure</li>
-<li>for each vertex reachable from the current, recursively search using neighbor as the origin</li>
-<li>stop as soon as a recursive search is successful, and return success</li>
-<li>if none of the recursive calls successful, failure</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">dfs</span><span class="params">(curr, goal, visited)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(current == goal) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    visited[current] = <span class="keyword">true</span>;</span><br><span class="line">    bool found = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(next:graph.neighbors(current, visited)) &#123;</span><br><span class="line">        <span class="keyword">if</span>(dfs(next, goal, visited)) &#123;</span><br><span class="line">            found = <span class="keyword">true</span>; <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    visited[current] = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">return</span> found;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>reachable Vertices</p>
+<li><p>fixed value to parameter</p>
 <ul>
-<li>taking every neighbor works for tree and directed acyclic graphs</li>
-<li>but if there are any loops, need to remember where visited</li>
-</ul>
-<h3 id="Depth-first-Search-Shortest-Path"><a href="#Depth-first-Search-Shortest-Path" class="headerlink" title="Depth-first Search: Shortest Path"></a>Depth-first Search: Shortest Path</h3><h2 id="Breadth-First-Search"><a href="#Breadth-First-Search" class="headerlink" title="Breadth-First Search"></a>Breadth-First Search</h2><ul>
-<li>Searches the graph in order by distance from the start node</li>
-<li>need to maintain a queue of nodes to be visited</li>
-<li>Start by putting origin vertex on queue</li>
-<li>while(!queue.empty)<ul>
-<li>pop vertex from queue</li>
-<li>if target, return success</li>
-<li>otherwise, add vertices reachable from there to queue</li>
+<li>need a second parameter to direction as other action index</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">frontier = <span class="keyword">new</span> Queue();</span><br><span class="line">frontier.put(start_node);</span><br><span class="line">visited = <span class="keyword">new</span> Map();</span><br><span class="line">visited[start_node] = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(!frontier.empty()) &#123;</span><br><span class="line">    current = frontier.get();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// early exit!</span></span><br><span class="line">    <span class="keyword">if</span>(current == goal) <span class="keyword">break</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(next: graph.neighbors(current)) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!visited[next]) &#123;</span><br><span class="line">            frontier.put(next);</span><br><span class="line">            visited[next = <span class="keyword">true</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Tail-Recursion"><a href="#Tail-Recursion" class="headerlink" title="Tail Recursion"></a>Tail Recursion</h3><p>recursive call is the very last thing done by the function</p>
+<ul>
+<li>Instead of making the recursive call, just update the function parameters and jump back to the function’s entry point<ul>
+<li>reduce stack space from O(n) to O(1)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Computational-Complexity"><a href="#Computational-Complexity" class="headerlink" title="Computational Complexity"></a>Computational Complexity</h2><ul>
+<li>Draw the call tree</li>
+<li>Then either<ul>
+<li>determine the height of the tree</li>
+<li>determine the work done each level of the tree</li>
+</ul>
+</li>
+</ul>
+<h2 id="Code-Optimization"><a href="#Code-Optimization" class="headerlink" title="Code Optimization"></a>Code Optimization</h2><ol start="0">
+<li>Make sure that you are using the proper algorithm</li>
+</ol>
+<ul>
+<li>optimizing an O(N^3)</li>
+</ul>
+<ol>
+<li>find out which parts of your code need to be faster</li>
+</ol>
+<ul>
+<li>reduce function nesting</li>
+<li>strength reduction</li>
+<li>shift instead of multiply/divide by a power of 2</li>
+<li>Common subexpression Elimination</li>
+<li>Induction Variables</li>
+<li>Loop Unrolling</li>
+<li>Avoiding Branches</li>
+<li>remove reference</li>
+<li>Cache Awareness</li>
+</ul>
 
-<h3 id="Constructing-the-Path"><a href="#Constructing-the-Path" class="headerlink" title="Constructing the Path"></a>Constructing the Path</h3><h2 id="Exercise-Sorting-String"><a href="#Exercise-Sorting-String" class="headerlink" title="Exercise: Sorting String"></a>Exercise: Sorting String</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>[] c = s.toCharArray();</span><br><span class="line">Arrays.sort(c);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> String(c);</span><br></pre></td></tr></table></figure>
             
 
 
@@ -508,7 +464,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/BFS/" rel="tag">BFS</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/DFS/" rel="tag">DFS</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/coding/" rel="tag">coding</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/sorting/" rel="tag">sorting</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/tree/" rel="tag">tree</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/coding/" rel="tag">coding</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/iteration/" rel="tag">iteration</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/optimization/" rel="tag">optimization</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/recursion/" rel="tag">recursion</a>
 
             </div>
         
@@ -521,9 +477,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/09/13/Network-Lecture-5/"
-                    data-tooltip="Network-Lecture-5"
-                    aria-label="PREVIOUS: Network-Lecture-5"
+                    href="/2022/09/27/Network-Lecture-6/"
+                    data-tooltip="Network-Lecture-6"
+                    aria-label="PREVIOUS: Network-Lecture-6"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -535,9 +491,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/09/08/Network-Lecture-4/"
-                    data-tooltip="Network-Lecture-4"
-                    aria-label="NEXT: Network-Lecture-4"
+                    href="/2022/09/13/Network-Lecture-5/"
+                    data-tooltip="Network-Lecture-5"
+                    aria-label="NEXT: Network-Lecture-5"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -562,7 +518,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/13/Coding-Bootcamp-3/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/27/Coding-Bootcamp-4/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -575,7 +531,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/13/Coding-Bootcamp-3/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/27/Coding-Bootcamp-4/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -588,7 +544,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/13/Coding-Bootcamp-3/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/27/Coding-Bootcamp-4/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -636,9 +592,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/09/13/Network-Lecture-5/"
-                    data-tooltip="Network-Lecture-5"
-                    aria-label="PREVIOUS: Network-Lecture-5"
+                    href="/2022/09/27/Network-Lecture-6/"
+                    data-tooltip="Network-Lecture-6"
+                    aria-label="PREVIOUS: Network-Lecture-6"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -650,9 +606,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2022/09/08/Network-Lecture-4/"
-                    data-tooltip="Network-Lecture-4"
-                    aria-label="NEXT: Network-Lecture-4"
+                    href="/2022/09/13/Network-Lecture-5/"
+                    data-tooltip="Network-Lecture-5"
+                    aria-label="NEXT: Network-Lecture-5"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -677,7 +633,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/13/Coding-Bootcamp-3/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/27/Coding-Bootcamp-4/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -690,7 +646,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/13/Coding-Bootcamp-3/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/27/Coding-Bootcamp-4/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -703,7 +659,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/13/Coding-Bootcamp-3/"
+                    target="new" href="https://plus.google.com/share?url=http://example.com/2022/09/27/Coding-Bootcamp-4/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -737,7 +693,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/13/Coding-Bootcamp-3/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/09/27/Coding-Bootcamp-4/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -750,7 +706,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/13/Coding-Bootcamp-3/"
+                        href="https://twitter.com/intent/tweet?text=http://example.com/2022/09/27/Coding-Bootcamp-4/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -763,7 +719,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=http://example.com/2022/09/13/Coding-Bootcamp-3/"
+                        href="https://plus.google.com/share?url=http://example.com/2022/09/27/Coding-Bootcamp-4/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
