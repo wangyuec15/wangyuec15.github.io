@@ -11,14 +11,16 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"","dateCreated":"2022-09-27T15:13:05-04:00","dateModified":"2022-09-27T15:14:10-04:00","datePublished":"2022-09-27T15:13:05-04:00","description":"","headline":"Network-Lecture-6","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/09/27/Network-Lecture-6/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2022/09/27/Network-Lecture-6/","keywords":"networks"}</script>
-    <meta property="og:type" content="blog">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg"},"articleBody":"BGP\ntransport layer - \n\n\nBGP path\nvalley-free\n\nGao-Rexford Conditions\nreceive from customer: announce to customers, peers and providers\nfrom peer: only to customers\nfrom provider: only to customers\n\nWho speaks BGP?\nBorder router: tes\nInternal router: speak to border router, but not other routers\n\nISPs peer?\npublic peeringuse network to connect\nprivate peering: directly connect ISP border routers\n\nSpeak BGP: Implement the bgp protocol\nBGP “sessions”external BGP sessions - “eBGP session” between border routers in different ASes“iBGP session”\nSome Border Routers Don’t need BGPdefault ISP\nRoute updates&lt;IP prefix: route attributes&gt;announcementwithdraw\nRoute attributes\nASPATH\nNEXT HOP: the IP address I want to send the packet to \nLOCAL PREF: used to choose between different AS path\nORIGIN: who originated the announcement\nMED: lower is better preferred link\nIGP cost: used for shorter\n\nIGP may conflict with MEDHot-potato: get out of my network as soon as possible (asymmetric routing)\nReachabilityJust because you are in the same network doesn’t means you can talk ti each other\nSecurityAn AS can claim to serve a prefix that they actually don’t have a route to\nConvergencePerformanceBGP is designed with profit in mind, not performance\nTransport4/5 layer in the Internet model“which packet belongs to which process?”Communication between processes at hosts\nSockets: \n\nUDP: SOCK_DGRAM\nTCP:SOCK_\n\nPorts: hosts to know how to route a data\nUDP: User Datagram Protocol\n\nlightweight communication between processes\n\nchecksum\n\ntake every 32bit word and XOR them together\n\nRole of the transport layer\ncommunication between processes\n\nSequence numberstop-and-wait: slow\nsliding windows: get an ack at the beginning of window, slide it\n\nhandling lost\napproach 1: go back N (wasteful - ignoring these packets is useful)\napproach 2: selective repeat\n\n\n\ndesign window size\n\nTCP is like selective repeat but\n\nit uses cumulative acks\ninstead of packet sequence it use byte sequence numbers\n\n","dateCreated":"2022-09-27T15:13:05-04:00","dateModified":"2022-09-27T16:16:50-04:00","datePublished":"2022-09-27T15:13:05-04:00","description":"BGP\ntransport layer - ","headline":"Network-Lecture-6","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/09/27/Network-Lecture-6/"},"publisher":{"@type":"Organization","name":"Yuechen Wang","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"author.jpg","logo":{"@type":"ImageObject","url":"author.jpg"}},"url":"http://example.com/2022/09/27/Network-Lecture-6/","keywords":"networks"}</script>
+    <meta name="description" content="BGP transport layer -">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="Network-Lecture-6">
 <meta property="og:url" content="http://example.com/2022/09/27/Network-Lecture-6/index.html">
 <meta property="og:site_name" content="Hi!----wangyuec15">
+<meta property="og:description" content="BGP transport layer -">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-27T19:13:05.000Z">
-<meta property="article:modified_time" content="2022-09-27T19:14:10.370Z">
+<meta property="article:modified_time" content="2022-09-27T20:16:50.914Z">
 <meta property="article:author" content="Yuechen Wang">
 <meta property="article:tag" content="networks">
 <meta name="twitter:card" content="summary">
@@ -362,7 +364,77 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <span id="more"></span>
+            <p>BGP</p>
+<p>transport layer - </p>
+<span id="more"></span>
+
+<h2 id="BGP-path"><a href="#BGP-path" class="headerlink" title="BGP path"></a>BGP path</h2><ul>
+<li>valley-free</li>
+</ul>
+<h3 id="Gao-Rexford-Conditions"><a href="#Gao-Rexford-Conditions" class="headerlink" title="Gao-Rexford Conditions"></a>Gao-Rexford Conditions</h3><ul>
+<li>receive from customer: announce to customers, peers and providers</li>
+<li>from peer: only to customers</li>
+<li>from provider: only to customers</li>
+</ul>
+<h3 id="Who-speaks-BGP"><a href="#Who-speaks-BGP" class="headerlink" title="Who speaks BGP?"></a>Who speaks BGP?</h3><ul>
+<li>Border router: tes</li>
+<li>Internal router: speak to border router, but not other routers</li>
+</ul>
+<h2 id="ISPs-peer"><a href="#ISPs-peer" class="headerlink" title="ISPs peer?"></a>ISPs peer?</h2><ul>
+<li>public peeringuse network to connect</li>
+<li>private peering: directly connect ISP border routers</li>
+</ul>
+<p>Speak BGP: Implement the bgp protocol</p>
+<p>BGP “sessions”<br>external BGP sessions - “eBGP session” between border routers in different ASes<br>“iBGP session”</p>
+<h3 id="Some-Border-Routers-Don’t-need-BGP"><a href="#Some-Border-Routers-Don’t-need-BGP" class="headerlink" title="Some Border Routers Don’t need BGP"></a>Some Border Routers Don’t need BGP</h3><p>default ISP</p>
+<h2 id="Route-updates"><a href="#Route-updates" class="headerlink" title="Route updates"></a>Route updates</h2><p>&lt;IP prefix: route attributes&gt;<br>announcement<br>withdraw</p>
+<h3 id="Route-attributes"><a href="#Route-attributes" class="headerlink" title="Route attributes"></a>Route attributes</h3><ol>
+<li>ASPATH</li>
+<li>NEXT HOP: the IP address I want to send the packet to </li>
+<li>LOCAL PREF: used to choose between different AS path</li>
+<li>ORIGIN: who originated the announcement</li>
+<li>MED: lower is better preferred link</li>
+<li>IGP cost: used for shorter</li>
+</ol>
+<p>IGP may conflict with MED<br>Hot-potato: get out of my network as soon as possible (asymmetric routing)</p>
+<h3 id="Reachability"><a href="#Reachability" class="headerlink" title="Reachability"></a>Reachability</h3><p>Just because you are in the same network doesn’t means you can talk ti each other</p>
+<h3 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h3><p>An AS can claim to serve a prefix that they actually don’t have a route to</p>
+<h3 id="Convergence"><a href="#Convergence" class="headerlink" title="Convergence"></a>Convergence</h3><h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><p>BGP is designed with profit in mind, not performance</p>
+<h2 id="Transport"><a href="#Transport" class="headerlink" title="Transport"></a>Transport</h2><p>4/5 layer in the Internet model<br>“which packet belongs to which process?”<br>Communication between processes at hosts</p>
+<p>Sockets: </p>
+<ul>
+<li>UDP: SOCK_DGRAM</li>
+<li>TCP:SOCK_</li>
+</ul>
+<p>Ports: hosts to know how to route a data</p>
+<p>UDP: User Datagram Protocol</p>
+<ul>
+<li>lightweight communication between processes</li>
+</ul>
+<p>checksum</p>
+<ul>
+<li>take every 32bit word and XOR them together</li>
+</ul>
+<h3 id="Role-of-the-transport-layer"><a href="#Role-of-the-transport-layer" class="headerlink" title="Role of the transport layer"></a>Role of the transport layer</h3><ul>
+<li>communication between processes</li>
+</ul>
+<p>Sequence number<br>stop-and-wait: slow</p>
+<p>sliding windows: get an ack at the beginning of window, slide it</p>
+<ul>
+<li>handling lost<ul>
+<li>approach 1: go back N (wasteful - ignoring these packets is useful)</li>
+<li>approach 2: selective repeat</li>
+<li></li>
+</ul>
+</li>
+<li>design window size</li>
+</ul>
+<p>TCP is like selective repeat but</p>
+<ul>
+<li>it uses cumulative acks</li>
+<li>instead of packet sequence it use byte sequence numbers</li>
+</ul>
+
             
 
 
@@ -383,11 +455,14 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a
-                        class="post-action-btn btn btn--disabled"
-                        aria-hidden="true"
-                    >
-                        
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2022/10/14/Context-Essay/"
+                    data-tooltip="Context-Essay"
+                    aria-label="PREVIOUS: Context-Essay"
+                >
+                    
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -495,11 +570,14 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a
-                        class="post-action-btn btn btn--disabled"
-                        aria-hidden="true"
-                    >
-                        
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2022/10/14/Context-Essay/"
+                    data-tooltip="Context-Essay"
+                    aria-label="PREVIOUS: Context-Essay"
+                >
+                    
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
